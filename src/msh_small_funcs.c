@@ -14,10 +14,12 @@
 
 void	msh_setenv(void)
 {
+	t_lch	*lch;
 	char	**tokens;
 	int		tokens_count;
 
-	tokens = g_msh->lch->tokens;
+	lch = g_msh->lch->content;
+	tokens = lch->tokens;
 	tokens_count = ft_table_size(tokens);
 	if (tokens_count == 1)
 		msh_env();
@@ -31,10 +33,12 @@ void	msh_setenv(void)
 
 void	msh_unsetenv(void)
 {
+	t_lch	*lch;
 	char	**tokens;
 	size_t	tokens_count;
-
-	tokens = g_msh->lch->tokens;
+	
+	lch = g_msh->lch->content;
+	tokens = lch->tokens;
 	tokens_count = ft_table_size(tokens);
 	if (tokens_count == 1)
 		ft_dprintf(2, "unsetenv: Not enough arguments.\n");
@@ -57,12 +61,14 @@ void	msh_env(void)
 
 void	msh_echo(void)
 {
+	t_lch	*lch;
 	char	**tokens;
 	int		tokens_count;
 	int		i;
 
 	i = 0;
-	tokens = g_msh->lch->tokens;
+	lch = g_msh->lch->content;
+	tokens = lch->tokens;
 	tokens_count = ft_table_size(tokens);
 	if (tokens_count > 2 && ft_strnequ(tokens[1], "-n", 3))
 		i++;

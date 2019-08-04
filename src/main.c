@@ -35,6 +35,7 @@ void	set_terminal_canon(void)
 
 void	handle_sigint(int sig)
 {
+	(void)sig;
 	if (!g_msh->rl->status)
 	{
 		ft_printf("\n");
@@ -46,9 +47,8 @@ void	handle_sigint(int sig)
 
 int		main(int argc, char **argv, char **env)
 {
-	int		i;
-	int		ch;
-
+	(void)argc;
+	(void)argv;
 	init(env);
 	display_prompt();
 	signal(SIGINT, handle_sigint);

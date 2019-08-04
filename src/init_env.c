@@ -30,10 +30,8 @@ char	*find_var(t_list *list, char *var_name)
 
 void	init_env(char **env)
 {
-	t_list	*new;
-	t_var	*var;
 	int		i;
-	size_t	equal_pos;
+	int		equal_pos;
 
 	i = -1;
 	while (env[++i])

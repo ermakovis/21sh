@@ -70,9 +70,9 @@ void		delete_var(void *content, size_t size)
 
 	if (!content)
 		return ;
+	(void)size;
 	var = content;
 	ft_memdel((void**)&(var->name));
 	ft_memdel((void**)&(var->value));
 	ft_memdel((void**)&content);
-	size = 0;
 }

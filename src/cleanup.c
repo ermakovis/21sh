@@ -32,18 +32,6 @@ void		cl_rl_struct(void)
 	ft_memdel((void**)&g_msh->rl);
 }
 
-void		cl_lch_struct(void)
-{
-	t_lch	*lch;
-
-	if (!g_msh->lch)
-		return ;
-	lch = g_msh->lch;
-	ft_free_table(&lch->env);
-	ft_free_table(&lch->tokens);
-	ft_memdel((void**)&g_msh->lch);
-}
-
 void		cleanup(int exit_code, char *message)
 {
 	if (message)
@@ -52,10 +40,10 @@ void		cleanup(int exit_code, char *message)
 		exit(exit_code);
 	cl_rl_struct();
 	cl_term_cmd_struct();
-	cl_lch_struct();
-	ft_lstdel(&(g_msh->history), &delete_str);
-	ft_lstdel(&(g_msh->env), &delete_var);
-	ft_lstdel(&(g_msh->bin), &delete_builtins);
+	ft_lstdel(&g_msh->history, &delete_str);
+	ft_lstdel(&g_msh->env, &delete_var);
+	ft_lstdel(&g_msh->bin, &delete_builtins);
+	ft_lstdel(&g_msh->lch, &del_lch);
 	ft_memdel((void**)&g_msh->original_state);
 	ft_memdel((void**)&g_msh);
 	if (exit_code != 1)

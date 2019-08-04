@@ -12,39 +12,74 @@
 
 #include "msh.h"
 
-static void	init_lch(void)
+static void	lch_create_list(void)
 {
-	if (!(g_msh->lch = (t_lch*)malloc(sizeof(t_lch))))
-		cleanup(-1, "Malloc failed at init_msh 2");
-	ft_bzero(g_msh->lch, sizeof(t_lch));
+	char	**env;
+	char	**tokens;
+	char	separator;
+
+	while (g_msh->tok && g_msh->tok->content)
+	{
+		lch_check_var();
+		find_executable();
+		lch_env(&env);
+		separator = lch_tokens(&tokens);
+		add_lch(env, tokens, separator);
+	}
 }
 
-static void	lch_launch(void)
+void		lch_launch_dups(t_list *list)
 {
-	int		pid;
-	int		status;
-	char	**tokens;
-	char	**env;
+	t_lch	*lch;
 
-	tokens = g_msh->lch->tokens;
-	env = g_msh->lch->env;
-	if ((pid = fork()) < 0)
-		ft_printf("%s: fork failed\n", tokens[0]);
-	else if (pid == 0)
+	lch = list->content;
+	if (lch->fd[0] != -1)
+		dup2(lch->fd[0], STDIN_FILENO);
+	if (lch->fd[1] != -1)
+		dup2(lch->fd[1], STDOUT_FILENO);
+	if (lch->fd[2] != -1)
+		dup2(lch->fd[2], STDERR_FILENO);
+}
+
+void		lch_launch_closes(void)
+{
+	t_list	*list;
+	t_lch	*lch;
+
+	list = g_msh->lch;
+	while (list) 
 	{
-		if (!ft_test_path(tokens[0]))
-			ft_dprintf(2, "%s: command not found\n", tokens[0]);
-		else if (!(ft_test_path(tokens[0]) & 1))
-			ft_dprintf(2, "%s: permission denied\n", tokens[0]);
-		else if (execve(tokens[0], tokens, g_msh->lch->env) < 0)
-			ft_printf("%s: launch failed\n", tokens[0]);
-		exit(-1);
+		lch = list->content;
+		if (lch->fd[0] != -1)
+			close (lch->fd[0]);
+		if (lch->fd[1] != -1)
+			close (lch->fd[1]);
+		if (lch->fd[2] != -1)
+			close (lch->fd[2]);
+		if (lch->separator != '|')
+			return ;
+		list = list->next;
 	}
-	else if (pid > 0)
+}
+
+void lch_create_pipes(void)
+{
+	t_list	*list;
+	t_lch	*lch;
+	int		fd[2];
+
+	list = g_msh->lch;
+	while (list)
 	{
-		waitpid(pid, &status, WUNTRACED);
-		while (!WIFEXITED(status) && !WIFSIGNALED(status))
-			waitpid(pid, &status, WUNTRACED);
+		lch = list->content;
+		if (lch->separator != '|')
+			return ;
+		if (pipe(fd) == -1)
+			cleanup(-1, "Failed to create a pipe");
+		lch->fd[1] = fd[1];
+		list = list->next;
+		lch = list->content;
+		lch->fd[0] = fd[0];
 	}
 }
 
@@ -52,13 +87,7 @@ void		launch_program(void)
 {
 	if (!g_msh->tok || !g_msh->tok->content)
 		return ;
-	init_lch();
-	lch_check_var();
-	find_executable();
-	lch_tokens();
-	lch_env();
-	if (!lch_check_bins())
-		lch_launch();
-	cl_lch_struct();
-	launch_program();
+	lch_create_list();
+	lch_launch();
+	ft_lstdel(&g_msh->lch, &del_lch);
 }

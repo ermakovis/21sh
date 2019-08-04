@@ -35,6 +35,8 @@ SRC_NAME=main.c\
 	pr_quotes.c\
 	launch_programm.c\
 	lch_checks.c\
+	lch_launch.c\
+	lch_list_functions.c\
 	find_executable.c\
 	msh_small_funcs.c\
 	msh_cd.c\
@@ -58,7 +60,7 @@ $(NAME) : $(OBJ) $(HEADER)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p obj
-	@$(CC) -o $@ -c $< $(INC)
+	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
 	@echo "\033[34m\033[1mCompilation of \033[0m\033[36m$(notdir $<)\033[1m\033[34m done.\033[0m"
 
 clean:

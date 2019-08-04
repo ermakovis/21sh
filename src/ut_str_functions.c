@@ -19,6 +19,6 @@ void		printl_str(t_list *list)
 
 void		delete_str(void *content, size_t size)
 {
+	(void)size;
 	ft_memdel(&content);
-	size = 0;
 }

@@ -30,7 +30,7 @@ static void	pr_semicol(char **token, int *i, char **line)
 	add_token(token, i);
 	if (!(*token = ft_strnew(MSH_BUFF_SIZE)))
 		cleanup(-1, "Malloc failed at pr_semicol");
-	(*token)[(*i)++] = **line;
+	(*token)[*i] = **line;
 	add_token(token, i);
 }
 
@@ -42,7 +42,7 @@ void		pr_param_switch(char **token, int *i, char **line)
 		pr_quotes(token, i, line);
 	else if (**line == ' ' || **line == '\t')
 		add_token(token, i);
-	else if (**line == ';')
+	else if (**line == ';' || **line == '|')
 		pr_semicol(token, i, line);
 	else
 		(*token)[(*i)++] = **line;

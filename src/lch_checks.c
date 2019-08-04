@@ -12,13 +12,14 @@
 
 #include "msh.h"
 
-int			lch_check_bins(void)
+int			lch_check_bins(t_list *list)
 {
-	t_list	*list;
+	t_lch	*lch;
 	t_bin	*bin;
 	char	**tokens;
 
-	tokens = g_msh->lch->tokens;
+	lch = list->content;
+	tokens = lch->tokens;
 	if (!tokens || !*tokens)
 		return (1);
 	list = g_msh->bin;
@@ -57,7 +58,7 @@ void		lch_check_var(void)
 	lch_check_var();
 }
 
-void		lch_env(void)
+void		lch_env(char ***ret)
 {
 	int		i;
 	char	**env;
@@ -75,27 +76,44 @@ void		lch_env(void)
 		env[++i] = var_to_str(env_list->content);
 		env_list = env_list->next;
 	}
-	g_msh->lch->env = env;
+	*ret = env;
 }
 
-void		lch_tokens(void)
+char			lch_check_separator(void)
+{
+	char	ret;
+	
+	if (!ft_strcmp(g_msh->tok->content, ";"))
+		ret = ';';
+	else if (!ft_strcmp(g_msh->tok->content, "|"))
+		ret = '|';
+	else
+		ret = 0;
+	if (ret)
+		ft_lstpop(&g_msh->tok, &delete_str);
+	return (ret);
+}
+
+char			lch_tokens(char ***ret)
 {
 	int		i;
-	int		check;
+	char	separator;
 	char	**tokens;
 
 	if (!(i = ft_lstsize(g_msh->tok)))
-		return ;
+		return (0);
 	if (!(tokens = (char**)malloc(sizeof(char*) * (i + 1))))
 		cleanup(-1, "process_tokens_list");
 	bzero(tokens, sizeof(char*) * (i + 1));
 	i = -1;
-	while (g_msh->tok && (check = ft_strcmp(g_msh->tok->content, ";")))
+	while (g_msh->tok) 
 	{
+		if ((separator = lch_check_separator()))
+			break ; 
 		tokens[++i] = ft_strdup(g_msh->tok->content);
 		ft_lstpop(&(g_msh->tok), &delete_str);
 	}
-	if (check == 0)
-		ft_lstpop(&(g_msh->tok), &delete_str);
-	g_msh->lch->tokens = tokens;
+	*ret = tokens;
+	return (separator);
+
 }

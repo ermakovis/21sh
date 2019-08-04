@@ -21,11 +21,11 @@ void			delete_builtins(void *content, size_t size)
 {
 	t_bin *bin;
 
+	(void)size;
 	bin = content;
 	bin->func = NULL;
 	ft_memdel((void**)&(bin->name));
 	ft_memdel(&content);
-	size = 0;
 }
 
 static t_bin	*create_builtin(char *name, void (*func)(void))

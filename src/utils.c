@@ -15,7 +15,6 @@
 void		realloc_check(char **old_ptr, size_t old_size)
 {
 	size_t	new_size;
-	char	*new_str;
 
 	if (!old_ptr || !*old_ptr || !**old_ptr || old_size % MSH_BUFF_SIZE != 0)
 		return ;

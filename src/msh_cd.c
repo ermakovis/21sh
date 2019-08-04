@@ -14,7 +14,6 @@
 
 static void	msh_cd_change(char *path)
 {
-	char	*tmp;
 	char	cwd[PATH_MAX];
 	int		ret;
 
@@ -43,10 +42,12 @@ static void	msh_cd_change(char *path)
 
 void		msh_cd(void)
 {
+	t_lch	*lch;
 	char	**tokens;
 	int		tokens_count;
 
-	tokens = g_msh->lch->tokens;
+	lch = g_msh->lch->content;
+	tokens = lch->tokens;
 	tokens_count = ft_table_size(tokens);
 	if (tokens_count > 2)
 		ft_dprintf(2, "cd: Too many arguments\n");

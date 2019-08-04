@@ -67,6 +67,8 @@ typedef struct			s_lch
 {
 	char				**tokens;
 	char				**env;
+	int					fd[3];
+	char				separator;
 }						t_lch;
 
 typedef struct			s_rl
@@ -97,8 +99,8 @@ typedef struct			s_msh
 	char				*buffer;
 	t_rl				*rl;
 	t_cmd				*cmd;
-	t_lch				*lch;
 	t_term				*original_state;
+	t_list				*lch;
 	t_list				*tok;
 	t_list				*var;
 	t_list				*env;
@@ -192,25 +194,42 @@ void					pr_quotes(char **token, int *i, char **line);
 
 /*
 **  launch_programm.c
-**  --find_exec_join
-**  --check_bins
-**  --get_full_path
-**  --check_full_path
+**	--lch_create_list.c
 */
+void					lch_launch_dups(t_list *list);
+void					lch_create_pipes(void);
+void					lch_launch_closes(void);
 void					launch_program(void);
+
+/*
+**	lch_launch.c
+**	lch_launch_execute(t_list *list)
+**	lch_launch_pop_used(void)
+**	lch_launch_pipe_lood(void)
+** 	lch_launch_check_executable(char *path)
+*/
+void					lch_launch(void);
 
 /*
 **  lch_checks.c
 */
-void					lch_tokens(void);
-void					lch_env(void);
+char					lch_tokens(char ***tokens);
+void					lch_env(char ***env);
 void					lch_check_var(void);
-int						lch_check_bins(void);
+int						lch_check_bins(t_list *list);
 
 /*
 **  find_executable.c
 */
 void					find_executable(void);
+
+
+/*
+**	lch_list_functions.c
+*/
+void					add_lch(char **env, char **tokens, char separator);
+void					del_lch(void *content, size_t size);
+void					print_lch(t_list *list);
 
 /*
 **  msh_small_funcs.c
