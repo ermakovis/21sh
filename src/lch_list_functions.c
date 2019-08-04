@@ -18,6 +18,7 @@ void	add_lch(char **env, char **tokens, char separator)
 	lch->separator = separator;
 	if (!(list = ft_lstnew(lch, size)))
 		cleanup(-1, "Malloc failed at add_lch 2");
+	ft_memdel((void**)&lch);
 	ft_lstadd_last(&g_msh->lch, list); 
 }
 
@@ -33,6 +34,7 @@ void	del_lch(void *content, size_t size)
 	lch->fd[1] = -1;
 	lch->fd[2] = -1;
 	lch->separator = 0;
+	ft_memdel((void**)&content);
 }
 
 void	print_lch(t_list *list)

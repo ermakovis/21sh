@@ -27,11 +27,14 @@ static void	add_token(char **token, int *i)
 
 static void	pr_semicol(char **token, int *i, char **line)
 {
-	add_token(token, i);
-	if (!(*token = ft_strnew(MSH_BUFF_SIZE)))
-		cleanup(-1, "Malloc failed at pr_semicol");
+	if (!token || !*token || !**token)
+		add_token(token, i);
+	if (!(token))
+		if (!(*token = ft_strnew(MSH_BUFF_SIZE)))
+			cleanup(-1, "Malloc failed at pr_semicol");
 	(*token)[*i] = **line;
 	add_token(token, i);
+	*token = NULL;
 }
 
 void		pr_param_switch(char **token, int *i, char **line)
