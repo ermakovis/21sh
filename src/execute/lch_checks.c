@@ -58,6 +58,21 @@ void		lch_check_var(void)
 	lch_check_var();
 }
 
+char			lch_check_separator(void)
+{
+	char	ret;
+	
+	if (!ft_strcmp(g_msh->tok->content, ";"))
+		ret = ';';
+	else if (!ft_strcmp(g_msh->tok->content, "|"))
+		ret = '|';
+	else
+		ret = 0;
+	if (ret)
+		ft_lstpop(&g_msh->tok, &delete_str);
+	return (ret);
+}
+
 void		lch_env(char ***ret)
 {
 	int		i;
@@ -79,22 +94,7 @@ void		lch_env(char ***ret)
 	*ret = env;
 }
 
-char			lch_check_separator(void)
-{
-	char	ret;
-	
-	if (!ft_strcmp(g_msh->tok->content, ";"))
-		ret = ';';
-	else if (!ft_strcmp(g_msh->tok->content, "|"))
-		ret = '|';
-	else
-		ret = 0;
-	if (ret)
-		ft_lstpop(&g_msh->tok, &delete_str);
-	return (ret);
-}
-
-char			lch_tokens(char ***ret)
+char			lch_tokens(char ***ret, int **fd)
 {
 	int		i;
 	char	separator;
@@ -105,15 +105,17 @@ char			lch_tokens(char ***ret)
 	if (!(tokens = (char**)malloc(sizeof(char*) * (i + 1))))
 		cleanup(-1, "process_tokens_list");
 	bzero(tokens, sizeof(char*) * (i + 1));
-	i = -1;
+	i = 0;
 	while (g_msh->tok) 
 	{
 		if ((separator = lch_check_separator()))
-			break ; 
-		tokens[++i] = ft_strdup(g_msh->tok->content);
+			break;
+		if (ft_strclen(g_msh->tok->content, "><"))
+			lch_redirection(fd);
+		else
+			tokens[i++] = ft_strdup(g_msh->tok->content);
 		ft_lstpop(&(g_msh->tok), &delete_str);
 	}
 	*ret = tokens;
 	return (separator);
-
 }

@@ -51,13 +51,17 @@ int		main(int argc, char **argv, char **env)
 	(void)argv;
 	init(env);
 	display_prompt();
-	signal(SIGINT, handle_sigint);
+	//signal(SIGINT, handle_sigint);
 	while (read_line())
 	{
-		rl_add_history();
-		parse_line();
-		launch_program();
-		cl_rl_struct();
+		lexer();
+		parser();
+		//rl_add_history();
+		//if (parse_line())
+		//	launch_program();
+		//cl_rl_struct();
+		pr_ast_del(&g_msh->ast);
+		g_msh->tokens = NULL;
 		display_prompt();
 	}
 	cleanup(0, NULL);

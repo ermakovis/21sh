@@ -1,6 +1,6 @@
 #include "msh.h"
 
-void	add_lch(char **env, char **tokens, char separator)
+void	add_lch(char **env, char **tokens, char separator, int *fd)
 {
 	t_list	*list;
 	t_lch	*lch;
@@ -10,9 +10,9 @@ void	add_lch(char **env, char **tokens, char separator)
 	if (!(lch = (t_lch*)malloc(size)))
 		cleanup(-1, "Malloc failed at add_lch 1");
 	ft_bzero(lch, size);	
-	lch->fd[0] = -1;
-	lch->fd[1] = -1;
-	lch->fd[2] = -1;
+	lch->fd[0] = fd[0];
+	lch->fd[1] = fd[1];
+	lch->fd[2] = fd[2];
 	lch->tokens = tokens;	
 	lch->env = env;
 	lch->separator = separator;

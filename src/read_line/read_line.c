@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "msh.h"
+#include "read_line.h"
 
 int				get_char(long *ch)
 {
@@ -53,7 +54,7 @@ static int		rl_quotes_check(void)
 		else if (line[i] == '\"' && squote == 0)
 			dquote ^= 1;
 	}
-	!dquote && !squote ? ft_printf("\n") : rl_print_char('\n');
+	rl_print_char('\n');
 	if (dquote)
 		ft_printf("dquote> ");
 	if (squote)

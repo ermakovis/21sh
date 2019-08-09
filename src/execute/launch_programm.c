@@ -17,14 +17,20 @@ static void	lch_create_list(void)
 	char	**env;
 	char	**tokens;
 	char	separator;
+	int		*fd;
 
+	if (!(fd = (int*)malloc(sizeof(int) * 3)))
+		cleanup(-1, "Malloc failed at create_list");
+	fd[0] = -1;
+	fd[1] = -1;
+	fd[2] = -1;
 	while (g_msh->tok && g_msh->tok->content)
 	{
 		lch_check_var();
 		find_executable();
 		lch_env(&env);
-		separator = lch_tokens(&tokens);
-		add_lch(env, tokens, separator);
+		separator = lch_tokens(&tokens, &fd);
+		add_lch(env, tokens, separator, fd);
 	}
 }
 
