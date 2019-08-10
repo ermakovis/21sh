@@ -6,23 +6,19 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:25:28 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/31 13:53:01 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 20:09:38 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void	msh_setenv(void)
+void	msh_setenv(char	**tokens)
 {
-	t_lch	*lch;
-	char	**tokens;
 	int		tokens_count;
 
-	lch = g_msh->lch->content;
-	tokens = lch->tokens;
 	tokens_count = ft_table_size(tokens);
 	if (tokens_count == 1)
-		msh_env();
+		msh_env(tokens);
 	else if (tokens_count > 3)
 		ft_dprintf(2, "setenv: Too many arguments.\n");
 	else if (find_var(g_msh->env, tokens[1]))
@@ -31,14 +27,10 @@ void	msh_setenv(void)
 		add_var(tokens[1], tokens[2], &(g_msh->env));
 }
 
-void	msh_unsetenv(void)
+void	msh_unsetenv(char **tokens)
 {
-	t_lch	*lch;
-	char	**tokens;
 	size_t	tokens_count;
 	
-	lch = g_msh->lch->content;
-	tokens = lch->tokens;
 	tokens_count = ft_table_size(tokens);
 	if (tokens_count == 1)
 		ft_dprintf(2, "unsetenv: Not enough arguments.\n");
@@ -48,27 +40,39 @@ void	msh_unsetenv(void)
 		ft_lst_remove_if(&(g_msh->env), tokens[1], &cmp_var, &delete_var);
 }
 
-void	msh_exit(void)
+void	msh_exit(char **tokens)
 {
+	size_t	tokens_count;
+
+	tokens_count = ft_table_size(tokens);
+	if (tokens_count > 1)
+	{
+		ft_dprintf(2, "exit: Too many arguments.\n");
+		return ;
+	}
 	set_terminal_canon();
 	cleanup(0, NULL);
 }
 
-void	msh_env(void)
+void	msh_env(char **tokens)
 {
+	size_t	tokens_count;
+
+	tokens_count = ft_table_size(tokens);
+	if (tokens_count > 1)
+	{
+		ft_dprintf(2, "exit: Too many arguments.\n");
+		return ;
+	}
 	ft_lstiter(g_msh->env, &print_var);
 }
 
-void	msh_echo(void)
+void	msh_echo(char **tokens)
 {
-	t_lch	*lch;
-	char	**tokens;
 	int		tokens_count;
 	int		i;
 
 	i = 0;
-	lch = g_msh->lch->content;
-	tokens = lch->tokens;
 	tokens_count = ft_table_size(tokens);
 	if (tokens_count > 2 && ft_strnequ(tokens[1], "-n", 3))
 		i++;

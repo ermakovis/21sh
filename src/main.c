@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:21:25 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 12:31:37 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 21:09:50 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int		main(int argc, char **argv, char **env)
 		execute(g_msh->ast);
 		pr_ast_del(&g_msh->ast);
 		g_msh->tokens = NULL;
+		cl_rl_struct();
 		display_prompt();
 	}
 	cleanup(0, NULL);

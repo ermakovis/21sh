@@ -24,6 +24,13 @@ void	ex_env(char ***env)
 
 int ex_builtin(char **tokens)
 {
+	t_list	*list;
+	
+	if ((list = ft_lst_find(g_msh->bin, tokens[0], &cmp_bins)))
+	{
+		((t_bin*)list->content)->func(tokens);
+		return (SUCCESS);
+	}
 	return (FAILURE);
 }
 
@@ -39,7 +46,7 @@ int			ex_command(t_ast *ast)
 	tokens = NULL;
 	ex_env(&env); 
 	ex_tokens(ast, &tokens);
-	if (ex_builtin(tokens))
+	if (ex_builtin(tokens) == SUCCESS)
 		ret = SUCCESS;
 	else if ((ret = ex_getpath(tokens[0], &cmd) == SUCCESS))
 		ret = ex_command_fork(cmd, tokens, env);

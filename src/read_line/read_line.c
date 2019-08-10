@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:48:44 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/31 13:20:01 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 21:30:13 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ static int		rl_quotes_check(void)
 		else if (line[i] == '\"' && squote == 0)
 			dquote ^= 1;
 	}
-	rl_print_char('\n');
 	if (dquote)
-		ft_printf("dquote> ");
+		ft_printf("\ndquote> ");
 	if (squote)
-		ft_printf("squote> ");
+		ft_printf("\nsquote> ");
 	return (!dquote && !squote);
 }
 
@@ -73,6 +72,9 @@ static void		rl_switch(long ch)
 		rl_print_char(ch);
 }
 
+/*
+**	need newline to be on the end of input
+*/
 int				read_line(void)
 {
 	long	ch;
@@ -84,6 +86,8 @@ int				read_line(void)
 	{
 		if ((ch == '\n' && rl_quotes_check()))
 		{
+			g_msh->rl->cur_pos = g_msh->rl->line_len;
+			rl_print_char('\n');
 			g_msh->rl->status = 1;
 			break ;
 		}
@@ -91,5 +95,6 @@ int				read_line(void)
 		ch = 0;
 	}
 	set_terminal_canon();
+	rl_add_history();
 	return (g_msh->rl->status);
 }

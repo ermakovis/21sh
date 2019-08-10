@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 16:12:43 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/28 16:39:38 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 19:54:14 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,10 @@ static void	msh_cd_change(char *path)
 	set_var(g_msh->env, "PWD", getcwd(cwd, PATH_MAX));
 }
 
-void		msh_cd(void)
+void		msh_cd(char **tokens)
 {
-	t_lch	*lch;
-	char	**tokens;
 	int		tokens_count;
 
-	lch = g_msh->lch->content;
-	tokens = lch->tokens;
 	tokens_count = ft_table_size(tokens);
 	if (tokens_count > 2)
 		ft_dprintf(2, "cd: Too many arguments\n");

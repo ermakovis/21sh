@@ -20,6 +20,10 @@
 # define LINE_START		71683997260571
 # define LINE_END		72783508888347
 
+/*
+**	status - to handle signal in the middle of reading process. 
+**	set to 1 on exit of readline
+*/
 typedef struct			s_rl
 {
 	int					status;

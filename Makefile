@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/08/10 16:05:06 by tcase            ###   ########.fr        #
+#    Updated: 2019/08/10 19:48:59 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,13 +52,13 @@ EXE_NAME=execute.c\
 
 UT_NAME=init.c\
 	init_env.c\
-	var_functions.c\
+	init_bins.c\
 	utils.c\
 	ut_str_functions.c\
-	cleanup.c\
-	#init_bins.c\
+	ut_var_functions.c\
 	msh_small_funcs.c\
-	msh_cd.c
+	msh_cd.c\
+	cleanup.c
 
 RL = $(addprefix $(OBJ_DIR)/, $(RL_NAME:.c=.o))
 LX = $(addprefix $(OBJ_DIR)/, $(LX_NAME:.c=.o))

@@ -6,22 +6,30 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:53:04 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/31 13:49:54 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 21:20:06 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
+/*
+**	len - 1 to trim <newline> :(
+*/
 void	rl_add_history(void)
 {
 	t_list	*new;
 	char	*str;
+	int		len;
 
 	str = g_msh->rl->line;
+	if ((len = ft_strlen(str)) == 1)
+		return ;
+	str[len - 1] = 0;
 	if (!str || !*str)
 		return ;
-	if (!(new = ft_lstnew(str, ft_strlen(str) + 1)))
+	if (!(new = ft_lstnew(str, len)))
 		cleanup(-1, "Malloc failed at add_token");
+	str[len - 1] = '\n';
 	ft_lstadd(&(g_msh->history), new);
 }
 

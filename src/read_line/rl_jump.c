@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 13:53:16 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/31 13:54:16 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 20:38:33 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static void	rl_jump_word_next(long ch)
 	line = g_msh->rl->line;
 	if (!(ft_strchr(line, ' ')))
 		return ;
-	while (line[i] != ' ')
+	while (line[i] && line[i] != ' ')
 	{
 		rl_move_cur(RIGHT);
 		i++;
 	}
-	while (line[i] == ' ')
+	while (line[i] && line[i] == ' ')
 	{
 		rl_move_cur(RIGHT);
 		i++;

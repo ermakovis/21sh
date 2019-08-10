@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:05:51 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 11:33:32 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 20:20:53 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void			init(char **env)
 {
 	init_msh();
 	init_env(env);
-//	init_bins();
+	init_bins();
 	init_cmd();
 	init_orig_state();
 }
