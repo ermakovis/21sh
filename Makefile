@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/07/31 12:42:41 by tcase            ###   ########.fr        #
+#    Updated: 2019/08/10 16:05:06 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,23 +43,22 @@ LX_NAME=lexer.c\
 PR_NAME=parser.c\
 	pr_ast_create.c\
 	pr_ast_functions.c
-#EXE_NAME=launch_programm.c\
-#	lch_checks.c\
-#	lch_launch.c\
-#	lch_redirection.c\
-#	lch_aggregation.c\
-#	lch_list_functions.c\
-#	find_executable.c
+EXE_NAME=execute.c\
+	ex_command.c\
+	ex_command_fork.c\
+	ex_pipe.c\
+	ex_tokens.c\
+	ex_getpath.c
+
 UT_NAME=init.c\
 	init_env.c\
-	init_bins.c\
-	msh_small_funcs.c\
-	msh_cd.c\
 	var_functions.c\
 	utils.c\
 	ut_str_functions.c\
-	cleanup.c
-
+	cleanup.c\
+	#init_bins.c\
+	msh_small_funcs.c\
+	msh_cd.c
 
 RL = $(addprefix $(OBJ_DIR)/, $(RL_NAME:.c=.o))
 LX = $(addprefix $(OBJ_DIR)/, $(LX_NAME:.c=.o))

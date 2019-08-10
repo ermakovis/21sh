@@ -1,65 +1,46 @@
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
-typedef struct			s_lch
-{
-	char				**tokens;
-	char				**env;
-	int					fd[3];
-	char				separator;
-}						t_lch;
+#include <sys/wait.h>
 
 /*
-**  launch_programm.c
-**	--lch_create_list.c
+**	execute.c
 */
-void					lch_launch_dups(t_list *list);
-void					lch_create_pipes(void);
-void					lch_launch_closes(void);
-void					launch_program(void);
+int			execute(t_ast *ast);
+int			ex_semi(t_ast *ast);
 
 /*
-**	lch_launch.c
-**	lch_launch_execute(t_list *list)
-**	lch_launch_pop_used(void)
-**	lch_launch_pipe_lood(void)
-** 	lch_launch_check_executable(char *path)
+**	ex_command.c
 */
-void					lch_launch(void);
+int			ex_command(t_ast *ast);
+int			ex_builtin(char **tokens);
+void		ex_env(char ***env);
 
 /*
-**	lch_redirection.c
+**	ex_command_fork.c
 */
-void					lch_redirection(int **fd);
+int			ex_command_fork(char *cmd, char **tokens, char **env);
 
 /*
-**	lch_aggregation.c
+**	ex_pipe.c
+**	--ex_pipe_edge(t_ast *ast)
+**	--ex_pipe_right(t_ast, int fd[2]);
 */
-void					lch_aggregation_input(char *str, int fd,\
-							int **fd_struct);
-void					lch_aggregation_output(char *str, int fd,\
-							int **fd_struct);
+int			ex_pipe(t_ast *ast);
+int			ex_pipe_switch(t_ast *left, t_ast *right);
 
 /*
-**  lch_checks.c
+**	ex_tokens.c
+**	--ex_tokens_expand(t_token *token)
 */
-char					lch_tokens(char ***tokens, int **fd);
-void					lch_env(char ***env);
-void					lch_check_var(void);
-int						lch_check_bins(t_list *list);
+void		ex_tokens(t_ast *ast, char ***tokens);
 
 /*
-**  find_executable.c
+**	ex_command_getpath.c
+**	--ecg_get_full_path(char *path, char *token, char **new)
+**	--ech_exec_join(char *s1, char *s2)
 */
-void					find_executable(void);
-
-
-/*
-**	lch_list_functions.c
-*/
-void					add_lch(char **env, char **tokens, char separator,\
-							int *fd);
-void					del_lch(void *content, size_t size);
-void					print_lch(t_list *list);
+int			ex_getpath(char *token, char **cmd);
+int			ex_check_executable(char *path);
 
 #endif

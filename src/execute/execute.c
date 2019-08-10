@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memdel.c                                        :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/04/07 15:20:38 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 16:13:30 by tcase            ###   ########.fr       */
+/*   Created: 2019/08/10 11:14:35 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/10 19:14:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
+#include "msh.h"
 
-void	ft_memdel(void **ap)
+int			ex_semi(t_ast *ast)
 {
-	if (!ap || !*ap)
-		return ;
-	free(*ap);
-	*ap = NULL;
+	execute(ast->left);
+	return (execute(ast->right));
 }
+
+int			execute(t_ast *ast)
+{
+	if (!ast)
+		return (SUCCESS);
+	if (ast->operator_type == SEMI)
+		return (ex_semi(ast));
+	else if (ast->operator_type == PIPE)
+		return (ex_pipe(ast));
+	else if (ast->node_type != OPERATOR)
+		return (ex_command(ast));
+	return (SUCCESS);
+}
+

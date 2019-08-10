@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 14:10:41 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/31 12:54:27 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 13:46:02 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
-# include <sys/wait.h>
 # include <stdio.h>
+
+# define SUCCESS 1
+# define FAILURE 0
 
 typedef struct winsize	t_wsize;
 typedef struct termios	t_term;
@@ -67,7 +69,6 @@ typedef struct			s_msh
 	t_cmd				*cmd;
 	t_term				*original_state;
 	t_ast				*ast;
-	t_list				*lch;
 	t_list				*tokens;
 	t_list				*var;
 	t_list				*env;

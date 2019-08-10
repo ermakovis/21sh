@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 18:58:12 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/31 13:07:54 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/10 11:49:13 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		cleanup(int exit_code, char *message)
 	cl_term_cmd_struct();
 	ft_lstdel(&g_msh->history, &delete_str);
 	ft_lstdel(&g_msh->env, &delete_var);
-	ft_lstdel(&g_msh->bin, &delete_builtins);
+	//ft_lstdel(&g_msh->bin, &delete_builtins);
 	ft_memdel((void**)&g_msh->original_state);
 	ft_memdel((void**)&g_msh);
 	if (exit_code != 1)

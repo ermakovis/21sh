@@ -1,7 +1,7 @@
 #include "msh.h"
 #include "lexer.h"
 
-static int		lx_word_add_token(char* line, int len)
+static void		lx_word_add_token(char* line, int len)
 {
 	char save;
 
