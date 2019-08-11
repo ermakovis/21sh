@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:54:39 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/31 13:50:42 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/11 11:11:02 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void		rl_history_set(int position)
 		if (!rl->history_orig)
 			return ;
 		line = ft_strdup(rl->history_orig);
+		ft_memdel((void**)&rl->history_orig);
 	}
 	rl->cur_pos = ft_strlen(line);
 	rl->line_len = rl->cur_pos;

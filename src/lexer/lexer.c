@@ -1,5 +1,4 @@
 #include "msh.h"
-#include "lexer.h"
 
 void			lexer(void)
 {
@@ -24,8 +23,8 @@ void			lexer(void)
 		else
 			line++;
 	}
-//	ft_printf("---LEXER---\n");
-//	ft_lstiter(g_msh->tokens, &print_token);
-//	ft_printf("-----------\n\n");
+	ft_printf("---LEXER---\n");
+	ft_lstiter(g_msh->tokens, &print_token);
+	ft_printf("-----------\n\n");
 	
 }

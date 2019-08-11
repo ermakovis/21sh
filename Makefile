@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/08/10 19:48:59 by tcase            ###   ########.fr        #
+#    Updated: 2019/08/11 09:39:46 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,10 +36,6 @@ LX_NAME=lexer.c\
 	lx_redirect.c\
 	lx_word.c\
 	lx_struct_functions.c
-	#parser.c\
-	#pr_expans.c\
-	#pr_quotes.c\
-	#pr_redirections.c
 PR_NAME=parser.c\
 	pr_ast_create.c\
 	pr_ast_functions.c
@@ -48,8 +44,9 @@ EXE_NAME=execute.c\
 	ex_command_fork.c\
 	ex_pipe.c\
 	ex_tokens.c\
+	ex_tokens_expans.c\
+	ex_tokens_quotes.c\
 	ex_getpath.c
-
 UT_NAME=init.c\
 	init_env.c\
 	init_bins.c\

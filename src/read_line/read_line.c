@@ -6,12 +6,11 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:48:44 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 21:30:13 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/11 11:10:00 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
-#include "read_line.h"
 
 int				get_char(long *ch)
 {
@@ -54,10 +53,12 @@ static int		rl_quotes_check(void)
 		else if (line[i] == '\"' && squote == 0)
 			dquote ^= 1;
 	}
+	if (dquote || squote)
+		rl_print_char('\n');
 	if (dquote)
-		ft_printf("\ndquote> ");
+		ft_printf("dquote> ");
 	if (squote)
-		ft_printf("\nsquote> ");
+		ft_printf("squote> ");
 	return (!dquote && !squote);
 }
 
@@ -73,7 +74,7 @@ static void		rl_switch(long ch)
 }
 
 /*
-**	need newline to be on the end of input
+**	need newline to be on the end of input (91,92)
 */
 int				read_line(void)
 {

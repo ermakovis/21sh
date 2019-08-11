@@ -31,9 +31,22 @@ int			ex_pipe_switch(t_ast *left, t_ast *right);
 
 /*
 **	ex_tokens.c
-**	--ex_tokens_expand(t_token *token)
+**	--ex_tokens_switch(t_token *token)
 */
 void		ex_tokens(t_ast *ast, char ***tokens);
+
+/*
+**	ex_tokens_expans.c
+**	--is_special(char ch);
+*/
+void		ex_tokens_expans(char **line, int *i, char **token);
+void		ex_tokens_expans_dsign(char **line, int *i, char **token);
+void		ex_tokens_expans_tild(char **line, int *i, char **tokens);
+
+/*
+**	ex_tokens_quotes.c
+*/
+void		ex_tokens_quotes(char **line, int *i, char **tokens);
 
 /*
 **	ex_command_getpath.c
