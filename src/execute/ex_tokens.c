@@ -39,8 +39,13 @@ void			ex_tokens(t_ast *ast, char ***tokens)
 	ft_bzero(ret, sizeof(char*) * size);
 	while (list)
 	{
-		ret[i++] = ex_tokens_switch(list->content);
-		list = list->next;;
+		if (((t_token*)list->content)->token_type == REDIRECT)
+			list = list->next->next;
+		else
+		{
+			ret[i++] = ex_tokens_switch(list->content);
+			list = list->next;;
+		}
 	}
 	*tokens = ret;
 }

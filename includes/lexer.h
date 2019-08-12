@@ -13,6 +13,7 @@ enum					e_tokentype
 	WORD,
 	OPERATOR,
 	REDIRECT,
+	ASSIGNMENT,
 	NEWLINE
 };
 
@@ -33,6 +34,8 @@ enum					e_operators
 };
 /*
 **	lexer.c
+**	--lx_newline(char *line)
+**	--lx_print(void)
 */
 void					lexer(void);
 
@@ -55,6 +58,12 @@ int						lx_redirect_get(char *line);
 */
 int						lx_word_check(char ch);
 int						lx_word_get(char *line);
+
+/*
+**	lx_assignment.c
+*/
+int						lx_assignment_check(char *line);
+int						lx_assignment_get(char *line);
 
 /*
 **	lx_struct_functions.c

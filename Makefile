@@ -35,6 +35,7 @@ LX_NAME=lexer.c\
 	lx_operator.c\
 	lx_redirect.c\
 	lx_word.c\
+	lx_assignment.c\
 	lx_struct_functions.c
 PR_NAME=parser.c\
 	pr_ast_create.c\
