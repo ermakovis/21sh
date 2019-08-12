@@ -22,7 +22,7 @@ void		print_token_line(t_list *list)
 	ft_printf("\n");
 }
 
-int			add_token(char *line, int token, int operator)
+int			add_token(char *line, int line_len, int token, int operator)
 {
 	t_list		*new_list;
 	t_token		*new;
@@ -32,7 +32,7 @@ int			add_token(char *line, int token, int operator)
 	if (!(new = (t_token*)malloc(size)))
 		cleanup(-1, "Malloc failed at add_token");
 	ft_bzero(new, size);
-	if (!(new->line = ft_strdup(line)))
+	if (!(new->line = ft_strndup(line, line_len)))
 		cleanup(-1, "Malloc failed at add_token 1");
 	new->token_type = token;
 	new->operator_type = operator;
@@ -40,7 +40,7 @@ int			add_token(char *line, int token, int operator)
 		cleanup(-1, "Malloc failed at add_token 2");
 	ft_memdel((void**)&new);
 	ft_lstadd_last(&g_msh->tokens, new_list);
-	return (ft_strlen(line));
+	return (line_len);
 }
 
 void		del_token(void *content, size_t size)

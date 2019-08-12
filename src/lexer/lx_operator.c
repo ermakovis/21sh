@@ -11,14 +11,14 @@ int				lx_operator_check(char ch)
 int				lx_operator_get(char *line)
 {
 	if (ft_strncmp(line, ";", 1) == 0)
-		return (add_token(";", OPERATOR, SEMI));
+		return (add_token(line, 1, OPERATOR, SEMI));
 	else if (ft_strncmp(line, "&&", 2) == 0)
-		return (add_token("&&", OPERATOR, AND_IF));
+		return (add_token(line, 2, OPERATOR, AND_IF));
 	else if (ft_strncmp(line, "&", 1) == 0)
-		return (add_token("&", OPERATOR, AND));
+		return (add_token(line, 1, OPERATOR, AND));
 	else if (ft_strncmp(line, "||", 2) == 0)
-		return (add_token("||", OPERATOR, OR_IF));
+		return (add_token(line, 2, OPERATOR, OR_IF));
 	else if (ft_strncmp(line, "|", 1) == 0)
-		return (add_token("|", OPERATOR, PIPE));
+		return (add_token(line, 1, OPERATOR, PIPE));
 	return (0);
 }

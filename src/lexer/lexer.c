@@ -9,16 +9,18 @@ void			lexer(void)
 		return ;
 	while (*line)
 	{
+		//if (lx_assignment_check(*line))
+		//	line += lx_assignment_get(*line);
 		if (lx_operator_check(*line))
-			line = line + lx_operator_get(line);
+			line += lx_operator_get(line);
 		else if (lx_redirect_check(*line))
-			line = line + lx_redirect_get(line);
+			line += lx_redirect_get(line);
 		else if (lx_word_check(*line))
-			line = line + lx_word_get(line);
+			line += lx_word_get(line);
 		else if (*line == '\n')
 		{
 			line++;
-			add_token("<newline>", NEWLINE, NONE);
+			add_token("<newline>", 9, NEWLINE, NONE);
 		}
 		else
 			line++;

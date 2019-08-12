@@ -13,7 +13,6 @@ enum					e_tokentype
 	WORD,
 	OPERATOR,
 	REDIRECT,
-	IO_NUMBER,
 	NEWLINE
 };
 
@@ -36,7 +35,6 @@ enum					e_operators
 **	lexer.c
 */
 void					lexer(void);
-int						lx_add_token(char *line, int token, int operator);
 
 /*
 **	lx_operator.c
@@ -61,7 +59,7 @@ int						lx_word_get(char *line);
 /*
 **	lx_struct_functions.c
 */
-int						add_token(char *str, int token, int operator);
+int						add_token(char *str, int line_len, int token, int operator);
 void					print_token(t_list *list);
 void					print_token_line(t_list *list);
 void					del_token(void *content, size_t size);
