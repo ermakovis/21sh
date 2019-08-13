@@ -11,7 +11,16 @@ typedef struct		s_ast
 	t_list			*token;	
 }					t_ast;
 
+/*
+**	parser.c
+*/
 int					parser(void);
+
+/*
+**	pr_syntax_check.c
+**	--pr_syntax_check_redirect(t_list *list)
+*/
+int					pr_syntax_check(void);
 
 /*
 **	pr_ast_functions.c

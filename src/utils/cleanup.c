@@ -40,10 +40,13 @@ void		cleanup(int exit_code, char *message)
 		exit(exit_code);
 	cl_rl_struct();
 	cl_term_cmd_struct();
+	pr_ast_del(&g_msh->ast);
 	ft_lstdel(&g_msh->history, &delete_str);
 	ft_lstdel(&g_msh->env, &delete_var);
+	ft_lstdel(&g_msh->var, &delete_var);
 	ft_lstdel(&g_msh->bin, &delete_builtins);
 	ft_lstdel(&g_msh->tokens, &del_token);
+	ft_memdel((void**)&g_msh->shell_name);
 	ft_memdel((void**)&g_msh->original_state);
 	ft_memdel((void**)&g_msh);
 	if (exit_code != 1)

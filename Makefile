@@ -38,6 +38,7 @@ LX_NAME=lexer.c\
 	lx_assignment.c\
 	lx_struct_functions.c
 PR_NAME=parser.c\
+	pr_syntax_check.c\
 	pr_ast_create.c\
 	pr_ast_functions.c
 EXE_NAME=execute.c\
@@ -45,6 +46,7 @@ EXE_NAME=execute.c\
 	ex_command_fork.c\
 	ex_pipe.c\
 	ex_tokens.c\
+	ex_tokens_assignments.c\
 	ex_tokens_expans.c\
 	ex_tokens_quotes.c\
 	ex_getpath.c

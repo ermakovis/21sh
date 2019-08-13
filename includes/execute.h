@@ -36,6 +36,11 @@ int			ex_pipe_switch(t_ast *left, t_ast *right);
 void		ex_tokens(t_ast *ast, char ***tokens);
 
 /*
+**	ex_tokens_assignments.c
+*/
+void		ex_tokens_assignments(t_list **list);
+
+/*
 **	ex_tokens_expans.c
 **	--is_special(char ch);
 */

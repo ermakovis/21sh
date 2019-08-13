@@ -45,21 +45,27 @@ void	handle_sigint(int sig)
 	init_rl();
 }
 
+void	cycle_cleanup(void)
+{
+	ft_lstdel(&g_msh->tokens, &del_token);
+	pr_ast_del(&g_msh->ast);
+	g_msh->tokens = NULL;
+	cl_rl_struct();
+}
+
 int		main(int argc, char **argv, char **env)
 {
 	(void)argc;
 	(void)argv;
 	init(env);
 	display_prompt();
-	signal(SIGINT, handle_sigint);
+	//signal(SIGINT, handle_sigint);
 	while (read_line())
 	{
 		lexer();
 		parser();
 		execute(g_msh->ast);
-		pr_ast_del(&g_msh->ast);
-		g_msh->tokens = NULL;
-		cl_rl_struct();
+		cycle_cleanup();
 		display_prompt();
 	}
 	cleanup(0, NULL);

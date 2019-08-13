@@ -44,8 +44,10 @@ int			ex_command(t_ast *ast)
 
 	env = NULL;
 	tokens = NULL;
-	ex_env(&env); 
 	ex_tokens(ast, &tokens);
+	if (!tokens || !*tokens)
+		return (SUCCESS);
+	ex_env(&env); 
 	if (ex_builtin(tokens) == SUCCESS)
 		ret = SUCCESS;
 	else if ((ret = ex_getpath(tokens[0], &cmd) == SUCCESS))

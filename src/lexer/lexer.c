@@ -24,7 +24,7 @@ void			lexer(void)
 	{
 		if (lx_assignment_check(line))
 			line += lx_assignment_get(line);
-		if (lx_operator_check(*line))
+		else if (lx_operator_check(*line))
 			line += lx_operator_get(line);
 		else if (lx_redirect_check(*line))
 			line += lx_redirect_get(line);
@@ -35,5 +35,5 @@ void			lexer(void)
 		else
 			line++;
 	}
-	lx_print();
+	//lx_print();
 }

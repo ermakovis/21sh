@@ -37,6 +37,7 @@ typedef struct dirent	t_dir;
 
 typedef struct			s_msh
 {
+	char				*shell_name;
 	char				*buffer;
 	t_rl				*rl;
 	t_cmd				*cmd;

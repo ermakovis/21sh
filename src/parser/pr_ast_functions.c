@@ -2,12 +2,6 @@
 
 t_ast		*pr_ast_create_node(t_ast *node, t_ast *left, t_ast *right)
 {
-	//ft_printf("node\n");
-	//ft_lstiter(node->token, &print_token);
-	//ft_printf("node\n");
-	//ft_lstiter(left->token, &print_token);
-	//ft_printf("node\n");
-	//ft_lstiter(right->token, &print_token);
 	node->right = right;
 	node->left = left;
 	if (left)
@@ -52,9 +46,6 @@ t_ast		*pr_ast_create_leaf(int delim)
 	new->node_type = ((t_token*)g_msh->tokens->content)->token_type;
 	new->operator_type = ((t_token*)g_msh->tokens->content)->operator_type;
 	pr_ast_create_leaf_delim(delim);
-	//ft_printf("--LEAF-%d--\n", delim);
-	//ft_lstiter(new->token, &print_token);
-	//ft_printf("--------\n");
 	return (new);
 }
 

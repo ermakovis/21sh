@@ -4,9 +4,11 @@ int			parser(void)
 {
 	t_ast *root;
 
+	if (pr_syntax_check() != SUCCESS)
+		return (FAILURE);
 	root = pr_ast_create();
-	pr_ast_print(root, 0);	
 	g_msh->ast = root;
-	return (1);
+	//pr_ast_print(root, 0);	
+	return (SUCCESS);
 }
 
