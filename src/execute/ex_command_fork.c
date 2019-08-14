@@ -10,7 +10,7 @@ static int		ex_command_fork_signals(int status)
 		return (FAILURE);
 }
 
-int				ex_command_fork(char *cmd, char **tokens, char **env)
+int				ex_command_fork(t_ast *ast, char *cmd, char **tokens, char **env)
 {
 	pid_t		pid;
 	int			status;
@@ -21,6 +21,7 @@ int				ex_command_fork(char *cmd, char **tokens, char **env)
 		return (FAILURE);
 	if (pid == 0)
 	{
+		ex_redirections(ast->token);
 		if ((status = execve(cmd, tokens, env) == -1))
 			ft_dprintf(2, "%s: launch failed\n", cmd);
 		exit (-1);

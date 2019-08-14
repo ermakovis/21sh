@@ -44,14 +44,15 @@ int			ex_command(t_ast *ast)
 
 	env = NULL;
 	tokens = NULL;
-	ex_tokens(ast, &tokens);
-	if (!tokens || !*tokens)
+	ex_tokens_assignments(&ast->token);
+	if (ast->token == NULL)
 		return (SUCCESS);
+	ex_tokens(ast, &tokens);
 	ex_env(&env); 
 	if (ex_builtin(tokens) == SUCCESS)
 		ret = SUCCESS;
 	else if ((ret = ex_getpath(tokens[0], &cmd) == SUCCESS))
-		ret = ex_command_fork(cmd, tokens, env);
+		ret = ex_command_fork(ast, cmd, tokens, env);
 	ft_free_table(&env);
 	ft_free_table(&tokens);
 	return (ret);

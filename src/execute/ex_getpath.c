@@ -43,6 +43,8 @@ int			ex_getpath(char *token, char **cmd)
 	char	**paths;
 	char	*paths_env;
 
+	if (!token || !*token)
+		return (FAILURE);
 	if (!(paths_env = find_var(g_msh->env, "PATH")))
 		return (FAILURE);
 	i = -1;

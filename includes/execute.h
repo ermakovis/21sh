@@ -19,7 +19,17 @@ void		ex_env(char ***env);
 /*
 **	ex_command_fork.c
 */
-int			ex_command_fork(char *cmd, char **tokens, char **env);
+int			ex_command_fork(t_ast *ast, char *cmd, char **tokens, char **env);
+
+/*
+**	ex_redirections.c
+*/
+void		ex_redirections(t_list *list);
+
+/*
+**	ex_redirections_simple.c
+*/
+void		ex_redirections_simple(t_list *list);
 
 /*
 **	ex_pipe.c

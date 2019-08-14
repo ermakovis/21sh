@@ -41,8 +41,6 @@ void			ex_tokens(t_ast *ast, char ***tokens)
 	{
 		if (((t_token*)list->content)->token_type == REDIRECT)
 			list = list->next->next;
-		else if (((t_token*)list->content)->token_type == ASSIGNMENT)
-			ex_tokens_assignments(&list);
 		else
 		{
 			ret[i++] = ex_tokens_switch(list->content);

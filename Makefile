@@ -44,6 +44,8 @@ PR_NAME=parser.c\
 EXE_NAME=execute.c\
 	ex_command.c\
 	ex_command_fork.c\
+	ex_redirections.c\
+	ex_redirections_simple.c\
 	ex_pipe.c\
 	ex_tokens.c\
 	ex_tokens_assignments.c\
