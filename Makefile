@@ -46,11 +46,11 @@ EXE_NAME=execute.c\
 	ex_pipe.c\
 	ex_command.c\
 	ex_getpath.c\
+	ex_assignments.c\
 	ex_redirections.c\
 	ex_redirections_simple.c\
 	ex_redirections_agreg.c\
 	ex_tokens.c\
-	ex_tokens_assignments.c\
 	ex_tokens_expans.c\
 	ex_tokens_quotes.c
 UT_NAME=init.c\

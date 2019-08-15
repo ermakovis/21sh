@@ -19,7 +19,7 @@ int				ex_simple(t_ast *ast)
 	pid_t		pid;
 	int			status;
 	
-	ex_tokens_assignments(&ast->token);
+	ex_assignments(&ast->token);
 	if (ast->token == NULL)
 		return (SUCCESS);
 	ex_simple_exit_check(ast->token);

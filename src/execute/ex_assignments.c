@@ -1,6 +1,6 @@
 #include "msh.h"
 
-void		ex_tokens_assignments(t_list **list)
+void		ex_assignments(t_list **list)
 {
 	t_token		*token;
 	char		*line;
@@ -19,5 +19,5 @@ void		ex_tokens_assignments(t_list **list)
 	else
 		add_var(line, line + eq_pos + 1, &g_msh->var);
 	ft_lstpop(list, &del_token);
-	ex_tokens_assignments(list);
+	ex_assignments(list);
 }
