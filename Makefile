@@ -42,16 +42,17 @@ PR_NAME=parser.c\
 	pr_ast_create.c\
 	pr_ast_functions.c
 EXE_NAME=execute.c\
+	ex_simple.c\
+	ex_pipe.c\
 	ex_command.c\
-	ex_command_fork.c\
+	ex_getpath.c\
 	ex_redirections.c\
 	ex_redirections_simple.c\
-	ex_pipe.c\
+	ex_redirections_agreg.c\
 	ex_tokens.c\
 	ex_tokens_assignments.c\
 	ex_tokens_expans.c\
-	ex_tokens_quotes.c\
-	ex_getpath.c
+	ex_tokens_quotes.c
 UT_NAME=init.c\
 	init_env.c\
 	init_bins.c\

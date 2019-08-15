@@ -27,6 +27,7 @@ static char			*ex_tokens_switch(t_token *token)
 void			ex_tokens(t_ast *ast, char ***tokens)
 {
 	t_list	*list;
+	t_token *token;
 	char	**ret;
 	int		i;
 	size_t	size;
@@ -39,8 +40,11 @@ void			ex_tokens(t_ast *ast, char ***tokens)
 	ft_bzero(ret, sizeof(char*) * size);
 	while (list)
 	{
-		if (((t_token*)list->content)->token_type == REDIRECT)
+		token = list->content;
+		if (token->token_type == REDIRECT)
 			list = list->next->next;
+		else if (token->token_type == ASSIGNMENT)
+			list = list->next;
 		else
 		{
 			ret[i++] = ex_tokens_switch(list->content);

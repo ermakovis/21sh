@@ -17,6 +17,27 @@ int			pr_syntax_check_redirect(t_list *list)
 	return (SUCCESS);
 }
 
+int			pr_syntax_check_agreg(t_list *list)
+{
+	t_token	*token;
+	char	*word;
+
+	token = list->content;
+	if (token->token_type != REDIRECT)
+		return (SUCCESS);
+	if (!(token->operator_type == LESS_AND || token->operator_type == MORE_AND))
+		return (SUCCESS);
+	token = list->next->content;
+	word = token->line;
+	if (!ft_isnumber(word) && !ft_strequ(word, "-"))
+	{
+		ft_printf("%s: %s: ambigious redirect\n",\
+			g_msh->shell_name, token->line);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 int			pr_syntax_check(void)
 {
 	t_list	*list;
@@ -25,6 +46,8 @@ int			pr_syntax_check(void)
 	while (list)
 	{
 		if (pr_syntax_check_redirect(list) == FAILURE)
+			return (FAILURE);
+		if (pr_syntax_check_agreg(list) == FAILURE)
 			return (FAILURE);
 		list = list->next;
 	}

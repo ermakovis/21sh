@@ -40,18 +40,12 @@ void	msh_unsetenv(char **tokens)
 		ft_lst_remove_if(&(g_msh->env), tokens[1], &cmp_var, &delete_var);
 }
 
+/*
+**		placeholder for pipes, actual exits is at simple command;
+*/
 void	msh_exit(char **tokens)
 {
-	size_t	tokens_count;
-
-	tokens_count = ft_table_size(tokens);
-	if (tokens_count > 1)
-	{
-		ft_dprintf(2, "exit: Too many arguments.\n");
-		return ;
-	}
-	set_terminal_canon();
-	cleanup(0, NULL);
+	tokens = tokens;
 }
 
 void	msh_env(char **tokens)
@@ -78,9 +72,9 @@ void	msh_echo(char **tokens)
 		i++;
 	while (tokens[++i])
 	{
-		ft_printf("%s", tokens[i]);
+		write(STDOUT_FILENO, tokens[i], ft_strlen(tokens[i]));
 		if (tokens[i + 1])
-			ft_printf(" ");
+			write(STDOUT_FILENO, " ", 1);
 	}
 	if (!(tokens_count > 2 && ft_strnequ(tokens[1], "-n", 3)))
 		ft_printf("\n");

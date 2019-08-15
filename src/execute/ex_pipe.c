@@ -1,29 +1,33 @@
 #include "msh.h"
 
-static int	ex_pipe_edge(t_ast *ast)
-{
-	char	**tokens;
-	char	**env;
-	char	*cmd;
-	int		ret;
-
-	cmd = NULL;
-	ex_env(&env);
-	ex_tokens(ast, &tokens);
-	if (ex_builtin(tokens) == SUCCESS)
-		ret = SUCCESS;
-	else if (ex_getpath(tokens[0], &cmd) == FAILURE)
-		ret = FAILURE;
-	else if (ex_check_executable(cmd) == FAILURE)
-		ret = FAILURE;
-	else if ((ret = execve(cmd, tokens, env) == -1))
-		ft_dprintf(2, "%s: launch failed\n", cmd);
-	ft_memdel((void**)&cmd);
-	ft_free_table(&env);
-	ft_free_table(&tokens);
-	ret = SUCCESS;
-	return (ret);
-}
+//static int	ex_pipe_edge(t_ast *ast)
+//{
+//	char	**tokens;
+//	char	**env;
+//	char	*cmd;
+//	int		ret;
+//
+//	cmd = NULL;
+//	ret = SUCCESS;
+//	ex_redirections(ast->token);
+//	ex_tokens_assignments(&ast->token);
+//	if (ast->token == NULL)
+//		return (SUCCESS);
+//	ex_env(&env);
+//	ex_tokens(ast, &tokens);
+//	if (ex_builtin(tokens) == SUCCESS)
+//		ret = SUCCESS;
+//	else if (ex_getpath(tokens[0], &cmd) == FAILURE)
+//		ret = FAILURE;
+//	else if (ex_check_executable(cmd) == FAILURE)
+//		ret = FAILURE;
+//	else if ((ret = execve(cmd, tokens, env) == -1))
+//		ft_dprintf(2, "%s: launch failed\n", cmd);
+//	ft_memdel((void**)&cmd);
+//	ft_free_table(&env);
+//	ft_free_table(&tokens);
+//	return (ret);
+//}
 
 static int			ex_pipe_right(t_ast *ast, int fd[2])
 {
@@ -40,7 +44,7 @@ static int			ex_pipe_right(t_ast *ast, int fd[2])
 		if (ast->parent->parent && ast->parent->parent->operator_type == PIPE)
 			exit (ex_pipe_switch(ast, ast->parent->parent->right));
 		else
-			exit (ex_pipe_edge(ast));
+			exit (ex_command(ast));
 	}
 	else
 	{
@@ -65,7 +69,7 @@ int			ex_pipe_switch(t_ast *left, t_ast *right)
 		close(fd[0]);
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
 			return (FAILURE);
-		exit (ex_pipe_edge(left));
+		exit (ex_command(left));
 	}
 	else
 	{

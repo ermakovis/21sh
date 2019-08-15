@@ -1,6 +1,6 @@
 #include "msh.h"
 
-void	ex_env(char ***env)
+static void	ex_env(char ***env)
 {
 	t_list	*env_list;
 	char	**ret;
@@ -22,7 +22,7 @@ void	ex_env(char ***env)
 	*env = ret;
 }
 
-int ex_builtin(char **tokens)
+static int ex_builtin(char **tokens)
 {
 	t_list	*list;
 	
@@ -34,26 +34,28 @@ int ex_builtin(char **tokens)
 	return (FAILURE);
 }
 
-
-int			ex_command(t_ast *ast)
+int	ex_command(t_ast *ast)
 {
-	char	**env;
 	char	**tokens;
+	char	**env;
 	char	*cmd;
 	int		ret;
 
-	env = NULL;
-	tokens = NULL;
-	ex_tokens_assignments(&ast->token);
-	if (ast->token == NULL)
-		return (SUCCESS);
+	cmd = NULL;
+	ex_redirections(ast->token);
+	ex_env(&env);
 	ex_tokens(ast, &tokens);
-	ex_env(&env); 
 	if (ex_builtin(tokens) == SUCCESS)
 		ret = SUCCESS;
-	else if ((ret = ex_getpath(tokens[0], &cmd) == SUCCESS))
-		ret = ex_command_fork(ast, cmd, tokens, env);
+	else if (ex_getpath(tokens[0], &cmd) == FAILURE)
+		ret = FAILURE;
+	else if (ex_check_executable(cmd) == FAILURE)
+		ret = FAILURE;
+	else if ((ret = execve(cmd, tokens, env) == -1))
+		ft_dprintf(2, "%s: launch failed\n", cmd);
+	ft_memdel((void**)&cmd);
 	ft_free_table(&env);
 	ft_free_table(&tokens);
 	return (ret);
 }
+

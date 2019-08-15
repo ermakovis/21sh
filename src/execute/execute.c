@@ -27,7 +27,7 @@ int			execute(t_ast *ast)
 	else if (ast->operator_type == PIPE)
 		return (ex_pipe(ast));
 	else if (ast->node_type != OPERATOR)
-		return (ex_command(ast));
+		return (ex_simple(ast));
 	return (SUCCESS);
 }
 

@@ -54,8 +54,8 @@ void					delete_builtins(void *content, size_t size);
 /*
 **  msh_small_funcs.c
 */
-void					msh_env(char **tokens);
 void					msh_exit(char **tokens);
+void					msh_env(char **tokens);
 void					msh_unsetenv(char **token);
 void					msh_setenv(char **token);
 void					msh_echo(char **token);

@@ -11,15 +11,15 @@ int			ex_semi(t_ast *ast);
 
 /*
 **	ex_command.c
+**	--ex_builtin(char **tokens);
+**	--ex_env(char ***env);
 */
 int			ex_command(t_ast *ast);
-int			ex_builtin(char **tokens);
-void		ex_env(char ***env);
 
 /*
-**	ex_command_fork.c
+**	ex_simple.c
 */
-int			ex_command_fork(t_ast *ast, char *cmd, char **tokens, char **env);
+int			ex_simple(t_ast *ast);
 
 /*
 **	ex_redirections.c
@@ -30,6 +30,11 @@ void		ex_redirections(t_list *list);
 **	ex_redirections_simple.c
 */
 void		ex_redirections_simple(t_list *list);
+
+/*
+**	ex_redirections_agreg.c
+*/
+void		ex_redirections_agreg(t_list *list);
 
 /*
 **	ex_pipe.c
