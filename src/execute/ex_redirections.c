@@ -15,10 +15,9 @@ void		ex_redirections(t_list *list)
 			else if (token->operator_type == LESS_AND\
 				|| token->operator_type == MORE_AND)
 				ex_redirections_agreg(list);
-		
+			else if (token->operator_type == DLESS)
+				ex_redirections_heredoc(list);
 		}
 		list = list->next;
 	}
-	
-	
 }

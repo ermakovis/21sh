@@ -50,6 +50,7 @@ EXE_NAME=execute.c\
 	ex_redirections.c\
 	ex_redirections_simple.c\
 	ex_redirections_agreg.c\
+	ex_redirections_heredoc.c\
 	ex_tokens.c\
 	ex_tokens_expans.c\
 	ex_tokens_quotes.c
@@ -110,6 +111,7 @@ clean:
 
 fclean: clean
 		@make fclean -s -C $(LIB_DIR)
+		@find . -type f -name ".*.swp" -exec rm -f {} \;
 		@rm -rf *test*
 		@rm -rf $(NAME)*
 
