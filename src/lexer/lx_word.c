@@ -19,7 +19,7 @@ static int		lx_word_dquote_len(char *line)
 
 int				lx_word_check(char ch)
 {
-	if (ft_isprint(ch) && !ft_isspace(ch))
+	if (ft_isprint(ch) && !ft_isspace(ch) && ch != '|' && ch != ';')
 		return (1);
 	return (0);
 }
@@ -34,7 +34,7 @@ int				lx_word_get(char *line)
 
 	len = 0;
 	digit_check = 1;
-	while (line[len] && ft_isprint(line[len]) && !ft_isspace(line[len]))
+	while (line[len] && lx_word_check(line[len]))
 	{
 		if (lx_redirect_check(line[len]) && digit_check)
 			return (lx_redirect_get(line));

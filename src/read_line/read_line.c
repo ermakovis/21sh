@@ -64,6 +64,7 @@ static int		rl_quotes_check(void)
 
 static void		rl_switch(long ch)
 {
+	rl_copy(ch);
 	rl_tab(ch);
 	rl_history(ch);
 	rl_move_cur(ch);
@@ -85,6 +86,11 @@ int				read_line(void)
 	set_terminal_raw();
 	while (get_char(&ch))
 	{
+		if (ch == 4 && g_msh->rl->line_len == 0)
+		{
+			ft_printf("\n");
+			break;
+		}
 		if ((ch == '\n' && rl_quotes_check()))
 		{
 			g_msh->rl->cur_pos = g_msh->rl->line_len;

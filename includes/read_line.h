@@ -13,8 +13,9 @@
 # define DELETE			2117294875
 # define BSPACE 		127
 # define TAB			9
-# define PASTE			28669
-# define VISUAL_MODE	30235
+# define PASTE			28699
+# define CUT
+# define VMODE			30235
 # define WORD_NEXT		73883020516123
 # define WORD_BACK		74982532143899
 # define LINE_START		71683997260571
@@ -26,11 +27,13 @@
 */
 typedef struct			s_rl
 {
-	int					status;
 	char				*line;
+	int					status;
 	int					history;
 	char				*history_orig;
 	t_list				*tab_items;
+	char				*copy_buffer;
+	size_t				copy_pos;
 	size_t				line_len;
 	size_t				cur_pos;
 }						t_rl;
@@ -53,6 +56,16 @@ void					rl_del_char(long ch);
 **	rl_big_move.c
 */
 void					rl_jump(long ch);
+
+/*
+**	rl_copy.c
+*/
+void					rl_copy(long ch);
+
+/*
+**	rl_copy_movement.c
+*/
+void					rl_copy_movements(void);
 
 /*
 **  rl_history.c

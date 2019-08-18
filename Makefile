@@ -28,6 +28,8 @@ SRC_NAME=main.c
 RL_NAME=read_line.c\
 	rl_input_manipulation.c\
 	rl_jump.c\
+	rl_copy.c\
+	rl_copy_movement.c\
 	rl_history.c\
 	rl_history_change.c\
 	rl_tab.c
