@@ -42,6 +42,11 @@ void		ex_redirections_simple(t_list *list);
 void		ex_redirections_agreg(t_list *list);
 
 /*
+**	ex_redirections_heredoc.c
+*/
+void		ex_redirections_heredoc(t_list *list);
+
+/*
 **	ex_pipe.c
 **	--ex_pipe_edge(t_ast *ast)
 **	--ex_pipe_right(t_ast, int fd[2]);

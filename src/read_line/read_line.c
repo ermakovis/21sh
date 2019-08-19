@@ -91,10 +91,11 @@ int				read_line(void)
 			ft_printf("\n");
 			break;
 		}
-		if ((ch == '\n' && rl_quotes_check()))
+		if (ch == '\n' && rl_quotes_check())
 		{
 			g_msh->rl->cur_pos = g_msh->rl->line_len;
 			rl_print_char('\n');
+			rl_add_history();
 			g_msh->rl->status = 1;
 			break ;
 		}
@@ -102,6 +103,5 @@ int				read_line(void)
 		ch = 0;
 	}
 	set_terminal_canon();
-	rl_add_history();
 	return (g_msh->rl->status);
 }

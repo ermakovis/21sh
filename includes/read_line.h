@@ -4,6 +4,7 @@
 # include <term.h>
 # include <curses.h>
 
+# define CTRL_D			4
 # define MSH_BUFF_SIZE	2048
 # define MSH_CMD_BUFF 	262144
 # define LEFT			4479771
