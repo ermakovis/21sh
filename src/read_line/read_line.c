@@ -68,6 +68,7 @@ static void		rl_switch(long ch)
 	rl_tab(ch);
 	rl_history(ch);
 	rl_move_cur(ch);
+	rl_vert_move(ch);
 	rl_jump(ch);
 	rl_del_char(ch);
 	if (ft_isprint(ch))
@@ -75,7 +76,7 @@ static void		rl_switch(long ch)
 }
 
 /*
-**	need newline to be on the end of input (91,92)
+**	need newline to be on the end of inpu
 */
 int				read_line(void)
 {

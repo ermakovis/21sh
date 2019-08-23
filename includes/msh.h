@@ -26,6 +26,10 @@
 # include <sys/types.h>
 # include <stdio.h>
 
+# define FLAGS "lp"
+# define LEXER_V (1 << 0)
+# define PARSER_V (1 << 1)
+
 # define SUCCESS 1
 # define FAILURE 0
 
@@ -34,11 +38,11 @@ typedef struct termios	t_term;
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
 
-
 typedef struct			s_msh
 {
+	int					display_flags;
 	char				*shell_name;
-	char				*buffer;
+	char				*copy_buffer;
 	t_rl				*rl;
 	t_cmd				*cmd;
 	t_term				*original_state;

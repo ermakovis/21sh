@@ -35,5 +35,6 @@ void			lexer(void)
 		else
 			line++;
 	}
-	//lx_print();
+	if (g_msh->display_flags & LEXER_V)
+		lx_print();
 }

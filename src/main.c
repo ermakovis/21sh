@@ -12,28 +12,38 @@
 
 #include "msh.h"
 
-void	set_terminal_raw(void)
+static void			add_flag(char *str)
 {
-	t_term	raw;
+	int		shift;
 
-	if (!isatty(STDIN_FILENO))
-		return ;
-	if (tcgetattr(0, &raw) == -1)
-		cleanup(-1, "Failed to save terminal original state");
-	raw.c_lflag &= ~(ICANON | ECHO);
-	if (tcsetattr(0, TCSANOW, &raw) == -1)
-		cleanup(-1, "Failed to set terminal to raw mode");
+	shift = 0;
+	while (*(++str))
+	{
+		if ((shift = ft_strchrlen(FLAGS, (*str))) == -1 ||\
+			(str[0] == '-' && str[1]))
+		{
+			ft_dprintf(2, "%s: illegal option -- %c\n",\
+				*str, g_msh->shell_name);
+			return ;
+		}
+		g_msh->display_flags |= (1 << shift);
+	}
 }
 
-void	set_terminal_canon(void)
+static void			parse_params(int *ac, char ***av)
 {
-	if (!isatty(STDIN_FILENO))
-		return ;
-	if (tcsetattr(0, TCSANOW, g_msh->original_state) == -1)
-		cleanup(-1, "Failed to set terminal to canon mode");
+	int		count;
+	char	**str;
+
+	count = 0;
+	str = *av;
+	while (++count < *ac && str[count][0] == '-' && str[count][1])
+		add_flag(str[count]);
+	*av = *av + count;
+	*ac = *ac - count;
 }
 
-void	handle_sigint(int sig)
+void				handle_sigint(int sig)
 {
 	(void)sig;
 	if (!g_msh->rl->status)
@@ -41,11 +51,12 @@ void	handle_sigint(int sig)
 		ft_printf("\n");
 		display_prompt();
 	}
+	ft_printf("%s", g_msh->cmd->highlight_mode_off);
 	cl_rl_struct();
 	init_rl();
 }
 
-void	cycle_cleanup(void)
+static void			cycle_cleanup(void)
 {
 	ft_lstdel(&g_msh->tokens, &del_token);
 	pr_ast_del(&g_msh->ast);
@@ -55,11 +66,10 @@ void	cycle_cleanup(void)
 
 int		main(int argc, char **argv, char **env)
 {
-	(void)argc;
-	(void)argv;
 	init(env);
+	parse_params(&argc, &argv);
 	display_prompt();
-	//signal(SIGINT, handle_sigint);
+	signal(SIGINT, handle_sigint);
 	while (read_line())
 	{
 		lexer();

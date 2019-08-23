@@ -1,14 +1,15 @@
 #include "msh.h"
 
-static char		*ex_redirections_heredoc_getline(char *word)
+static void		ex_rd_heredoc_getline(t_list *list, char **line)
 {
-	char	*ret;
 	char	*tmp;
+	char	*word;
 	char	*rl_line;
 	size_t	line_len;
 
-	ret = NULL;
+	*line = NULL;
 	cl_rl_struct();
+	word = ((t_token*)list->next->content)->line;
 	while (read_line())
 	{
 		rl_line = g_msh->rl->line;
@@ -17,16 +18,15 @@ static char		*ex_redirections_heredoc_getline(char *word)
 		if (ft_strequ(rl_line, word))
 			break ;
 		rl_line[line_len - 1] = '\n';
-		tmp = ret;
-		if (!(ret = ft_strjoin(ret, rl_line)))
+		tmp = *line;
+		if (!(*line = ft_strjoin(*line, rl_line)))
 			cleanup(-1, "Malloc failed at heredoc_getline");
 		ft_memdel((void**)&tmp);
 		cl_rl_struct();
 	}
-	return (ret);
 }
 
-static void	ex_redirections_heredoc_pipe(int num, char *line)
+static void	ex_rd_heredoc_pipe(int num, char *line)
 {
 	int		fd[2];
 
@@ -38,20 +38,38 @@ static void	ex_redirections_heredoc_pipe(int num, char *line)
 	close(fd[0]);
 }
 
-void		ex_redirections_heredoc(t_list *list)
+static void		ex_rd_heredoc_getnum(t_list *list, int *num)
 {
 	t_token		*token;
-	char		*word;
-	char		*heredoc_line;
-	int			num;
 
 	token = list->content;
-	word = ((t_token*)list->next->content)->line;
 	if (ft_isdigit(token->line[0]))
-		num == ft_atoi(token->line);
+		*num == ft_atoi(token->line);
 	else
-		num = 0;
-	if (!(heredoc_line = ex_redirections_heredoc_getline(word)))
-		return ;
-	ex_redirections_heredoc_pipe(num, heredoc_line);
+		*num = 0;
 }
+
+void		ex_redirections_heredoc(t_list *list)
+{
+	t_token *token;
+	char	*line;
+	int		num;
+
+	line = NULL;
+	num = 0;
+	while (list)
+	{
+		token = list->content;
+		if (token->token_type == REDIRECT && token->operator_type == DLESS)
+		{
+			ft_memdel((void**)&line);
+			ex_rd_heredoc_getnum(list, &num);
+			ex_rd_heredoc_getline(list, &line);
+		}
+		list = list->next;
+	}
+	if (line)
+		ex_rd_heredoc_pipe(num, line);
+	ft_memdel((void**)&line);
+}
+

@@ -2,13 +2,11 @@
 
 int			parser(void)
 {
-	t_ast *root;
-
 	if (pr_syntax_check() != SUCCESS)
 		return (FAILURE);
-	root = pr_ast_create();
-	g_msh->ast = root;
-	//pr_ast_print(root, 0);	
+	g_msh->ast = pr_ast_create();
+	if (g_msh->display_flags & PARSER_V)
+		pr_ast_print(g_msh->ast, 0);	
 	return (SUCCESS);
 }
 

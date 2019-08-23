@@ -17,6 +17,8 @@
 # define PASTE			28699
 # define CUT
 # define VMODE			30235
+# define UPLINE			71692587195163	
+# define DOWNLINE  		72792098822939
 # define WORD_NEXT		73883020516123
 # define WORD_BACK		74982532143899
 # define LINE_START		71683997260571
@@ -33,7 +35,6 @@ typedef struct			s_rl
 	int					history;
 	char				*history_orig;
 	t_list				*tab_items;
-	char				*copy_buffer;
 	size_t				copy_pos;
 	size_t				line_len;
 	size_t				cur_pos;
@@ -57,6 +58,11 @@ void					rl_del_char(long ch);
 **	rl_big_move.c
 */
 void					rl_jump(long ch);
+
+/*
+**	rl_updown.c
+*/
+void					rl_vert_move(long ch);
 
 /*
 **	rl_copy.c

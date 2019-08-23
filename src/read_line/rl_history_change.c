@@ -47,7 +47,8 @@ void		rl_history_clean(void)
 		ft_printf("%s", g_msh->cmd->up);
 	ft_printf("%s%s", g_msh->cmd->cur_start, g_msh->cmd->clear_rest);
 	ft_memdel((void**)&(rl->line));
-	display_prompt();
+	if (rl->status == 0)
+		display_prompt();
 }
 
 void		rl_history_set(int position)

@@ -92,6 +92,12 @@ void					add_var(char *name, char *value, t_list **alist);
 void					delete_var(void *content, size_t size);
 
 /*
+**	ut_terminal_mods.c
+*/
+void	set_terminal_raw(void);
+void	set_terminal_canon(void);
+
+/*
 **  cleanup.c
 */
 void					cleanup(int exit_code, char *message);

@@ -5,7 +5,9 @@ void			rl_copy_paste(void)
 {
 	char 	*line;
 
-	line = g_msh->rl->copy_buffer;
+	line = g_msh->copy_buffer;
+	if (!line)
+		return ;
 	while (*line)
 	{
 		rl_print_char(*line);

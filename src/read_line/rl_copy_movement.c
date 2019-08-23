@@ -37,12 +37,12 @@ static void			rl_cm_copycut(void)
 	rl = g_msh->rl;
 	if (rl->cur_pos == rl->copy_pos)
 		return ;
-	ft_memdel((void**)&g_msh->rl->copy_buffer);
+	ft_memdel((void**)&g_msh->copy_buffer);
 	if (rl->cur_pos < rl->copy_pos)
-		rl->copy_buffer = ft_strndup(rl->line + rl->cur_pos,\
+		g_msh->copy_buffer = ft_strndup(rl->line + rl->cur_pos,\
 				rl->copy_pos - rl->cur_pos);
 	else if (rl->cur_pos > rl->copy_pos)
-		rl->copy_buffer = ft_strndup(rl->line + rl->copy_pos,\
+		g_msh->copy_buffer = ft_strndup(rl->line + rl->copy_pos,\
 				rl->cur_pos - rl->copy_pos);
 }
 
