@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:27:04 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:27:35 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 20:36:31 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ typedef struct			s_token
 	char				*line;
 	int					token_type;
 	int					operator_type;
+	char				*heredoc;
 }						t_token;
 
 enum					e_tokentype

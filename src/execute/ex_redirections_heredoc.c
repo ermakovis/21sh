@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:15:19 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:16:07 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 20:57:44 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,10 @@
 
 static void		ex_rd_heredoc_getline(t_list *list, char **line)
 {
-	char	*tmp;
-	char	*word;
-	char	*rl_line;
-	size_t	line_len;
+	t_token		*token;
 
-	*line = NULL;
-	cl_rl_struct();
-	word = ((t_token*)list->next->content)->line;
-	while (read_line())
-	{
-		rl_line = g_msh->rl->line;
-		line_len = ft_strlen(rl_line);
-		rl_line[line_len - 1] = 0;
-		if (ft_strequ(rl_line, word))
-			break ;
-		rl_line[line_len - 1] = '\n';
-		tmp = *line;
-		if (!(*line = ft_strjoin(*line, rl_line)))
-			cleanup(-1, "Malloc failed at heredoc_getline");
-		ft_memdel((void**)&tmp);
-		cl_rl_struct();
-	}
+	token = list->content;
+	*line = token->heredoc;
 }
 
 static void		ex_rd_heredoc_pipe(int num, char *line)
@@ -74,7 +56,6 @@ void			ex_redirections_heredoc(t_list *list)
 		token = list->content;
 		if (token->token_type == REDIRECT && token->operator_type == DLESS)
 		{
-			ft_memdel((void**)&line);
 			ex_rd_heredoc_getnum(list, &num);
 			ex_rd_heredoc_getline(list, &line);
 		}

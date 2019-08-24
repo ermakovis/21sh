@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:25:49 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:26:53 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 20:52:05 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ typedef struct		s_ast
 **	parser.c
 */
 int					parser(void);
+
+/*
+**	pr_heredoc.c
+*/
+void				pr_heredoc(void);
 
 /*
 **	pr_syntax_check.c

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:56:43 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 18:56:56 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 20:59:54 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,5 +64,6 @@ void		del_token(void *content, size_t size)
 	(void)size;
 	token = content;
 	ft_memdel((void**)&(token->line));
+	ft_memdel((void**)&(token->heredoc));
 	ft_memdel((void**)&content);
 }

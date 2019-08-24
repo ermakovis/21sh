@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/08/24 19:03:44 by tcase            ###   ########.fr        #
+#    Updated: 2019/08/24 20:52:49 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ LX_NAME=lexer.c\
 	lx_assignment.c\
 	lx_struct_functions.c
 PR_NAME=parser.c\
+	pr_heredoc.c\
 	pr_syntax_check.c\
 	pr_ast_create.c\
 	pr_ast_functions.c
