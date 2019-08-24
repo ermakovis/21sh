@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:28:09 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:28:28 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef UTILS_H
 # define UTILS_H
 
@@ -95,8 +107,8 @@ void					delete_var(void *content, size_t size);
 /*
 **	ut_terminal_mods.c
 */
-void	set_terminal_raw(void);
-void	set_terminal_canon(void);
+void					set_terminal_raw(void);
+void					set_terminal_canon(void);
 
 /*
 **  cleanup.c

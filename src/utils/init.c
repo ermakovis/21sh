@@ -6,11 +6,31 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:05:51 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 11:51:23 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 18:49:31 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+static	void	init_cmd_fill(t_cmd *cmd)
+{
+	char *cmd_buff;
+
+	cmd_buff = cmd->area;
+	cmd->start = tgetstr("cr", &cmd_buff);
+	cmd->clear_line = tgetstr("ce", &cmd_buff);
+	cmd->clear_rest = tgetstr("cd", &cmd_buff);
+	cmd->cur_start = tgetstr("cr", &cmd_buff);
+	cmd->up = tgetstr("up", &cmd_buff);
+	cmd->down = tgetstr("do", &cmd_buff);
+	cmd->left = tgetstr("le", &cmd_buff);
+	cmd->right = tgetstr("nd", &cmd_buff);
+	cmd->del = tgetstr("dc", &cmd_buff);
+	cmd->highlight_mode_on = tgetstr("so", &cmd_buff);
+	cmd->highlight_mode_off = tgetstr("se", &cmd_buff);
+	cmd->insert_mode_on = tgetstr("im", &cmd_buff);
+	cmd->insert_mode_off = tgetstr("ei", &cmd_buff);
+}
 
 static void		init_cmd(void)
 {
@@ -26,19 +46,7 @@ static void		init_cmd(void)
 		cleanup(-1, "Failed to malloc for command structure");
 	ft_bzero(cmd, sizeof(t_cmd));
 	cmd->area = cmd_buff;
-	cmd->start = tgetstr("cr", &cmd_buff);
-	cmd->clear_line = tgetstr("ce", &cmd_buff);
-	cmd->clear_rest = tgetstr("cd", &cmd_buff);
-	cmd->cur_start = tgetstr("cr", &cmd_buff);
-	cmd->up = tgetstr("up", &cmd_buff);
-	cmd->down = tgetstr("do", &cmd_buff);
-	cmd->left = tgetstr("le", &cmd_buff);
-	cmd->right = tgetstr("nd", &cmd_buff);
-	cmd->del = tgetstr("dc", &cmd_buff);
-	cmd->highlight_mode_on = tgetstr("so", &cmd_buff);
-	cmd->highlight_mode_off = tgetstr("se", &cmd_buff);
-	cmd->insert_mode_on = tgetstr("im", &cmd_buff);
-	cmd->insert_mode_off = tgetstr("ei", &cmd_buff);
+	init_cmd_fill(cmd);
 	g_msh->cmd = cmd;
 }
 

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:21:25 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 15:01:16 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 19:24:00 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void			cycle_cleanup(void)
 	cl_rl_struct();
 }
 
-int		main(int argc, char **argv, char **env)
+int					main(int argc, char **argv, char **env)
 {
 	init(env);
 	parse_params(&argc, &argv);

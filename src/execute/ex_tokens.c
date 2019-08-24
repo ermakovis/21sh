@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_tokens.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:16:59 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:17:42 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-static char			*ex_tokens_switch(t_token *token)
-{	
+static char		*ex_tokens_switch(t_token *token)
+{
 	char	*line;
 	char	*ret;
 	int		i;
@@ -17,23 +29,21 @@ static char			*ex_tokens_switch(t_token *token)
 			ex_tokens_expans(&line, &i, &ret);
 		else if (*line == '\'' || *line == '\"' || *line == '\\')
 			ex_tokens_quotes(&line, &i, &ret);
-		else 
+		else
 			ret[i++] = *line;
 		line++;
 	}
 	return (ret);
 }
 
-void			ex_tokens(t_ast *ast, char ***tokens)
+void			ex_tokens(t_list *list, char ***tokens)
 {
-	t_list	*list;
 	t_token *token;
 	char	**ret;
 	int		i;
 	size_t	size;
 
 	i = 0;
-	list = ast->token;
 	size = ft_lstsize(list) + 1;
 	if (!(ret = (char**)malloc(sizeof(char*) * size)))
 		cleanup(-1, "Malloc failed at ex_command_tokens");

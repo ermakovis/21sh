@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 13:53:16 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 20:38:33 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 18:51:45 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static void	rl_jump_word_back(long ch)
 		i--;
 	}
 }
-void			rl_jump(long ch)
+
+void		rl_jump(long ch)
 {
 	if (!(ch == LINE_START || ch == LINE_END ||\
 		ch == WORD_NEXT || ch == WORD_BACK))

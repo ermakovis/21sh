@@ -1,8 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lx_word.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 18:57:19 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 18:57:21 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 /*
 **	starts at 1 to ignore the first ", returns +1 to ignore the last;
 */
+
 static int		lx_word_dquote_len(char *line)
 {
 	int		len;
@@ -27,6 +40,7 @@ int				lx_word_check(char ch)
 /*
 ** if starts with digits and starts
 */
+
 int				lx_word_get(char *line)
 {
 	int		len;

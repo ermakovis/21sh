@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:48:44 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 15:11:57 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 18:50:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static void		rl_switch(long ch)
 /*
 **	need newline to be on the end of inpu
 */
+
 int				read_line(void)
 {
 	long	ch;
@@ -87,11 +88,10 @@ int				read_line(void)
 	set_terminal_raw();
 	while (get_char(&ch))
 	{
-		//ft_printf("%ld\n", ch);
 		if (ch == 4 && g_msh->rl->line_len == 0)
 		{
 			ft_printf("\n");
-			break;
+			break ;
 		}
 		if (ch == '\n' && rl_quotes_check())
 		{

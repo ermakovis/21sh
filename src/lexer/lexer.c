@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 18:54:51 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:06:13 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-static int		lx_newline(char *line)
+static int		lx_newline(void)
 {
 	add_token("<newline>", 9, NEWLINE, NONE);
 	return (1);
@@ -16,7 +28,6 @@ static void		lx_print(void)
 void			lexer(void)
 {
 	char	*line;
-	t_list	*tokens;
 
 	if (!(line = g_msh->rl->line))
 		return ;
@@ -31,7 +42,7 @@ void			lexer(void)
 		else if (lx_word_check(*line))
 			line += lx_word_get(line);
 		else if (*line == '\n')
-			line += lx_newline(line);
+			line += lx_newline();
 		else
 			line++;
 	}

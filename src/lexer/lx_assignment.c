@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lx_assignment.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 18:55:13 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 18:56:16 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 int			lx_assignment_check(char *line)
 {
 	int		len;
 	int		eq_pos;
-	
-	len = 0;	
+
+	len = 0;
 	if (g_msh->tokens &&\
 		((t_token*)g_msh->tokens->content)->token_type != ASSIGNMENT)
 		return (0);
@@ -20,10 +32,10 @@ int			lx_assignment_check(char *line)
 int			lx_assignment_get(char *line)
 {
 	int		len;
-	
+
 	len = 0;
 	while (line[len] && ft_isprint(line[len]) && !ft_isspace(line[len]))
 		len++;
-	add_token(line, len, ASSIGNMENT, NONE);	
+	add_token(line, len, ASSIGNMENT, NONE);
 	return (SUCCESS);
 }

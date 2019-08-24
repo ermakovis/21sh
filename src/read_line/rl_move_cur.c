@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rl_move_cur.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 18:53:11 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 18:54:29 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static int		rl_calc_prompt_len(void)
@@ -39,26 +51,24 @@ static void		rl_mc_right(void)
 	t_rl	*rl;
 
 	rl = g_msh->rl;
-
 	if (rl->cur_pos >= rl->line_len)
-		return;
+		return ;
 	ioctl(0, TIOCGWINSZ, &wsize);
 	term_width = wsize.ws_col;
 	prompt_width = rl_calc_prompt_len();
 	if ((prompt_width + rl->cur_pos) % term_width != 0)
 	{
 		ft_printf("%s", g_msh->cmd->right);
-		rl->cur_pos++;	
+		rl->cur_pos++;
 	}
 	else if ((prompt_width + rl->cur_pos) % term_width == 0)
 	{
 		ft_printf("%s%s", g_msh->cmd->cur_start, g_msh->cmd->down);
-		rl->cur_pos++;	
+		rl->cur_pos++;
 	}
 }
 
-
-void		rl_move_cur(long ch)
+void			rl_move_cur(long ch)
 {
 	if (!(ch == LEFT || ch == RIGHT))
 		return ;
@@ -67,4 +77,3 @@ void		rl_move_cur(long ch)
 	else if (ch == RIGHT)
 		rl_mc_right();
 }
-

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:54:39 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/11 11:11:02 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 19:05:22 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void		rl_history_set(int position)
 	char	*line;
 
 	rl = g_msh->rl;
+	line = NULL;
 	if (position >= 0)
 		line = ft_strdup(ft_lst_num(g_msh->history, position)->content);
 	else if (position == -1)

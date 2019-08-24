@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_redirections_heredoc.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:15:19 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:16:07 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static void		ex_rd_heredoc_getline(t_list *list, char **line)
@@ -26,7 +38,7 @@ static void		ex_rd_heredoc_getline(t_list *list, char **line)
 	}
 }
 
-static void	ex_rd_heredoc_pipe(int num, char *line)
+static void		ex_rd_heredoc_pipe(int num, char *line)
 {
 	int		fd[2];
 
@@ -49,7 +61,7 @@ static void		ex_rd_heredoc_getnum(t_list *list, int *num)
 		*num = 0;
 }
 
-void		ex_redirections_heredoc(t_list *list)
+void			ex_redirections_heredoc(t_list *list)
 {
 	t_token *token;
 	char	*line;
@@ -72,4 +84,3 @@ void		ex_redirections_heredoc(t_list *list)
 		ex_rd_heredoc_pipe(num, line);
 	ft_memdel((void**)&line);
 }
-

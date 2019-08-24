@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_redirections_simple.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:13:53 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:14:40 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 void		ex_redirections_simple_more(char *redir, char *word)
@@ -38,6 +50,7 @@ void		ex_redirections_simple_less(char *redir, char *word)
 	fd = open(word, O_RDONLY);
 	dup2(fd, num);
 }
+
 void		ex_redirections_simple(t_list *list)
 {
 	t_token		*token;

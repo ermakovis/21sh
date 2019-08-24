@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:25:28 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 15:44:17 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 17:25:39 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,46 +15,35 @@
 void	msh_setenv(t_list *list)
 {
 	size_t	tokens_count;
-	char	*name;
-	char	*value;
+	char	**tokens;
 
-	tokens_count = ft_lstsize(list);
+	ex_tokens(list, &tokens);
+	tokens_count = ft_table_size(tokens);
 	if (tokens_count == 1)
-	{
 		msh_env(list);
-		return ;
-	}
 	else if (tokens_count > 3)
-	{
 		ft_dprintf(2, "setenv: Too many arguments.\n");
-		return ;
-	}
-	name = ((t_token*)list->next->content)->line;
-	value = ((t_token*)list->next->next->content)->line;
-	if (find_var(g_msh->env, name))
-		set_var(g_msh->env, name, value);
+	else if (find_var(g_msh->env, tokens[1]))
+		set_var(g_msh->env, tokens[1], tokens[2]);
 	else
-		add_var(name, value, &(g_msh->env));
+		add_var(tokens[1], tokens[2], &(g_msh->env));
+	ft_free_table(&tokens);
 }
 
 void	msh_unsetenv(t_list *list)
 {
 	size_t	tokens_count;
-	char	*name;
+	char	**tokens;
 
-	tokens_count = ft_lstsize(list);
+	ex_tokens(list, &tokens);
+	tokens_count = ft_table_size(tokens);
 	if (tokens_count == 1)
-	{
 		ft_dprintf(2, "unsetenv: Not enough arguments.\n");
-		return ;
-	}
 	else if (tokens_count > 2)
-	{
 		ft_dprintf(2, "unsetenv: Too many arguments.\n");
-		return ;
-	}
-	name = ((t_token*)list->next->content)->line;
-	ft_lst_remove_if(&(g_msh->env), name, &cmp_var, &delete_var);
+	else
+		ft_lst_remove_if(&(g_msh->env), tokens[1], &cmp_var, &delete_var);
+	ft_free_table(&tokens);
 }
 
 void	msh_exit(t_list *list)

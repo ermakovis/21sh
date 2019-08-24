@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_getpath.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:12:38 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:13:26 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-int		ex_check_executable(char *path)
+int			ex_check_executable(char *path)
 {
 	if (!(ft_test_path(path) & 1))
 	{
@@ -37,6 +49,17 @@ static void	eg_get_full_path(char *path, char *token, char **cmd)
 		*cmd = eg_exec_join(path, token);
 }
 
+static int	ex_getpath_nopath(char *token, char **cmd)
+{
+	if (ft_test_path(token))
+	{
+		*cmd = token;
+		return (SUCCESS);
+	}
+	ft_dprintf(2, "%s: command not found\n", token);
+	return (FAILURE);
+}
+
 int			ex_getpath(char *token, char **cmd)
 {
 	int		i;
@@ -46,10 +69,10 @@ int			ex_getpath(char *token, char **cmd)
 	if (!token || !*token)
 		return (FAILURE);
 	if (!(paths_env = find_var(g_msh->env, "PATH")))
-		return (FAILURE);
-	i = -1;
+		return (ex_getpath_nopath(token, cmd));
 	if (!(paths = ft_strsplit(paths_env, ':')))
-		cleanup(-1, "Malloc failed at ex_command_getpath");
+		return (ex_getpath_nopath(token, cmd));
+	i = -1;
 	while (paths[++i])
 	{
 		eg_get_full_path(paths[i], token, cmd);
@@ -60,9 +83,6 @@ int			ex_getpath(char *token, char **cmd)
 	}
 	ft_free_table(&paths);
 	if (*cmd == NULL)
-	{
-		ft_dprintf(2, "%s: command not found\n", token);
-		return (FAILURE);
-	}
+		return (ex_getpath_nopath(token, cmd));
 	return (SUCCESS);
 }

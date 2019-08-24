@@ -1,35 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_pipe.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:18:19 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:23:46 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-//static int	ex_pipe_edge(t_ast *ast)
-//{
-//	char	**tokens;
-//	char	**env;
-//	char	*cmd;
-//	int		ret;
-//
-//	cmd = NULL;
-//	ret = SUCCESS;
-//	ex_redirections(ast->token);
-//	ex_tokens_assignments(&ast->token);
-//	if (ast->token == NULL)
-//		return (SUCCESS);
-//	ex_env(&env);
-//	ex_tokens(ast, &tokens);
-//	if (ex_builtin(tokens) == SUCCESS)
-//		ret = SUCCESS;
-//	else if (ex_getpath(tokens[0], &cmd) == FAILURE)
-//		ret = FAILURE;
-//	else if (ex_check_executable(cmd) == FAILURE)
-//		ret = FAILURE;
-//	else if ((ret = execve(cmd, tokens, env) == -1))
-//		ft_dprintf(2, "%s: launch failed\n", cmd);
-//	ft_memdel((void**)&cmd);
-//	ft_free_table(&env);
-//	ft_free_table(&tokens);
-//	return (ret);
-//}
-
-static int			ex_pipe_right(t_ast *ast, int fd[2])
+static int		ex_pipe_right(t_ast *ast, int fd[2])
 {
 	pid_t	pid;
 	int		status;
@@ -42,9 +25,9 @@ static int			ex_pipe_right(t_ast *ast, int fd[2])
 			return (FAILURE);
 		close(fd[1]);
 		if (ast->parent->parent && ast->parent->parent->operator_type == PIPE)
-			exit (ex_pipe_switch(ast, ast->parent->parent->right));
+			exit(ex_pipe_switch(ast, ast->parent->parent->right));
 		else
-			exit (ex_command(ast));
+			exit(ex_command(ast));
 	}
 	else
 	{
@@ -52,14 +35,13 @@ static int			ex_pipe_right(t_ast *ast, int fd[2])
 		waitpid(pid, &status, 0);
 	}
 	return (SUCCESS);
-};
+}
 
-int			ex_pipe_switch(t_ast *left, t_ast *right)
+int				ex_pipe_switch(t_ast *left, t_ast *right)
 {
 	pid_t	pid;
-	int		status;
 	int		fd[2];
-		
+
 	if (pipe(fd) == -1)
 		return (FAILURE);
 	if ((pid = fork()) == -1)
@@ -69,7 +51,7 @@ int			ex_pipe_switch(t_ast *left, t_ast *right)
 		close(fd[0]);
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
 			return (FAILURE);
-		exit (ex_command(left));
+		exit(ex_command(left));
 	}
 	else
 	{
@@ -78,13 +60,12 @@ int			ex_pipe_switch(t_ast *left, t_ast *right)
 		waitpid(pid, NULL, 0);
 	}
 	return (SUCCESS);
-};
+}
 
-int			ex_pipe(t_ast *ast)
+int				ex_pipe(t_ast *ast)
 {
 	if (!ast->left)
 		return (ex_pipe_switch(ast, ast->parent->right));
 	else
 		return (ex_pipe(ast->left));
 }
-

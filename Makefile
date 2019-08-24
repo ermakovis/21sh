@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/08/24 11:53:34 by tcase            ###   ########.fr        #
+#    Updated: 2019/08/24 19:03:44 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -83,31 +83,31 @@ all: $(NAME)
 $(NAME) : $(OBJ)
 	@make -s -C $(LIB_DIR)
 	@$(CC) -o $(NAME) $(SRC) $(RL) $(LX) $(PR) $(EXE) $(UT)\
-		$(LIB_DIR)/libft.a $(INC) -lcurses
+		$(LIB_DIR)/libft.a $(INC) -lcurses $(FLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p obj
-	@$(CC) -o $@ -c $< $(INC) 
+	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
 	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
 
 $(OBJ_DIR)/%.o: $(RL_DIR)/%.c
-	@$(CC) -o $@ -c $< $(INC) 
+	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
 	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
 
 $(OBJ_DIR)/%.o: $(LX_DIR)/%.c
-	@$(CC) -o $@ -c $< $(INC) 
+	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
 	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
 
 $(OBJ_DIR)/%.o: $(PR_DIR)/%.c
-	@$(CC) -o $@ -c $< $(INC) 
+	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
 	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
 
 $(OBJ_DIR)/%.o: $(EXE_DIR)/%.c
-	@$(CC) -o $@ -c $< $(INC) 
+	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
 	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
 
 $(OBJ_DIR)/%.o: $(UT_DIR)/%.c
-	@$(CC) -o $@ -c $< $(INC) 
+	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
 	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
 
 clean:

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_redirections_agreg.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:09:45 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:09:55 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 void		ex_redirections_agreg_more(char *redir, char *word)
@@ -40,4 +52,3 @@ void		ex_redirections_agreg(t_list *list)
 	else if (token->operator_type == LESS_AND)
 		return (ex_redirections_agreg_less(token->line, word));
 }
-

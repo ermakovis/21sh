@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pr_ast_functions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 18:59:58 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:06:48 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 t_ast		*pr_ast_create_node(t_ast *node, t_ast *left, t_ast *right)
@@ -40,9 +52,9 @@ t_ast		*pr_ast_create_leaf(int delim)
 		return (NULL);
 	size = sizeof(t_ast);
 	if (!(new = (t_ast*)malloc(size)))
-		cleanup (-1, "Malloc failed at ast_create_leaf");
+		cleanup(-1, "Malloc failed at ast_create_leaf");
 	ft_bzero(new, size);
-	new->token=g_msh->tokens;
+	new->token = g_msh->tokens;
 	new->node_type = ((t_token*)g_msh->tokens->content)->token_type;
 	new->operator_type = ((t_token*)g_msh->tokens->content)->operator_type;
 	pr_ast_create_leaf_delim(delim);
@@ -51,14 +63,12 @@ t_ast		*pr_ast_create_leaf(int delim)
 
 void		pr_ast_print(t_ast *ast, int lvl)
 {
-	t_token		*token;
-
 	if (lvl == 0)
 		ft_printf("--------AST---------\n");
 	if (!ast)
-		return;
+		return ;
 	if (ast->left)
-		pr_ast_print(ast->left,  ++lvl);
+		pr_ast_print(ast->left, ++lvl);
 	else
 		++lvl;
 	ft_printf("%*.s*****\n%*.s", lvl * 4, " ", lvl * 4, " ");
@@ -75,7 +85,7 @@ void		pr_ast_print(t_ast *ast, int lvl)
 void		pr_ast_del(t_ast **ast)
 {
 	if (!*ast)
-		return;
+		return ;
 	pr_ast_del(&(*ast)->left);
 	pr_ast_del(&(*ast)->right);
 	ft_lstdel(&(*ast)->token, &del_token);

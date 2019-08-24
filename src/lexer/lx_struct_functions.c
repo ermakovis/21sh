@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lx_struct_functions.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 18:56:43 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 18:56:56 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 void		print_token(t_list *list)
@@ -48,7 +60,7 @@ void		del_token(void *content, size_t size)
 	t_token		*token;
 
 	if (!content)
-		return;
+		return ;
 	(void)size;
 	token = content;
 	ft_memdel((void**)&(token->line));

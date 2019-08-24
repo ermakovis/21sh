@@ -6,20 +6,20 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:57:08 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 11:38:25 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 18:46:35 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void		rl_print_char(char ch)
+void		rl_print_char(long ch)
 {
 	t_rl	*rl;
 
 	rl = g_msh->rl;
 	realloc_check(&(rl->line), rl->line_len);
 	ft_printf("%s", g_msh->cmd->insert_mode_on);
-	ft_printf("%c", ch);
+	ft_printf("%C", ch);
 	if (rl->cur_pos != rl->line_len)
 		ft_memmove(&(rl->line[rl->cur_pos + 1]), &(rl->line[rl->cur_pos]),\
 				rl->line_len - rl->cur_pos);

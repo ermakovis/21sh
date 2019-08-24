@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:24:47 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:25:39 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
-#include <sys/wait.h>
+# include <sys/wait.h>
 
 /*
 **	execute.c
@@ -58,7 +70,7 @@ int			ex_pipe_switch(t_ast *left, t_ast *right);
 **	ex_tokens.c
 **	--ex_tokens_switch(t_token *token)
 */
-void		ex_tokens(t_ast *ast, char ***tokens);
+void		ex_tokens(t_list *list, char ***tokens);
 
 /*
 **	ex_tokens_expans.c

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lexer.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:27:04 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:27:35 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LEXER_H
 # define LEXER_H
 
@@ -52,7 +64,7 @@ int						lx_redirect_check(char ch);
 int						lx_redirect_get(char *line);
 
 /*
-**	lx_word_check.c		
+**	lx_word_check.c
 **	--lx_word_dqoute_len(char *line, int len)
 **	--lx_word_add_token(char *line)
 */
@@ -68,7 +80,8 @@ int						lx_assignment_get(char *line);
 /*
 **	lx_struct_functions.c
 */
-int						add_token(char *str, int line_len, int token, int operator);
+int						add_token(char *str, int line_len,\
+							int token, int operator);
 void					print_token(t_list *list);
 void					print_token_line(t_list *list);
 void					del_token(void *content, size_t size);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rl_vert_move.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 18:52:52 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 18:53:07 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static void		rl_vm_up(int term_width)
@@ -18,7 +30,7 @@ static void		rl_vm_down(int term_width)
 		rl_move_cur(RIGHT);
 }
 
-void		rl_vert_move(long ch)
+void			rl_vert_move(long ch)
 {
 	int		term_width;
 	t_wsize	wsize;
@@ -32,4 +44,3 @@ void		rl_vert_move(long ch)
 	else if (ch == DOWNLINE)
 		rl_vm_down(term_width);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_line.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 19:27:38 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 19:28:07 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef READ_LINE_H
 # define READ_LINE_H
 # include <sys/ioctl.h>
@@ -17,7 +29,7 @@
 # define PASTE			32975
 # define CUT
 # define VMODE			10127586
-# define UPLINE			18348861490813723	
+# define UPLINE			18348861490813723
 # define DOWNLINE  		18630336467524379
 # define WORD_NEXT		73883020516123
 # define WORD_BACK		74982532143899
@@ -25,7 +37,7 @@
 # define LINE_END		72783508888347
 
 /*
-**	status - to handle signal in the middle of reading process. 
+**	status - to handle signal in the middle of reading process.
 **	set to 1 on exit of readline
 */
 typedef struct			s_rl
@@ -50,7 +62,7 @@ int						get_char(long *ch);
 /*
 **  rl_input_manipulation.c
 */
-void					rl_print_char(char ch);
+void					rl_print_char(long ch);
 void					rl_del_char(long ch);
 
 /*

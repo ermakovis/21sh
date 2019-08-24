@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rl_copy_movement.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/24 18:51:57 by tcase             #+#    #+#             */
+/*   Updated: 2019/08/24 18:52:40 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static void			rl_cm_left(void)
@@ -59,22 +71,22 @@ static void			rl_cm_refresh(void)
 	rl_jump(LINE_END);
 	while (rl->line_len)
 		rl_del_char(BSPACE);
-	while(line_save[++i])
+	while (line_save[++i])
 		rl_print_char(line_save[i]);
 	ft_memdel((void**)&line_save);
 }
 
-void			rl_copy_movements(void)
+void				rl_copy_movements(void)
 {
 	long	ch;
 	t_rl	*rl;
 
 	rl = g_msh->rl;
 	rl->copy_pos = rl->cur_pos;
-	while(get_char(&ch))
+	while (get_char(&ch))
 	{
 		if (ch == VMODE)
-			break;
+			break ;
 		else if (ch == LEFT && rl->cur_pos > 0 &&\
 			rl->line[rl->cur_pos - 1] != '\n')
 			rl_cm_left();
