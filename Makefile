@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/08/11 09:39:46 by tcase            ###   ########.fr        #
+#    Updated: 2019/08/24 11:53:34 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ OBJ_DIR=./obj
 SRC_NAME=main.c
 RL_NAME=read_line.c\
 	rl_input_manipulation.c\
+	rl_move_cur.c\
 	rl_vert_move.c\
 	rl_jump.c\
 	rl_copy.c\

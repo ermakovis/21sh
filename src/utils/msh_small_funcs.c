@@ -6,76 +6,73 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:25:28 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 20:09:38 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 15:44:17 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void	msh_setenv(char	**tokens)
+void	msh_setenv(t_list *list)
 {
-	int		tokens_count;
+	size_t	tokens_count;
+	char	*name;
+	char	*value;
 
-	tokens_count = ft_table_size(tokens);
+	tokens_count = ft_lstsize(list);
 	if (tokens_count == 1)
-		msh_env(tokens);
+	{
+		msh_env(list);
+		return ;
+	}
 	else if (tokens_count > 3)
+	{
 		ft_dprintf(2, "setenv: Too many arguments.\n");
-	else if (find_var(g_msh->env, tokens[1]))
-		set_var(g_msh->env, tokens[1], tokens[2]);
+		return ;
+	}
+	name = ((t_token*)list->next->content)->line;
+	value = ((t_token*)list->next->next->content)->line;
+	if (find_var(g_msh->env, name))
+		set_var(g_msh->env, name, value);
 	else
-		add_var(tokens[1], tokens[2], &(g_msh->env));
+		add_var(name, value, &(g_msh->env));
 }
 
-void	msh_unsetenv(char **tokens)
+void	msh_unsetenv(t_list *list)
 {
 	size_t	tokens_count;
-	
-	tokens_count = ft_table_size(tokens);
+	char	*name;
+
+	tokens_count = ft_lstsize(list);
 	if (tokens_count == 1)
+	{
 		ft_dprintf(2, "unsetenv: Not enough arguments.\n");
+		return ;
+	}
 	else if (tokens_count > 2)
+	{
 		ft_dprintf(2, "unsetenv: Too many arguments.\n");
-	else
-		ft_lst_remove_if(&(g_msh->env), tokens[1], &cmp_var, &delete_var);
+		return ;
+	}
+	name = ((t_token*)list->next->content)->line;
+	ft_lst_remove_if(&(g_msh->env), name, &cmp_var, &delete_var);
 }
 
-/*
-**		placeholder for pipes, actual exits is at simple command;
-*/
-void	msh_exit(char **tokens)
+void	msh_exit(t_list *list)
 {
-	tokens = tokens;
+	(void)list;
+	set_terminal_canon();
+	cleanup(0, NULL);
 }
 
-void	msh_env(char **tokens)
+void	msh_env(t_list *list)
 {
 	size_t	tokens_count;
 
-	tokens_count = ft_table_size(tokens);
+	tokens_count = ft_lstsize(list);
 	if (tokens_count > 1)
 	{
 		ft_dprintf(2, "exit: Too many arguments.\n");
 		return ;
 	}
 	ft_lstiter(g_msh->env, &print_var);
-}
-
-void	msh_echo(char **tokens)
-{
-	int		tokens_count;
-	int		i;
-
-	i = 0;
-	tokens_count = ft_table_size(tokens);
-	if (tokens_count > 2 && ft_strnequ(tokens[1], "-n", 3))
-		i++;
-	while (tokens[++i])
-	{
-		write(STDOUT_FILENO, tokens[i], ft_strlen(tokens[i]));
-		if (tokens[i + 1])
-			write(STDOUT_FILENO, " ", 1);
-	}
-	if (!(tokens_count > 2 && ft_strnequ(tokens[1], "-n", 3)))
-		ft_printf("\n");
 }

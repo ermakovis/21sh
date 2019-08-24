@@ -1,17 +1,17 @@
 #include "msh.h"
 
-void			ex_simple_exit_check(t_list *list)
+static int ex_builtin(t_list *list)
 {
-	t_token		*token;
-	char		*word;
-
+	t_list	*list_find;
+	t_token	*token;
+	
 	token = list->content;
-	word = token->line;
-	if (ft_strequ(word, "exit"))
+	if ((list_find = ft_lst_find(g_msh->bin, token->line, &cmp_bins)))
 	{
-		set_terminal_canon();
-		cleanup(0, NULL);
+		((t_bin*)list_find->content)->func(list);
+		return (SUCCESS);
 	}
+	return (FAILURE);
 }
 
 int				ex_simple(t_ast *ast)
@@ -22,7 +22,8 @@ int				ex_simple(t_ast *ast)
 	ex_assignments(&ast->token);
 	if (ast->token == NULL)
 		return (SUCCESS);
-	ex_simple_exit_check(ast->token);
+	if (ex_builtin(ast->token) == SUCCESS)
+		return (SUCCESS);
 	if ((pid = fork()) == -1)
 		return (FAILURE);
 	if (pid == 0)

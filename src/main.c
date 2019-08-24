@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:21:25 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/11 10:59:50 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 15:01:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ void				handle_sigint(int sig)
 	(void)sig;
 	if (!g_msh->rl->status)
 	{
+		rl_jump(LINE_END);
 		ft_printf("\n");
 		display_prompt();
 	}

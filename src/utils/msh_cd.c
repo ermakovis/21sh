@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/07 16:12:43 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 19:54:14 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 16:01:22 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	msh_cd_change(char *path)
 	else if (ft_item_type(path) != 2)
 	{
 		ft_dprintf(2, "cd: %s: Not a directory\n", path);
+		return ;
 	}
 	else if (!(ret & 1))
 	{
@@ -40,17 +41,17 @@ static void	msh_cd_change(char *path)
 	set_var(g_msh->env, "PWD", getcwd(cwd, PATH_MAX));
 }
 
-void		msh_cd(char **tokens)
+void		msh_cd(t_list *list)
 {
 	int		tokens_count;
 
-	tokens_count = ft_table_size(tokens);
+	tokens_count = ft_lstsize(list);
 	if (tokens_count > 2)
 		ft_dprintf(2, "cd: Too many arguments\n");
 	else if (tokens_count == 1)
 		msh_cd_change(find_var(g_msh->env, "HOME"));
-	else if (ft_strnequ(tokens[1], "-", 2))
+	else if (ft_strnequ(((t_token*)list->next->content)->line, "-", 2))
 		msh_cd_change(find_var(g_msh->env, "OLDPWD"));
 	else
-		msh_cd_change(tokens[1]);
+		msh_cd_change(((t_token*)list->next->content)->line);
 }

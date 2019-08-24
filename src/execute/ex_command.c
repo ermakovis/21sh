@@ -22,18 +22,6 @@ static void	ex_env(char ***env)
 	*env = ret;
 }
 
-static int ex_builtin(char **tokens)
-{
-	t_list	*list;
-	
-	if ((list = ft_lst_find(g_msh->bin, tokens[0], &cmp_bins)))
-	{
-		((t_bin*)list->content)->func(tokens);
-		return (SUCCESS);
-	}
-	return (FAILURE);
-}
-
 int	ex_command(t_ast *ast)
 {
 	char	**tokens;
@@ -45,9 +33,7 @@ int	ex_command(t_ast *ast)
 	ex_redirections(ast->token);
 	ex_env(&env);
 	ex_tokens(ast, &tokens);
-	if (ex_builtin(tokens) == SUCCESS)
-		ret = SUCCESS;
-	else if (ex_getpath(tokens[0], &cmd) == FAILURE)
+	if (ex_getpath(tokens[0], &cmd) == FAILURE)
 		ret = FAILURE;
 	else if (ex_check_executable(cmd) == FAILURE)
 		ret = FAILURE;

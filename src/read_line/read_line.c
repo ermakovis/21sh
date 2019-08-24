@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:48:44 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/11 11:10:00 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 15:11:57 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int				read_line(void)
 	set_terminal_raw();
 	while (get_char(&ch))
 	{
+		//ft_printf("%ld\n", ch);
 		if (ch == 4 && g_msh->rl->line_len == 0)
 		{
 			ft_printf("\n");
@@ -94,7 +95,7 @@ int				read_line(void)
 		}
 		if (ch == '\n' && rl_quotes_check())
 		{
-			g_msh->rl->cur_pos = g_msh->rl->line_len;
+			rl_jump(LINE_END);
 			rl_print_char('\n');
 			rl_add_history();
 			g_msh->rl->status = 1;

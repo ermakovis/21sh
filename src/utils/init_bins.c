@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:08:44 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 20:20:41 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 15:47:56 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			delete_builtins(void *content, size_t size)
 	ft_memdel(&content);
 }
 
-static t_bin	*create_builtin(char *name, void (*func)(char**))
+static t_bin	*create_builtin(char *name, void (*func)(t_list *list))
 {
 	t_bin	*new;
 
@@ -40,7 +40,7 @@ static t_bin	*create_builtin(char *name, void (*func)(char**))
 	return (new);
 }
 
-static void		add_builtin(char *name, void (*func)(char**))
+static void		add_builtin(char *name, void (*func)(t_list *list))
 {
 	t_list	*new_list;
 	t_bin	*new_bin;
@@ -61,5 +61,4 @@ void			init_bins(void)
 	add_builtin("setenv", &msh_setenv);
 	add_builtin("unsetenv", &msh_unsetenv);
 	add_builtin("cd", &msh_cd);
-	add_builtin("echo", &msh_echo);
 }

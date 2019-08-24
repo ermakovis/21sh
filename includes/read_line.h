@@ -14,11 +14,11 @@
 # define DELETE			2117294875
 # define BSPACE 		127
 # define TAB			9
-# define PASTE			28699
+# define PASTE			32975
 # define CUT
-# define VMODE			30235
-# define UPLINE			71692587195163	
-# define DOWNLINE  		72792098822939
+# define VMODE			10127586
+# define UPLINE			18348861490813723	
+# define DOWNLINE  		18630336467524379
 # define WORD_NEXT		73883020516123
 # define WORD_BACK		74982532143899
 # define LINE_START		71683997260571
@@ -51,8 +51,12 @@ int						get_char(long *ch);
 **  rl_input_manipulation.c
 */
 void					rl_print_char(char ch);
-void					rl_move_cur(long ch);
 void					rl_del_char(long ch);
+
+/*
+**	rl_move_cur.c
+*/
+void					rl_move_cur(long ch);
 
 /*
 **	rl_big_move.c
@@ -60,7 +64,7 @@ void					rl_del_char(long ch);
 void					rl_jump(long ch);
 
 /*
-**	rl_updown.c
+**	rl_vert_move.c
 */
 void					rl_vert_move(long ch);
 

@@ -25,4 +25,5 @@ int			lx_assignment_get(char *line)
 	while (line[len] && ft_isprint(line[len]) && !ft_isspace(line[len]))
 		len++;
 	add_token(line, len, ASSIGNMENT, NONE);	
+	return (SUCCESS);
 }

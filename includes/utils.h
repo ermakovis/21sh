@@ -10,7 +10,7 @@ typedef struct			s_var
 typedef struct			s_bin
 {
 	char				*name;
-	void				(*func)(char**);
+	void				(*func)(t_list *list);
 }						t_bin;
 
 typedef struct			s_cmd
@@ -21,6 +21,7 @@ typedef struct			s_cmd
 	char				*clear_rest;
 	char				*cur_start;
 	char				*up;
+	char				*down;
 	char				*left;
 	char				*right;
 	char				*del;
@@ -54,17 +55,17 @@ void					delete_builtins(void *content, size_t size);
 /*
 **  msh_small_funcs.c
 */
-void					msh_exit(char **tokens);
-void					msh_env(char **tokens);
-void					msh_unsetenv(char **token);
-void					msh_setenv(char **token);
-void					msh_echo(char **token);
+void					msh_exit(t_list *list);
+void					msh_env(t_list *list);
+void					msh_unsetenv(t_list *list);
+void					msh_setenv(t_list *list);
+void					msh_echo(t_list *list);
 
 /*
 **  msh_cd.c
 **  --msh_cd_change
 */
-void					msh_cd(char **tokens);
+void					msh_cd(t_list *list);
 
 /*
 **  utils.c

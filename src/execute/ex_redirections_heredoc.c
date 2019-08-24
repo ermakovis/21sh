@@ -44,7 +44,7 @@ static void		ex_rd_heredoc_getnum(t_list *list, int *num)
 
 	token = list->content;
 	if (ft_isdigit(token->line[0]))
-		*num == ft_atoi(token->line);
+		*num = ft_atoi(token->line);
 	else
 		*num = 0;
 }
