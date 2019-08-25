@@ -6,11 +6,31 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:11:31 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:12:26 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 11:10:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+int		ex_exit_status(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+	{
+		if (WTERMSIG(status) == 6)
+			ft_dprintf(2, "%s: Abort :(\n", g_msh->shell_name);
+		else if (WTERMSIG(status) == 8)
+			ft_dprintf(2, "%s: Floating point exeption :(\n", g_msh->shell_name);
+		else if (WTERMSIG(status) == 10)
+			ft_dprintf(2, "%s: Bus error :(\n", g_msh->shell_name);
+		else if (WTERMSIG(status) == 11)
+			ft_dprintf(2, "%s: Segmentation Fault :(\n", g_msh->shell_name);
+		return (WTERMSIG(status) * -1);
+	}
+	else
+		return (FAILURE);
+}
 
 static int		ex_builtin(t_list *list)
 {
@@ -41,5 +61,5 @@ int				ex_simple(t_ast *ast)
 	if (pid == 0)
 		exit(ex_command(ast));
 	waitpid(pid, &status, 0);
-	return (SUCCESS);
+	return (ex_exit_status(status));
 }

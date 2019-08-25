@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 14:10:41 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 19:49:49 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 10:37:53 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define LEXER_V (1 << 0)
 # define PARSER_V (1 << 1)
 
-# define SUCCESS 1
-# define FAILURE 0
+# define SUCCESS 0
+# define FAILURE -1
 
 typedef struct winsize	t_wsize;
 typedef struct termios	t_term;

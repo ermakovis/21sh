@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:18:19 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 20:19:43 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 11:47:02 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,14 @@ static int		ex_pipe_right(t_ast *ast, int fd[2])
 		close(fd[1]);
 		waitpid(pid, &status, 0);
 	}
-	return (SUCCESS);
+	return (ex_exit_status(status));
 }
 
 int				ex_pipe_switch(t_ast *left, t_ast *right)
 {
 	pid_t	pid;
 	int		fd[2];
+	int		status_right;
 
 	if (pipe(fd) == -1)
 		return (FAILURE);
@@ -55,11 +56,11 @@ int				ex_pipe_switch(t_ast *left, t_ast *right)
 	}
 	else
 	{
-		ex_pipe_right(right, fd);
+		status_right = ex_pipe_right(right, fd);
 		close(fd[0]);
 		waitpid(pid, NULL, 0);
 	}
-	return (SUCCESS);
+	return (status_right);
 }
 
 int				ex_pipe(t_ast *ast)

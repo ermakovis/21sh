@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:58:41 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:06:27 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 11:07:12 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,34 @@ static t_ast	*pr_ast_create_pipe(void)
 	return (root);
 }
 
-t_ast			*pr_ast_create(void)
+static t_ast	*pr_ast_create_andor(void)
 {
 	t_ast	*root;
 	t_ast	*left;
 	t_ast	*right;
 
 	root = pr_ast_create_pipe();
-	while (((t_token*)g_msh->tokens->content)->operator_type == SEMI)
+	while (((t_token*)g_msh->tokens->content)->operator_type == OR_IF\
+			|| ((t_token*)g_msh->tokens->content)->operator_type == AND_IF)
 	{
 		left = pr_ast_create_leaf(WORD);
 		right = pr_ast_create_pipe();
+		root = pr_ast_create_node(left, root, right);
+	}
+	return (root);
+}
+
+t_ast			*pr_ast_create(void)
+{
+	t_ast	*root;
+	t_ast	*left;
+	t_ast	*right;
+
+	root = pr_ast_create_andor();
+	while (((t_token*)g_msh->tokens->content)->operator_type == SEMI)
+	{
+		left = pr_ast_create_leaf(WORD);
+		right = pr_ast_create_andor();
 		root = pr_ast_create_node(left, root, right);
 	}
 	return (root);

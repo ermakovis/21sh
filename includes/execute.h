@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:24:47 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:25:39 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 11:10:43 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int			ex_command(t_ast *ast);
 **	ex_simple.c
 */
 int			ex_simple(t_ast *ast);
+int			ex_exit_status(int status);
 
 /*
 **	ex_assignments.c
