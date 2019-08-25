@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:27:38 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:28:07 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 21:35:57 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define WORD_BACK		74982532143899
 # define LINE_START		71683997260571
 # define LINE_END		72783508888347
+# define RL_MODE		1
+# define HEREDOC_MODE	2
 
 /*
 **	status - to handle signal in the middle of reading process.
@@ -42,6 +44,7 @@
 */
 typedef struct			s_rl
 {
+	int					mode;
 	char				*line;
 	int					status;
 	int					history;
@@ -55,7 +58,7 @@ typedef struct			s_rl
 /*
 **  read_line.c
 */
-int						read_line(void);
+int						read_line(int mode);
 void					init_rl(void);
 int						get_char(long *ch);
 

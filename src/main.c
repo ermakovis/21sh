@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:21:25 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:24:00 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/24 21:36:13 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int					main(int argc, char **argv, char **env)
 	parse_params(&argc, &argv);
 	display_prompt();
 	signal(SIGINT, handle_sigint);
-	while (read_line())
+	while (read_line(RL_MODE))
 	{
 		lexer();
 		parser();

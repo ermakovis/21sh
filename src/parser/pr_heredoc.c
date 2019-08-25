@@ -6,41 +6,66 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 20:41:35 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 20:56:05 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 10:07:51 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-static char *pr_heredoc_read(t_list *list)
+static void	pr_heredoc_linetolist(t_list **list, char *line, int line_len)
+{
+	t_list	*new;
+
+	line[line_len] = 0;
+	if (!(new = ft_lstnew(line, line_len + 1)))
+		cleanup(-1, "Malloc failed at pr_heredoc_linetolist");
+	ft_lstadd_last(list, new);
+}
+
+static char *pr_heredoc_listtoline(t_list *list)
 {
 	char	*line;
 	char	*tmp;
-	char	*word;
-	char	*rl_line;
-	size_t	line_len;
 
 	line = NULL;
-	cl_rl_struct();
-	word = ((t_token*)list->next->content)->line;
-	while (read_line())
+	while (list)
 	{
-		rl_line = g_msh->rl->line;
-		line_len = ft_strlen(rl_line);
-		rl_line[line_len - 1] = 0;
-		if (ft_strequ(rl_line, word))
-			break ;
-		rl_line[line_len - 1] = '\n';
 		tmp = line;
-		if (!(line = ft_strjoin(line, rl_line)))
-			cleanup(-1, "Malloc failed at heredoc_getline");
+		line = ft_strjoin(line, list->content);
 		ft_memdel((void**)&tmp);
-		cl_rl_struct();
+		list = list->next;
 	}
 	return (line);
 }
 
-void	pr_heredoc(void)
+static char	*pr_heredoc_read(t_list *list)
+{
+	t_list	*ret_list;
+	char	*ret;
+	char	*line;
+	size_t	line_len;
+
+	line = NULL;
+	ret_list = NULL;
+	cl_rl_struct();
+	while (read_line(HEREDOC_MODE))
+	{
+		line = g_msh->rl->line;
+		line_len = ft_strlen(line);
+		line[line_len - 1] = 0;
+		if (ft_strequ(line, ((t_token*)list->next->content)->line))
+			break ;
+		line[line_len - 1] = '\n';
+		pr_heredoc_linetolist(&ret_list, line, line_len);
+		cl_rl_struct();
+	}
+	ft_lst_sort(&ret_list, &ft_strcmp);
+	ret = pr_heredoc_listtoline(ret_list);
+	ft_lstdel(&ret_list, &delete_str);
+	return (ret);
+}
+
+void		pr_heredoc(void)
 {
 	t_list		*list;
 	t_token		*token;
