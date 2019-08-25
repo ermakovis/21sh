@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:27:38 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 21:35:57 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:48:56 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,4 +110,10 @@ void					rl_history_change(int position);
 **  --tl_tab_compare
 */
 void					rl_tab(long ch);
+void					rl_tab_lastword(char **word, int *word_num);
+
+/*
+**	rl_tab_create_list.c
+*/
+int						rl_tab_create_list(void);
 #endif

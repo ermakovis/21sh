@@ -6,11 +6,22 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 14:02:50 by tcase             #+#    #+#             */
-/*   Updated: 2019/07/28 14:05:47 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:55:24 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+void			add_str(t_list **list, char *line)
+{
+	t_list	*new;
+
+	if (!line || !*line)
+		return ;
+	if (!(new = ft_lstnew(line, ft_strlen(line) + 1)))
+		cleanup(-1, "Malloc failed at add_token");
+	ft_lstadd_last(list, new);
+}
 
 void		printl_str(t_list *list)
 {

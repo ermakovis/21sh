@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/08/24 20:52:49 by tcase            ###   ########.fr        #
+#    Updated: 2019/08/25 12:50:18 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,8 @@ RL_NAME=read_line.c\
 	rl_copy_movement.c\
 	rl_history.c\
 	rl_history_change.c\
-	rl_tab.c
+	rl_tab.c\
+	rl_tab_create_list.c
 LX_NAME=lexer.c\
 	lx_operator.c\
 	lx_redirect.c\

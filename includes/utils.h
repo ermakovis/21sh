@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:28:09 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:28:28 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 12:28:47 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ char					*var_to_str(t_var *var);
 /*
 **	ut_str_functions.c
 */
+void					add_str(t_list **list, char *str);
 void					printl_str(t_list *list);
 void					delete_str(void *content, size_t size);
 
