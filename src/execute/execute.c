@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 11:14:35 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 11:03:19 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 16:04:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int			ex_orif(t_ast *ast)
 
 int			ex_andif(t_ast *ast)
 {
-	if (execute(ast->left) == FAILURE)
+	if (execute(ast->left) != SUCCESS)
 		return (FAILURE);
 	return (execute(ast->right));
 }
