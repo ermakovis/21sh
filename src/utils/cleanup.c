@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 18:58:12 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/10 21:09:08 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 14:28:05 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		cleanup(int exit_code, char *message)
 	ft_lstdel(&g_msh->var, &delete_var);
 	ft_lstdel(&g_msh->bin, &delete_builtins);
 	ft_lstdel(&g_msh->tokens, &del_token);
+	ft_memdel((void**)&g_msh->copy_buffer);
 	ft_memdel((void**)&g_msh->shell_name);
 	ft_memdel((void**)&g_msh->original_state);
 	ft_memdel((void**)&g_msh);

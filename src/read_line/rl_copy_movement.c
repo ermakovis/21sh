@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:51:57 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 18:52:40 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 14:28:49 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void				rl_copy_movements(void)
 	long	ch;
 	t_rl	*rl;
 
+	ch = 0;
 	rl = g_msh->rl;
 	rl->copy_pos = rl->cur_pos;
 	while (get_char(&ch))

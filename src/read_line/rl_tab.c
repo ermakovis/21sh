@@ -6,13 +6,13 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 20:36:53 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 12:55:21 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 13:53:46 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void		rl_tab_lastword(char **word, int *word_num)
+void			rl_tab_lastword(char **word, int *word_num)
 {
 	int		i;
 	char	*str;

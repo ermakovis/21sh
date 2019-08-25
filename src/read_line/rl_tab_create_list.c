@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/25 12:25:22 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 13:46:16 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 14:20:31 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ static int		rl_tab_create_list_first(char *line)
 		if (!(dir = opendir(paths[i])))
 			continue ;
 		while ((entry = readdir(dir)))
-		{
 			if (!ft_strncmp(entry->d_name, line, ft_strlen(line)))
 				add_str(&(g_msh->rl->tab_items), entry->d_name);
-		}
 		closedir(dir);
 	}
 	ft_free_table(&paths);
@@ -70,7 +68,7 @@ static char		*rl_tab_get_cmpline(char *path, char *entry)
 
 	path_len = ft_strlen(path);
 	entry_len = ft_strlen(entry);
-	if (!(ret  = ft_strnew(path_len + entry_len + 1)))
+	if (!(ret = ft_strnew(path_len + entry_len + 1)))
 		cleanup(-1, "Malloc failed at rl_tab_get_cmpline");
 	ft_memcpy(ret, path, path_len);
 	ret[path_len] = '/';
@@ -105,7 +103,7 @@ static int		rl_tab_create_list_secondplus(char *line)
 	return (SUCCESS);
 }
 
-int		rl_tab_create_list(void)
+int				rl_tab_create_list(void)
 {
 	char	*word;
 	int		word_number;

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 14:10:41 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 10:37:53 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 14:34:45 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,10 @@ t_msh					*g_msh;
 
 /*
 **  main.c
+**	cycle_cleanup(void)
+**	parse_params(int *ac, char **av)
+**	add_flag(char *str)
+**  handle_sigine(int sig)
 */
-void					set_terminal_canon(void);
-void					set_terminal_raw(void);
 
 #endif

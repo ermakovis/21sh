@@ -6,13 +6,13 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 14:02:50 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 12:55:24 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 13:54:11 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-void			add_str(t_list **list, char *line)
+void		add_str(t_list **list, char *line)
 {
 	t_list	*new;
 

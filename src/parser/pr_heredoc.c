@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 20:41:35 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 10:07:51 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 13:50:56 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	pr_heredoc_linetolist(t_list **list, char *line, int line_len)
 	ft_lstadd_last(list, new);
 }
 
-static char *pr_heredoc_listtoline(t_list *list)
+static char	*pr_heredoc_listtoline(t_list *list)
 {
 	char	*line;
 	char	*tmp;

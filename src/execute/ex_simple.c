@@ -6,26 +6,29 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:11:31 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 11:10:16 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 13:50:19 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-int		ex_exit_status(int status)
+int				ex_exit_status(int status)
 {
+	char	*name;
+
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	else if (WIFSIGNALED(status))
 	{
+		name = g_msh->shell_name;
 		if (WTERMSIG(status) == 6)
-			ft_dprintf(2, "%s: Abort :(\n", g_msh->shell_name);
+			ft_dprintf(2, "%s: Abort :(\n", name);
 		else if (WTERMSIG(status) == 8)
-			ft_dprintf(2, "%s: Floating point exeption :(\n", g_msh->shell_name);
+			ft_dprintf(2, "%s: Floating point exeption :(\n", name);
 		else if (WTERMSIG(status) == 10)
-			ft_dprintf(2, "%s: Bus error :(\n", g_msh->shell_name);
+			ft_dprintf(2, "%s: Bus error :(\n", name);
 		else if (WTERMSIG(status) == 11)
-			ft_dprintf(2, "%s: Segmentation Fault :(\n", g_msh->shell_name);
+			ft_dprintf(2, "%s: Segmentation Fault :(\n", name);
 		return (WTERMSIG(status) * -1);
 	}
 	else

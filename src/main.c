@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:21:25 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 21:36:13 by tcase            ###   ########.fr       */
+/*   Updated: 2019/08/25 14:06:44 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static void			parse_params(int *ac, char ***av)
 void				handle_sigint(int sig)
 {
 	(void)sig;
-	if (!g_msh->rl->status)
+	if (g_msh && g_msh->rl && !g_msh->rl->status)
 	{
 		rl_jump(LINE_END);
 		ft_printf("\n");
