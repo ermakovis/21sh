@@ -43,20 +43,6 @@ static void			parse_params(int *ac, char ***av)
 	*ac = *ac - count;
 }
 
-void				handle_sigint(int sig)
-{
-	(void)sig;
-	if (g_msh && g_msh->rl && !g_msh->rl->status)
-	{
-		rl_jump(LINE_END);
-		ft_printf("\n");
-		display_prompt();
-	}
-	ft_printf("%s", g_msh->cmd->highlight_mode_off);
-	cl_rl_struct();
-	init_rl();
-}
-
 static void			cycle_cleanup(void)
 {
 	ft_lstdel(&g_msh->tokens, &del_token);
@@ -70,7 +56,7 @@ int					main(int argc, char **argv, char **env)
 	init(env);
 	parse_params(&argc, &argv);
 	display_prompt();
-	signal(SIGINT, handle_sigint);
+	ut_signal_parent();
 	while (read_line(RL_MODE))
 	{
 		lexer();

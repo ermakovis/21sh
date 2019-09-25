@@ -24,6 +24,12 @@ typedef struct			s_bin
 	char				*name;
 	void				(*func)(t_list *list);
 }						t_bin;
+ 
+typedef struct			s_job
+{
+	pid_t				pid;
+	char				*cmd_line;
+}						t_job;
 
 typedef struct			s_cmd
 {
@@ -106,10 +112,26 @@ void					add_var(char *name, char *value, t_list **alist);
 void					delete_var(void *content, size_t size);
 
 /*
+**	ut_job_functions.c
+*/
+int						cmp_job(t_job *job, t_job *data_ref);
+void					print_job(t_list *list);
+void					del_job(void *content, size_t content_size);
+t_job					*get_job(pid_t pid, char *cmd_line);
+void					add_job(t_list **alist, t_job *job);
+
+/*
 **	ut_terminal_mods.c
 */
 void					set_terminal_raw(void);
 void					set_terminal_canon(void);
+
+/*
+**	ut_signals.c
+*/
+void					ut_signal_sigint(int sig);
+void					ut_signal_parent(void);
+void					ut_signal_child(void);
 
 /*
 **  cleanup.c

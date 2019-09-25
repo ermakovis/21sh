@@ -67,7 +67,14 @@ static void		init_orig_state(void)
 
 	if (!(orig = (t_term*)malloc(sizeof(t_term))))
 		cleanup(-1, "Failed to malloc for terminal state structure");
-	if (tcgetattr(0, orig) == -1)
+	while (tcgetpgrp(STDOUT_FILENO) != (g_msh->pid = getpgrp()))
+		kill(-g_msh->pid, SIGTTIN);
+	g_msh->pid = getpid();
+	if (setpgid(g_msh->pid, g_msh->pid) < 0)
+		cleanup(-1, "Couldn't put shell in its own process group");
+	if (tcsetpgrp(STDOUT_FILENO, g_msh->pid) == -1)
+		cleanup(-1, "Couldn't get control of terminal");
+	if (tcgetattr(STDOUT_FILENO, orig) == -1)
 		cleanup(-1, "Failed to save terminal original state");
 	g_msh->original_state = orig;
 }

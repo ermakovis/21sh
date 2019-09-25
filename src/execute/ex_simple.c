@@ -54,6 +54,7 @@ int				ex_simple(t_ast *ast)
 	pid_t		pid;
 	int			status;
 
+	status = SUCCESS;
 	ex_assignments(&ast->token);
 	if (ast->token == NULL)
 		return (SUCCESS);
@@ -63,6 +64,7 @@ int				ex_simple(t_ast *ast)
 		return (FAILURE);
 	if (pid == 0)
 		exit(ex_command(ast));
-	waitpid(pid, &status, 0);
+//	waitpid(pid, &status, WUNTRACED);
+	status = ex_job(pid, ast);	
 	return (ex_exit_status(status));
 }

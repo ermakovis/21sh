@@ -90,6 +90,7 @@ void				ft_putnbr_fd(int n, int fd);
 t_list				*ft_lstnew(const void *content, size_t content_size);
 void				ft_lst_remove_if(t_list **alist, void *data_ref,\
 						int (*cmp)(), void (*del)());
+void				ft_lst_remove(t_list **alist, t_list *ref, void (*del)());
 t_list				*ft_lst_find(t_list *alist, void *data_ref, int (*cmp)());
 t_list				*ft_lst_num(t_list *alist, size_t num);
 void				ft_lst_sort(t_list **alist, int (*cmp)());
@@ -102,6 +103,8 @@ void				ft_lstadd_last(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *new));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_lstsize(t_list *list);
+size_t				ft_lstget_pos(t_list *alist, void *data_red,\
+						int (*cmp)());
 int					ft_strclen(char *str, char *str2);
 void				ft_strtoupper(char *str);
 void				ft_swap(char *a, char *b);

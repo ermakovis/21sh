@@ -49,6 +49,7 @@ PR_NAME=parser.c\
 	pr_ast_functions.c
 EXE_NAME=execute.c\
 	ex_simple.c\
+	ex_job.c\
 	ex_pipe.c\
 	ex_command.c\
 	ex_getpath.c\
@@ -66,7 +67,9 @@ UT_NAME=init.c\
 	utils.c\
 	ut_str_functions.c\
 	ut_var_functions.c\
+	ut_job_functions.c\
 	ut_terminal_mods.c\
+	ut_signals.c\
 	msh_small_funcs.c\
 	msh_cd.c\
 	cleanup.c

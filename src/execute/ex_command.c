@@ -45,6 +45,7 @@ int				ex_command(t_ast *ast)
 	ex_redirections(ast->token);
 	ex_env(&env);
 	ex_tokens(ast->token, &tokens);
+	ut_signal_child();
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
 		ret = FAILURE;
 	else if (ex_check_executable(cmd) == FAILURE)

@@ -35,6 +35,11 @@ int			ex_simple(t_ast *ast);
 int			ex_exit_status(int status);
 
 /*
+**	ex_job.c
+*/
+int			ex_job(pid_t pid, t_ast *ast);
+
+/*
 **	ex_assignments.c
 */
 void		ex_assignments(t_list **list);

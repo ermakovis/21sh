@@ -40,6 +40,7 @@ typedef struct dirent	t_dir;
 
 typedef struct			s_msh
 {
+	pid_t				pid;
 	int					display_flags;
 	char				*shell_name;
 	char				*copy_buffer;
@@ -48,6 +49,7 @@ typedef struct			s_msh
 	t_term				*original_state;
 	t_ast				*ast;
 	t_list				*tokens;
+	t_list				*jobs;
 	t_list				*var;
 	t_list				*env;
 	t_list				*bin;

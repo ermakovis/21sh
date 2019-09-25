@@ -20,6 +20,7 @@ typedef struct		s_ast
 	struct s_ast	*right;
 	int				node_type;
 	int				operator_type;
+	bool			bg;
 	t_list			*token;
 }					t_ast;
 
