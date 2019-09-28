@@ -72,6 +72,8 @@ UT_NAME=init.c\
 	ut_signals.c\
 	msh_small_funcs.c\
 	msh_cd.c\
+	msh_jobs.c\
+	msh_fg.c\
 	cleanup.c
 
 RL = $(addprefix $(OBJ_DIR)/, $(RL_NAME:.c=.o))

@@ -61,4 +61,7 @@ void			init_bins(void)
 	add_builtin("setenv", &msh_setenv);
 	add_builtin("unsetenv", &msh_unsetenv);
 	add_builtin("cd", &msh_cd);
+	add_builtin("jobs", &msh_jobs);
+	add_builtin("fg", &msh_fg);
+	//add_builtin("bg", &msh_bg);
 }

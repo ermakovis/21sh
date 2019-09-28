@@ -86,6 +86,15 @@ void					msh_echo(t_list *list);
 void					msh_cd(t_list *list);
 
 /*
+**	msh_jobs.c
+*/
+void					msh_jobs(t_list *list);
+
+/*
+**	msh_fg.c
+*/
+void					msh_fg(t_list *list);
+/*
 **  utils.c
 */
 void					realloc_check(char **old_ptr, size_t old_size);

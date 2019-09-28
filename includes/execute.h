@@ -37,7 +37,9 @@ int			ex_exit_status(int status);
 /*
 **	ex_job.c
 */
+int			ex_wait(t_job *job);
 int			ex_job(pid_t pid, t_ast *ast);
+void		ex_job_check(int sig);
 
 /*
 **	ex_assignments.c
