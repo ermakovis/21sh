@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 14:10:41 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 14:34:45 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/28 17:30:29 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include "parser.h"
 # include "utils.h"
 # include "execute.h"
+# include <signal.h>
 # include <dirent.h>
 # include <limits.h>
 # include <termios.h>

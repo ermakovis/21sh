@@ -17,7 +17,7 @@ void		msh_fg_action(int pos)
 		job = list->content;
 		tcsetpgrp(STDOUT_FILENO, job->pid);
 		if ((kill(job->pid, SIGCONT) < 0))
-			cleanup(-1, "fg: Failed to send continue signal\n");
+			ft_dprintf(2, "fg: Failed to send continue signal\n");
 		ex_wait(job);
 		tcsetpgrp(STDOUT_FILENO, g_msh->pid);
 		tcsetattr(STDOUT_FILENO, TCSADRAIN, g_msh->original_state);
@@ -29,7 +29,7 @@ void		msh_fg(t_list *list)
 	int		tokens_count;
 	char	**tokens;
 
-	ex_job_check(1);
+//	ex_job_check(1);
 	tokens_count = ft_lstsize(list);
 	ex_tokens(list, &tokens);
 	if (tokens_count == 1)

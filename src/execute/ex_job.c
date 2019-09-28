@@ -7,16 +7,18 @@ void	ex_job_check(int sig)
 	t_job	*job;
 	int		count;
 	int		status;
+	int		ret;
 
 	count = 1;
 	list = g_msh->jobs;
 	while (list)
 	{
 		job = list->content;
-		if (waitpid(job->pid, &status, WNOHANG | WCONTINUED | WUNTRACED) == -1\
+		if ((ret = waitpid(job->pid, &status, WNOHANG | WCONTINUED | WUNTRACED)) == -1\
 			&& sig)
 		{
-			ft_printf("[%d] Done    %s\n", job->cmd_line);
+			
+			ft_printf("[%d] Done    %s\n", job->pid, job->cmd_line);
 			tmp = list;
 			list = list->next;
 			ft_lst_remove(&g_msh->jobs, tmp, &del_job);
@@ -38,15 +40,15 @@ int		ex_wait(t_job *job)
 	waitpid(job->pid, &status, WUNTRACED);
 	if (WIFSTOPPED(status))
 	{
-		if (ft_lst_find(g_msh->jobs, job, &cmp_job) == 0)
+		if (!(ft_lst_find(g_msh->jobs, job, &cmp_job)))
 			add_job(&g_msh->jobs, job);
 		ft_printf("\n[%d] %d Stopped    %s\n", \
-			ft_lstget_pos(g_msh->jobs, job, &cmp_job),\
+			ft_lstget_pos(g_msh->jobs, job, &cmp_job) + 1,\
 				job->pid, job->cmd_line);
 	}
 	else
 	{
-		if ((list = ft_lst_find(g_msh->jobs, job->cmd_line, &cmp_job)) != 0)
+		if ((list = ft_lst_find(g_msh->jobs, job, &cmp_job)))
 			ft_lst_remove(&g_msh->jobs, list, &del_job);
 		else
 			del_job((void*)job, 0);

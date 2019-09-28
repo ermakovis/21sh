@@ -6,14 +6,14 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/08/25 16:15:48 by tcase            ###   ########.fr        #
+#    Updated: 2019/09/28 21:42:49 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME=msh
 
 CC=gcc
-FLAGS= -Wall -Werror -Wextra
+FLAGS=# -Wall -Werror -Wextra
 
 SRC_DIR=./src
 RL_DIR=./src/read_line

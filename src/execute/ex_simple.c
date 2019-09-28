@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:11:31 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 13:50:19 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/28 21:52:46 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int				ex_simple(t_ast *ast)
 		return (FAILURE);
 	if (pid == 0)
 		exit(ex_command(ast));
-//	waitpid(pid, &status, WUNTRACED);
+	//waitpid(pid, &status, WUNTRACED);
 	status = ex_job(pid, ast);	
 	return (ex_exit_status(status));
 }
