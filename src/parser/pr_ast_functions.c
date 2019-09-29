@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:59:58 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 20:46:39 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 10:55:23 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void		pr_ast_print(t_ast *ast, int lvl)
 		++lvl;
 	ft_printf("%*.s*****\n%*.s", lvl * 4, " ", lvl * 4, " ");
 	print_token_line(ast->token);
+	ft_printf("%d bg\n", ast->bg);
 	ft_printf("%*.s*****\n", lvl * 4, " ");
 	if (ast->right)
 		pr_ast_print(ast->right, lvl--);

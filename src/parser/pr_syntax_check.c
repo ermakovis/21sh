@@ -6,13 +6,13 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:59:21 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 18:59:44 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 10:51:43 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-int			pr_syntax_check_redirect(t_list *list)
+static int		pr_syntax_check_redirect(t_list *list)
 {
 	t_token	*token;
 
@@ -29,7 +29,7 @@ int			pr_syntax_check_redirect(t_list *list)
 	return (SUCCESS);
 }
 
-int			pr_syntax_check_agreg(t_list *list)
+static int		pr_syntax_check_agreg(t_list *list)
 {
 	t_token	*token;
 	char	*word;
@@ -50,6 +50,22 @@ int			pr_syntax_check_agreg(t_list *list)
 	return (SUCCESS);
 }
 
+static int	pr_syntax_check_background(t_list *list)
+{
+	t_token	*token;
+
+	token = list->content;
+	if (token->operator_type != AND)
+		return (SUCCESS);
+	if (list->next != 0 && ((t_token*)list->next->content)->token_type != NEWLINE)
+	{
+		ft_printf("%s: parse error near '%s'\n", g_msh->shell_name,\
+				((t_token*)list->next->content)->line);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 int			pr_syntax_check(void)
 {
 	t_list	*list;
@@ -60,6 +76,8 @@ int			pr_syntax_check(void)
 		if (pr_syntax_check_redirect(list) == FAILURE)
 			return (FAILURE);
 		if (pr_syntax_check_agreg(list) == FAILURE)
+			return (FAILURE);
+		if (pr_syntax_check_background(list) == FAILURE)
 			return (FAILURE);
 		list = list->next;
 	}
