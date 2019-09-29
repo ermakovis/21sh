@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:59:21 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 10:51:43 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 13:57:05 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 static int		pr_syntax_check_redirect(t_list *list)
 {
 	t_token	*token;
+	int		num;
 
+	num = 0;
 	token = list->content;
 	if (token->token_type != REDIRECT)
 		return (SUCCESS);
@@ -24,6 +26,11 @@ static int		pr_syntax_check_redirect(t_list *list)
 	{
 		ft_printf("%s: syntax error near unexpected token `%s'\n",\
 			g_msh->shell_name, token->line);
+		return (FAILURE);
+	}
+	if (ft_isnumber(token->line) && (num = ft_atoi(token->line)) > 2)
+	{
+		ft_printf("%s: %d: bad file descriptor\n", g_msh->shell_name, num);
 		return (FAILURE);
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:28:09 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 14:21:36 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 14:06:52 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void					ft_notrealloc(char **old_ptr, size_t old_size,\
 void					display_prompt(void);
 void					append_str(char **str, int *i, char *new);
 char					*var_to_str(t_var *var);
+int						get_char(long *ch);
 
 /*
 **	ut_str_functions.c

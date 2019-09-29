@@ -6,17 +6,11 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:48:44 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 16:21:06 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 15:30:29 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
-
-int				get_char(long *ch)
-{
-	read(STDIN_FILENO, ch, sizeof(long));
-	return (1);
-}
 
 void			init_rl(void)
 {
@@ -62,6 +56,24 @@ static int		rl_quotes_check(void)
 	return (!dquote && !squote);
 }
 
+static int		rl_bslash_check(void)
+{
+	char	*line;
+	int		len;
+
+	line = g_msh->rl->line;
+	len = ft_strlen(line);
+	if (len > 2 && line[len - 1] == '\\' && line[len - 2] == '\\')
+		return (1);
+	if (len > 1 && line[len - 1] == '\\')
+	{
+		rl_print_char('\n');
+		ft_printf("bslash> ");
+		return (0);
+	}
+	return (1);
+}
+
 static void		rl_switch(long ch)
 {
 	rl_copy(ch);
@@ -75,10 +87,6 @@ static void		rl_switch(long ch)
 		rl_print_char(ch);
 }
 
-/*
-**	need newline to be on the end of inpu
-*/
-
 int				read_line(int mode)
 {
 	long	ch;
@@ -91,7 +99,7 @@ int				read_line(int mode)
 	{
 		if (ch == 4 && g_msh->rl->line_len == 0 && ft_printf("\n"))
 			break ;
-		if (ch == '\n' && rl_quotes_check())
+		if (ch == '\n' && rl_quotes_check() && rl_bslash_check())
 		{
 			rl_jump(LINE_END);
 			rl_print_char('\n');

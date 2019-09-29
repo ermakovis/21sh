@@ -6,11 +6,17 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:59:12 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 18:39:03 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 15:30:27 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
+
+int				get_char(long *ch)
+{
+	read(STDIN_FILENO, ch, sizeof(long));
+	return (1);
+}
 
 void		realloc_check(char **old_ptr, size_t old_size)
 {

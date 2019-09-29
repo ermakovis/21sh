@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:17:46 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:17:49 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 15:38:21 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	ex_tokens_quotes_bslash(char **line, int *i, char **token)
 	(*line)++;
 	realloc_check(token, *i);
 	if (**line != '\n')
-		*token[(*i)++] = **line;
+		(*token)[(*i)++] = **line;
 }
 
 static void	ex_tokens_quotes_single(char **line, int *i, char **token)

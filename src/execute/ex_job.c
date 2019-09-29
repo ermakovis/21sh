@@ -9,7 +9,6 @@ void	ex_job_check(int sig)
 	int		status;
 	int		ret;
 
-	ft_printf("@");
 	count = 1;
 	list = g_msh->jobs;
 	while (list)

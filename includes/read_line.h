@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:27:38 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 14:34:37 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 14:07:25 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ typedef struct			s_rl
 */
 int						read_line(int mode);
 void					init_rl(void);
-int						get_char(long *ch);
 
 /*
 **  rl_input_manipulation.c

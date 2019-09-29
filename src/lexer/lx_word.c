@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:57:19 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 18:57:21 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 15:05:04 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,9 @@ int				lx_word_get(char *line)
 			return (lx_redirect_get(line));
 		if (!ft_isdigit(line[len]))
 			digit_check = 0;
-		if (line[len] == '\\')
+		if (line[len] == '\\' && line[len + 1] && line[len + 1] == '\n')
+			ft_memmove(&line[len], &line[len + 2], ft_strlen(line) - len);
+		else if (line[len] == '\\')
 			len++;
 		else if (line[len] == '\'')
 			len += ft_strclen(&line[len + 1], "'\'") + 1;

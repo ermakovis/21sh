@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:10:05 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/28 21:53:31 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 15:31:38 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ int				ex_command(t_ast *ast)
 	ex_env(&env);
 	ex_tokens(ast->token, &tokens);
 	ut_signal_child();
+	ft_print_table(tokens);
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
 		ret = FAILURE;
 	else if (ex_check_executable(cmd) == FAILURE)
