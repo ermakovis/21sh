@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:21:25 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 14:06:44 by tcase            ###   ########.fr       */
+/*   Updated: 2019/09/29 15:46:38 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void			add_flag(char *str)
 			(str[0] == '-' && str[1]))
 		{
 			ft_dprintf(2, "%s: illegal option -- %c\n",\
-				*str, g_msh->shell_name);
+				g_msh->shell_name, *str);
 			return ;
 		}
 		g_msh->display_flags |= (1 << shift);
