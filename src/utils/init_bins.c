@@ -28,7 +28,7 @@ void			delete_builtins(void *content, size_t size)
 	ft_memdel(&content);
 }
 
-static t_bin	*create_builtin(char *name, void (*func)(t_list *list))
+static t_bin	*create_builtin(char *name, int (*func)(t_list *list))
 {
 	t_bin	*new;
 
@@ -40,7 +40,7 @@ static t_bin	*create_builtin(char *name, void (*func)(t_list *list))
 	return (new);
 }
 
-static void		add_builtin(char *name, void (*func)(t_list *list))
+static void		add_builtin(char *name, int (*func)(t_list *list))
 {
 	t_list	*new_list;
 	t_bin	*new_bin;
@@ -56,12 +56,12 @@ static void		add_builtin(char *name, void (*func)(t_list *list))
 
 void			init_bins(void)
 {
-//	add_builtin("exit", &msh_exit);
-//	add_builtin("env", &msh_env);
-//	add_builtin("setenv", &msh_setenv);
-//	add_builtin("unsetenv", &msh_unsetenv);
-//	add_builtin("cd", &msh_cd);
-//	add_builtin("jobs", &msh_jobs);
-//	add_builtin("fg", &msh_fg);
+	add_builtin("exit", &bin_exit);
+	add_builtin("cd", &bin_cd);
+	add_builtin("fg", &bin_fg);
+	add_builtin("jobs", &bin_jobs);
 	//add_builtin("bg", &msh_bg);
+	add_builtin("env", &bin_env);
+	add_builtin("setenv", &bin_setenv);
+	add_builtin("unsetenv", &bin_unsetenv);
 }

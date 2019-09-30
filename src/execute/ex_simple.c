@@ -42,14 +42,11 @@ static int		ex_builtin(t_list *list)
 
 	token = list->content;
 	if ((list_find = ft_lst_find(g_msh->bin, token->line, &cmp_bins)))
-	{
-		((t_bin*)list_find->content)->func(list);
-		return (SUCCESS);
-	}
+		return (((t_bin*)list_find->content)->func(list));
 	return (FAILURE);
 }
 
-static void		ex_set_return_var(int ret)
+int			ex_set_return_var(int ret)
 {
 	char	*ret_line;
 
@@ -59,6 +56,8 @@ static void		ex_set_return_var(int ret)
 		set_var(g_msh->env, "?", ret_line);
 	else
 		add_var("?", ret_line, &g_msh->env);
+	ft_memdel((void**)&ret_line);
+	return (ret);
 }
 
 int				ex_simple(t_ast *ast)
@@ -68,11 +67,12 @@ int				ex_simple(t_ast *ast)
 	int			ret;
 
 	status = SUCCESS;
+	ex_expansions(ast->token);
 	ex_assignments(&ast->token);
 	if (ast->token == NULL)
 		return (SUCCESS);
-	if (ex_builtin(ast->token) == SUCCESS)
-		return (SUCCESS);
+	if ((ret = ex_builtin(ast->token)) != FAILURE)
+		return (ex_set_return_var(ret));
 	if ((pid = fork()) == -1)
 		return (FAILURE);
 	if (pid == 0)

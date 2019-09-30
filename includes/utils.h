@@ -22,7 +22,7 @@ typedef struct			s_var
 typedef struct			s_bin
 {
 	char				*name;
-	void				(*func)(t_list *list);
+	int					(*func)(t_list *list);
 }						t_bin;
  
 typedef struct			s_job
@@ -66,34 +66,10 @@ char					*find_var(t_list *list, char *var_name);
 **  init_bins.c
 **  --add_bin
 */
-int						cmp_bins(t_bin *bin, char *data_ref);
 void					init_bins(void);
+int						cmp_bins(t_bin *bin, char *data_ref);
 void					delete_builtins(void *content, size_t size);
 
-/*
-**  msh_small_funcs.c
-*/
-void					msh_exit(t_list *list);
-void					msh_env(t_list *list);
-void					msh_unsetenv(t_list *list);
-void					msh_setenv(t_list *list);
-void					msh_echo(t_list *list);
-
-/*
-**  msh_cd.c
-**  --msh_cd_change
-*/
-void					msh_cd(t_list *list);
-
-/*
-**	msh_jobs.c
-*/
-void					msh_jobs(t_list *list);
-
-/*
-**	msh_fg.c
-*/
-void					msh_fg(t_list *list);
 /*
 **  utils.c
 */
@@ -149,5 +125,4 @@ void					ut_signal_child(void);
 */
 void					cleanup(int exit_code, char *message);
 void					cl_rl_struct(void);
-void					cl_lch_struct(void);
 #endif

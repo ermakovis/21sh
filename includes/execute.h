@@ -23,16 +23,17 @@ int			ex_semi(t_ast *ast);
 
 /*
 **	ex_command.c
-**	--ex_builtin(char **tokens);
 **	--ex_env(char ***env);
 */
 int			ex_command(t_ast *ast);
+void		ex_tokens(char ***tokens, t_list *list);
 
 /*
 **	ex_simple.c
 */
 int			ex_simple(t_ast *ast);
 int			ex_exit_status(int status);
+int			ex_set_return_var(int ret);
 
 /*
 **	ex_job.c

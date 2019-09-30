@@ -1,6 +1,9 @@
 #include "msh.h"
 
-static void msh_jobs_reg(void)
+/*
+**	TODO: options, plus_sign
+*/
+static void bin_jobs_reg(void)
 {
 	t_list	*list;
 	t_job	*job;
@@ -17,15 +20,18 @@ static void msh_jobs_reg(void)
 	}
 }
 
-void	msh_jobs(t_list *list)
+int		bin_jobs(t_list *list)
 {
 	int		tokens_count;
 	char	**tokens;
 
+
+	if (!ft_lstsize(g_msh->jobs))
+		return (1);
 	tokens_count = ft_lstsize(list);
-	ex_tokens(list, &tokens);
+	ex_tokens(&tokens, list);
 	if (tokens_count == 1)
-		msh_jobs_reg();
-	
+		bin_jobs_reg();
 	ft_free_table(&tokens);
+	return (SUCCESS);
 }

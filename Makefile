@@ -20,6 +20,7 @@ RL_DIR=./src/read_line
 LX_DIR=./src/lexer
 PR_DIR=./src/parser
 EXE_DIR=./src/execute
+BIN_DIR=./src/builtin
 UT_DIR=./src/utils
 LIB_DIR=./libft
 OBJ_DIR=./obj
@@ -47,6 +48,11 @@ PR_NAME=parser.c\
 	pr_syntax_check.c\
 	pr_ast_create.c\
 	pr_ast_functions.c
+BIN_NAME=bin_exit.c\
+	bin_cd.c\
+	bin_fg.c\
+	bin_jobs.c\
+	bin_env.c
 EXE_NAME=execute.c\
 	ex_simple.c\
 	ex_job.c\
@@ -77,16 +83,17 @@ RL = $(addprefix $(OBJ_DIR)/, $(RL_NAME:.c=.o))
 LX = $(addprefix $(OBJ_DIR)/, $(LX_NAME:.c=.o))
 PR = $(addprefix $(OBJ_DIR)/, $(PR_NAME:.c=.o))
 EXE = $(addprefix $(OBJ_DIR)/, $(EXE_NAME:.c=.o))
+BIN = $(addprefix $(OBJ_DIR)/, $(BIN_NAME:.c=.o))
 UT = $(addprefix $(OBJ_DIR)/, $(UT_NAME:.c=.o))
 SRC = $(addprefix $(OBJ_DIR)/, $(SRC_NAME:.c=.o))
-OBJ = $(SRC) $(RL) $(LX) $(PR) $(EXE) $(UT)
+OBJ = $(SRC) $(RL) $(LX) $(PR) $(BIN) $(EXE) $(UT) 
 INC = -I ./includes -I $(LIB_DIR)/includes
 
 all: $(NAME)
 
 $(NAME) : $(OBJ)
 	@make -s -C $(LIB_DIR)
-	@$(CC) -o $(NAME) $(SRC) $(RL) $(LX) $(PR) $(EXE) $(UT)\
+	@$(CC) -o $(NAME) $(SRC) $(RL) $(LX) $(PR) $(EXE) $(UT) $(BIN)\
 		$(LIB_DIR)/libft.a $(INC) -lcurses $(FLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -111,6 +118,10 @@ $(OBJ_DIR)/%.o: $(EXE_DIR)/%.c
 	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
 
 $(OBJ_DIR)/%.o: $(UT_DIR)/%.c
+	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
+	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
+
+$(OBJ_DIR)/%.o: $(BIN_DIR)/%.c
 	@$(CC) -o $@ -c $< $(INC) $(FLAGS)
 	@echo "\033[0m\033[36m$(notdir $<)\033[1m\033[34m OK\033[0m"
 

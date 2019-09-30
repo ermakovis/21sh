@@ -17,6 +17,7 @@
 # include "lexer.h"
 # include "parser.h"
 # include "utils.h"
+# include "builtin.h"
 # include "execute.h"
 # include <signal.h>
 # include <dirent.h>

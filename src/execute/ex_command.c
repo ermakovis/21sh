@@ -34,7 +34,7 @@ static void		ex_env(char ***env)
 	*env = ret;
 }
 
-static void		ex_tokens(char ***tokens, t_list *list)
+void		ex_tokens(char ***tokens, t_list *list)
 {
 	char	**ret;
 	size_t	size;
@@ -82,7 +82,6 @@ int				ex_command(t_ast *ast)
 	ex_redirections(ast->token);
 	ex_env(&env);
 	ex_tokens(&tokens, ast->token);
-	ft_print_table(tokens);
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
 		ret = FAILURE;
 	else if (ex_check_executable(cmd) == FAILURE)
