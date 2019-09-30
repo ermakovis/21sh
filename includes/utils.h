@@ -104,6 +104,7 @@ void					display_prompt(void);
 void					append_str(char **str, int *i, char *new);
 char					*var_to_str(t_var *var);
 int						get_char(long *ch);
+int						is_special(char ch);
 
 /*
 **	ut_str_functions.c

@@ -18,6 +18,15 @@ int				get_char(long *ch)
 	return (1);
 }
 
+int		is_special(char ch)
+{
+	if (ch == '\n' || ch == '\'' || ch == '\"'\
+			|| ch == '\\' || ch == ' ' || ch == '$'\
+			|| ch == '\t' || ch == '|' || ch == ';')
+		return (1);
+	return (0);
+}
+
 void		realloc_check(char **old_ptr, size_t old_size)
 {
 	size_t	new_size;

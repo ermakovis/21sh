@@ -34,6 +34,27 @@ static void		ex_env(char ***env)
 	*env = ret;
 }
 
+static void		ex_tokens(char ***tokens, t_list *list)
+{
+	char	**ret;
+	size_t	size;
+	int		i;
+
+	i = 0;
+	if (!list)
+		return ;
+	size = ft_lstsize(list) + 1;
+	if (!(ret = (char**)malloc(sizeof(char*) * size)))
+		cleanup(-1, "Malloc failed at ex_command_env");
+	ft_bzero(ret, sizeof(char*) * size);
+	while (list)
+	{
+		ret[i++] = ft_strdup(((t_token*)list->content)->line);
+		list = list->next;
+	}
+	*tokens = ret;
+}
+
 static void		ex_command_setpgid(bool bg)
 {
 	pid_t	pid;
@@ -55,12 +76,13 @@ int				ex_command(t_ast *ast)
 	char	*cmd;
 	int		ret;
 
-	cmd = NULL;
-	ex_command_setpgid(ast->bg);
+	ut_signal_child();
+	//ex_command_setpgid(ast->bg);
+	ex_expansions(ast->token);
 	ex_redirections(ast->token);
 	ex_env(&env);
-	ex_tokens(ast->token, &tokens);
-	ut_signal_child();
+	ex_tokens(&tokens, ast->token);
+	ft_print_table(tokens);
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
 		ret = FAILURE;
 	else if (ex_check_executable(cmd) == FAILURE)

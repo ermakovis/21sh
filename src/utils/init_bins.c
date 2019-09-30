@@ -56,12 +56,12 @@ static void		add_builtin(char *name, void (*func)(t_list *list))
 
 void			init_bins(void)
 {
-	add_builtin("exit", &msh_exit);
-	add_builtin("env", &msh_env);
-	add_builtin("setenv", &msh_setenv);
-	add_builtin("unsetenv", &msh_unsetenv);
-	add_builtin("cd", &msh_cd);
-	add_builtin("jobs", &msh_jobs);
-	add_builtin("fg", &msh_fg);
+//	add_builtin("exit", &msh_exit);
+//	add_builtin("env", &msh_env);
+//	add_builtin("setenv", &msh_setenv);
+//	add_builtin("unsetenv", &msh_unsetenv);
+//	add_builtin("cd", &msh_cd);
+//	add_builtin("jobs", &msh_jobs);
+//	add_builtin("fg", &msh_fg);
 	//add_builtin("bg", &msh_bg);
 }

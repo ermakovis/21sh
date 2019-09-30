@@ -74,24 +74,32 @@ void		ex_redirections_heredoc(t_list *list);
 int			ex_pipe(t_ast *ast);
 int			ex_pipe_switch(t_ast *left, t_ast *right);
 
-/*
-**	ex_tokens.c
-**	--ex_tokens_switch(t_token *token)
-*/
-void		ex_tokens(t_list *list, char ***tokens);
+void		ex_expansions(t_list *list);
+void		append_line(char **dest, char *src, size_t buff_size);
+void		append_char(char **dest, char ch, size_t buff_size);
+void		ex_expansions_tild(t_token *token);
+void		ex_expansions_param(t_token *token);
+void		ex_expansions_remquotes(t_token *token);
 
-/*
-**	ex_tokens_expans.c
-**	--is_special(char ch);
-*/
-void		ex_tokens_expans(char **line, int *i, char **token);
-void		ex_tokens_expans_dsign(char **line, int *i, char **token);
-void		ex_tokens_expans_tild(char **line, int *i, char **tokens);
 
-/*
-**	ex_tokens_quotes.c
-*/
-void		ex_tokens_quotes(char **line, int *i, char **tokens);
+///*
+//**	ex_tokens.c
+//**	--ex_tokens_switch(t_token *token)
+//*/
+//void		ex_tokens(t_list *list, char ***tokens);
+//
+///*
+//**	ex_tokens_expans.c
+//**	--is_special(char ch);
+//*/
+//void		ex_tokens_expans(char **line, int *i, char **token);
+//void		ex_tokens_expans_dsign(char **line, int *i, char **token);
+//void		ex_tokens_expans_tild(char **line, int *i, char **tokens);
+//
+///*
+//**	ex_tokens_quotes.c
+//*/
+//void		ex_tokens_quotes(char **line, int *i, char **tokens);
 
 /*
 **	ex_command_getpath.c

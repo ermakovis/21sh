@@ -58,9 +58,10 @@ EXE_NAME=execute.c\
 	ex_redirections_simple.c\
 	ex_redirections_agreg.c\
 	ex_redirections_heredoc.c\
-	ex_tokens.c\
-	ex_tokens_expans.c\
-	ex_tokens_quotes.c
+	ex_expansions.c\
+	ex_expansions_tild.c\
+	ex_expansions_param.c\
+	ex_expansions_remquotes.c
 UT_NAME=init.c\
 	init_env.c\
 	init_bins.c\
@@ -70,10 +71,6 @@ UT_NAME=init.c\
 	ut_job_functions.c\
 	ut_terminal_mods.c\
 	ut_signals.c\
-	msh_small_funcs.c\
-	msh_cd.c\
-	msh_jobs.c\
-	msh_fg.c\
 	cleanup.c
 
 RL = $(addprefix $(OBJ_DIR)/, $(RL_NAME:.c=.o))

@@ -77,6 +77,7 @@ int				ex_simple(t_ast *ast)
 		return (FAILURE);
 	if (pid == 0)
 		exit(ex_command(ast));
+	//waitpid(pid, &status, WUNTRACED);
 	status = ex_job(pid, ast);	
 	ret = ex_exit_status(status);
 	ex_set_return_var(ret);
