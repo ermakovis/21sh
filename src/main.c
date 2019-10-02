@@ -57,11 +57,14 @@ int					main(int argc, char **argv, char **env)
 	parse_params(&argc, &argv);
 	display_prompt();
 	ut_signal_parent();
-	while (read_line(RL_MODE))
+	while (true)
 	{
-		lexer();
-		parser();
-		execute(g_msh->ast);
+		if (read_line(RL_MODE) == SUCCESS)
+		{
+			lexer();
+			parser();
+			execute(g_msh->ast);
+		}
 		cycle_cleanup();
 		display_prompt();
 	}

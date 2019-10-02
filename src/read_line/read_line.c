@@ -27,53 +27,6 @@ void			init_rl(void)
 	g_msh->rl = new_rl;
 }
 
-static int		rl_quotes_check(void)
-{
-	int		i;
-	int		dquote;
-	int		squote;
-	char	*line;
-
-	i = -1;
-	dquote = 0;
-	squote = 0;
-	line = g_msh->rl->line;
-	while (line[++i])
-	{
-		if (line[i] == '\\' && squote == 0)
-			i++;
-		else if (line[i] == '\'' && dquote == 0)
-			squote ^= 1;
-		else if (line[i] == '\"' && squote == 0)
-			dquote ^= 1;
-	}
-	if (dquote || squote)
-		rl_print_char('\n');
-	if (dquote)
-		ft_printf("dquote> ");
-	if (squote)
-		ft_printf("squote> ");
-	return (!dquote && !squote);
-}
-
-static int		rl_bslash_check(void)
-{
-	char	*line;
-	int		len;
-
-	line = g_msh->rl->line;
-	len = ft_strlen(line);
-	if (len > 2 && line[len - 1] == '\\' && line[len - 2] == '\\')
-		return (1);
-	if (len > 1 && line[len - 1] == '\\')
-	{
-		rl_print_char('\n');
-		ft_printf("bslash> ");
-		return (0);
-	}
-	return (1);
-}
-
 static void		rl_switch(long ch)
 {
 	rl_copy(ch);
@@ -90,6 +43,7 @@ static void		rl_switch(long ch)
 int				read_line(int mode)
 {
 	long	ch;
+	int		ret;
 
 	ch = 0;
 	init_rl();
@@ -97,19 +51,24 @@ int				read_line(int mode)
 	set_terminal_raw();
 	while (get_char(&ch))
 	{
-		if (ch == 4 && g_msh->rl->line_len == 0 && ft_printf("\n"))
-			break ;
-		if (ch == '\n' && rl_quotes_check() && rl_bslash_check())
-		{
+		if (ch == 4 && g_msh->rl->line_len == 0)
+			cleanup(0, "");
+		else if (ch == '\n')
+		{	
+			if ((ret = rl_newline_check()) == 2)
+				return (FAILURE); 
+			if (ret == 1)
+				continue ;
 			rl_jump(LINE_END);
 			rl_print_char('\n');
 			rl_add_history();
 			g_msh->rl->status = 1;
 			break ;
 		}
-		rl_switch(ch);
+		else 
+			rl_switch(ch);
 		ch = 0;
 	}
 	set_terminal_canon();
-	return (g_msh->rl->status);
+	return (SUCCESS);
 }

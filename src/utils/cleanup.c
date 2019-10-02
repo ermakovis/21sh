@@ -38,6 +38,8 @@ void		cleanup(int exit_code, char *message)
 		ft_dprintf(2, "%s\n", message);
 	if (!g_msh)
 		exit(exit_code);
+	if (g_msh->original_state)
+		set_terminal_canon();
 	cl_rl_struct();
 	cl_term_cmd_struct();
 	pr_ast_del(&g_msh->ast);

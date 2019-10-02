@@ -36,7 +36,8 @@ RL_NAME=read_line.c\
 	rl_history.c\
 	rl_history_change.c\
 	rl_tab.c\
-	rl_tab_create_list.c
+	rl_tab_create_list.c\
+	rl_newline_check.c
 LX_NAME=lexer.c\
 	lx_operator.c\
 	lx_redirect.c\

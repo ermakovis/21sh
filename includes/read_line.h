@@ -46,7 +46,6 @@ typedef struct			s_rl
 {
 	int					mode;
 	char				*line;
-	int					status;
 	int					history;
 	char				*history_orig;
 	t_list				*tab_items;
@@ -115,4 +114,9 @@ void					rl_tab_lastword(char **word, int *word_num);
 **	rl_tab_create_list.c
 */
 int						rl_tab_create_list(void);
+
+/*
+**	rl_newline_check.c
+*/
+int						rl_newline_check(void);
 #endif
