@@ -36,7 +36,7 @@ void	ex_expansions(t_list *list)
 		ex_expansions_param(list->content);
 		//ex_expansion_command_sub(list);
 		//ex_expansion_arithmetic(list);
-		//ex_expansion_pathname(list);
+		ex_expansions_pathname(list->content);
 		ex_expansions_remquotes(list->content);
 		list = list->next;
 	}

@@ -64,10 +64,12 @@ EXE_NAME=execute.c\
 	ex_redirections_simple.c\
 	ex_redirections_agreg.c\
 	ex_redirections_heredoc.c\
+	ex_globbing.c\
 	ex_expansions.c\
 	ex_expansions_tild.c\
 	ex_expansions_param.c\
-	ex_expansions_remquotes.c
+	ex_expansions_remquotes.c\
+	ex_expansions_pathname.c
 UT_NAME=init.c\
 	init_env.c\
 	init_bins.c\

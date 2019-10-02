@@ -68,6 +68,10 @@ void		ex_redirections_agreg(t_list *list);
 void		ex_redirections_heredoc(t_list *list);
 
 /*
+**	ex_globbing.c
+*/
+bool		ex_globbing(char *str, char *pat, char *b_str, char *b_pat);
+/*
 **	ex_pipe.c
 **	--ex_pipe_edge(t_ast *ast)
 **	--ex_pipe_right(t_ast, int fd[2]);
@@ -81,32 +85,8 @@ void		append_char(char **dest, char ch, size_t buff_size);
 void		ex_expansions_tild(t_token *token);
 void		ex_expansions_param(t_token *token);
 void		ex_expansions_remquotes(t_token *token);
+void		ex_expansions_pathname(t_token *token);
 
-
-///*
-//**	ex_tokens.c
-//**	--ex_tokens_switch(t_token *token)
-//*/
-//void		ex_tokens(t_list *list, char ***tokens);
-//
-///*
-//**	ex_tokens_expans.c
-//**	--is_special(char ch);
-//*/
-//void		ex_tokens_expans(char **line, int *i, char **token);
-//void		ex_tokens_expans_dsign(char **line, int *i, char **token);
-//void		ex_tokens_expans_tild(char **line, int *i, char **tokens);
-//
-///*
-//**	ex_tokens_quotes.c
-//*/
-//void		ex_tokens_quotes(char **line, int *i, char **tokens);
-
-/*
-**	ex_command_getpath.c
-**	--ecg_get_full_path(char *path, char *token, char **new)
-**	--ech_exec_join(char *s1, char *s2)
-*/
 int			ex_getpath(char *token, char **cmd);
 int			ex_check_executable(char *path);
 
