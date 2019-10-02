@@ -3,7 +3,7 @@
 void				ut_signal_sigint(int sig)
 {
 	(void)sig;
-	if (g_msh && g_msh->rl && !g_msh->rl->status)
+	if (g_msh && g_msh->rl)
 	{
 		rl_jump(LINE_END);
 		ft_printf("\n");

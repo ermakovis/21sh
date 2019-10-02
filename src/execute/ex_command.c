@@ -12,7 +12,7 @@
 
 #include "msh.h"
 
-static void		ex_env(char ***env)
+void		ex_env(char ***env)
 {
 	t_list	*env_list;
 	char	**ret;
@@ -55,10 +55,11 @@ void		ex_tokens(char ***tokens, t_list *list)
 	*tokens = ret;
 }
 
-static void		ex_command_setpgid(bool bg)
+void		ex_command_setpgid(bool bg)
 {
 	pid_t	pid;
 
+	return ;
 	pid = getpid();
 	if (bg == 0)
 	{
@@ -67,29 +68,4 @@ static void		ex_command_setpgid(bool bg)
 	}
 	else
 		tcsetpgrp(STDOUT_FILENO, g_msh->pid);
-}
-
-int				ex_command(t_ast *ast)
-{
-	char	**tokens;
-	char	**env;
-	char	*cmd;
-	int		ret;
-
-	ut_signal_child();
-	//ex_command_setpgid(ast->bg);
-	ex_expansions(ast->token);
-	ex_redirections(ast->token);
-	ex_env(&env);
-	ex_tokens(&tokens, ast->token);
-	if (ex_getpath(tokens[0], &cmd) == FAILURE)
-		ret = FAILURE;
-	else if (ex_check_executable(cmd) == FAILURE)
-		ret = FAILURE;
-	else if ((ret = execve(cmd, tokens, env) == -1))
-		ft_dprintf(2, "%s: launch failed\n", cmd);
-	ft_memdel((void**)&cmd);
-	ft_free_table(&env);
-	ft_free_table(&tokens);
-	return (ret);
 }

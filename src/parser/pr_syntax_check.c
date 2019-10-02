@@ -87,7 +87,7 @@ static int	pr_syntax_check_pipe(t_list *list)
 			ft_printf("%s: unexpected token near `|'\n", g_msh->shell_name);
 			return (FAILURE);
 		}
-		if (token->operator_type == PIPE && !list->next)
+		if (token->operator_type == PIPE && list->next)
 		{
 			token = list->next->content;
 			if (token->operator_type == SEMI || token->operator_type == AND_IF\
@@ -107,6 +107,8 @@ int			pr_syntax_check(void)
 	t_list	*list;
 
 	list = g_msh->tokens;
+	if (pr_syntax_check_pipe(list) == FAILURE)
+		return (FAILURE);
 	while (list)
 	{
 		if (pr_syntax_check_redirect(list) == FAILURE)
@@ -114,8 +116,6 @@ int			pr_syntax_check(void)
 		if (pr_syntax_check_agreg(list) == FAILURE)
 			return (FAILURE);
 		if (pr_syntax_check_background(list) == FAILURE)
-			return (FAILURE);
-		if (pr_syntax_check_pipe(list) == FAILURE)
 			return (FAILURE);
 		list = list->next;
 	}

@@ -23,10 +23,11 @@ int			ex_semi(t_ast *ast);
 
 /*
 **	ex_command.c
-**	--ex_env(char ***env);
 */
 int			ex_command(t_ast *ast);
 void		ex_tokens(char ***tokens, t_list *list);
+void		ex_env(char ***env);
+void		ex_command_setpgid(bool bg);
 
 /*
 **	ex_simple.c

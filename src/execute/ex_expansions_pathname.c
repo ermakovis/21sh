@@ -51,6 +51,6 @@ void		ex_expansions_pathname(t_token *token)
 
 		}
 	}
-	
-	return ;
+	ft_strdel(&path);
+	ft_strdel(&pat);
 }

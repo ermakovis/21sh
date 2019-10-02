@@ -62,7 +62,6 @@ int				read_line(int mode)
 			rl_jump(LINE_END);
 			rl_print_char('\n');
 			rl_add_history();
-			g_msh->rl->status = 1;
 			break ;
 		}
 		else 
