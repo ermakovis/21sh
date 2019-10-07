@@ -21,7 +21,7 @@ int				ex_pipe_exec(t_ast *ast)
 
 	ut_signal_child();
 	ex_command_setpgid(ast->bg);
-	ex_expansions(ast->token);
+	ex_expansions(&ast->token);
 	ex_redirections(ast->token);
 	ex_env(&env);
 	ex_tokens(&tokens, ast->token);
@@ -41,6 +41,7 @@ static int		ex_pipe_right(t_ast *ast, int fd[2])
 {
 	pid_t	pid;
 	int		status;
+	int		ret;
 
 	if ((pid = fork()) == -1)
 		cleanup(-1, "Fork failed at ex_pipe_right");
@@ -54,11 +55,11 @@ static int		ex_pipe_right(t_ast *ast, int fd[2])
 		else
 			exit(ex_pipe_exec(ast));
 	}
-	else
-	{
-		close(fd[1]);
-		waitpid(pid, &status, 0);
-	}
+	close(fd[1]);
+	status = ex_job(pid, ast);	
+	ret = ex_exit_status(status);
+	ex_set_return_var(ret);
+	//	waitpid(pid, &status, 0);
 	return (ex_exit_status(status));
 }
 
@@ -77,7 +78,7 @@ int				ex_pipe_switch(t_ast *left, t_ast *right)
 		close(fd[0]);
 		if (dup2(fd[1], STDOUT_FILENO) == -1)
 			return (FAILURE);
-		exit(ex_command(left));
+		exit(ex_pipe_exec(left));
 	}
 	else
 	{

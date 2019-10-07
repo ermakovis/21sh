@@ -28,29 +28,61 @@ static bool	ex_exp_pathname_split(char *line, char **path, char **pat)
 	return (true);
 }
 
-void		ex_expansions_pathname(t_token *token)
+static t_list	*ex_exp_pathname_cycle(DIR *dir, char *path, char *pat)
+{
+	t_dir	*entry;
+	t_list	*list;
+	char	*join_line;
+
+	list = 0;
+	while ((entry = readdir(dir)))
+	{
+		if (ft_strcmp(entry->d_name, "..") &&\
+			ft_strcmp(entry->d_name, ".") &&\
+			ex_globbing(entry->d_name, pat, 0, 0))
+		{
+			if (!(join_line = ft_strjoin(path, entry->d_name)))
+				cleanup(-1, "Malloc failed at ex_exp_pathname_cycle");
+			add_full_token(&list, join_line, WORD, NONE);
+			ft_strdel(&join_line);
+		}
+	}
+	if (list)
+		ft_lst_sort(&list, &cmp_token);
+	return (list);
+}
+
+static void	ex_exp_pathname_insert(t_list **alist, t_list **list, t_list *new)
+{
+	t_list	*tmp;
+
+	tmp = new;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = (*alist)->next;
+	(*alist)->next = new;
+	ft_lst_remove(alist, *list, &del_token);
+	*list = tmp;
+}
+
+void		ex_expansions_pathname(t_list **alist, t_list **list)
 {
 	char	*path;
 	char	*pat;
-	char	*ret;
 	DIR		*dir;
-	t_dir	*entry;
+	t_token	*token;
+	t_list	*new_list;
 
+	token = (*list)->content;
 	if (!token->line)
 		return ;
 	if (!(ex_exp_pathname_split(token->line, &path, &pat)))
 		return ;	
 	if ((dir = opendir(path)))
-	{
-		while ((entry = readdir(dir)))
-		{
-			if (ex_globbing(entry->d_name, pat, 0, 0))
-			{
-				ft_printf("%s%s\n", path, entry->d_name);	
-			}
-
-		}
-	}
+		if ((new_list = ex_exp_pathname_cycle(dir, path, pat)))
+			ex_exp_pathname_insert(alist, list, new_list);
+	if (dir)
+		closedir(dir);
 	ft_strdel(&path);
 	ft_strdel(&pat);
 }

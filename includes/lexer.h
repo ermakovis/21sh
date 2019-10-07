@@ -81,6 +81,10 @@ int						lx_assignment_get(char *line);
 /*
 **	lx_struct_functions.c
 */
+
+int						cmp_token(t_token *token_a, t_token *token_b);
+void					add_full_token(t_list **alist, char *line, \
+							int token, int operator);
 int						add_token(char *str, int line_len,\
 							int token, int operator);
 void					print_token(t_list *list);

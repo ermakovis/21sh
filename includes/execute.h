@@ -80,13 +80,13 @@ bool		ex_globbing(char *str, char *pat, char *b_str, char *b_pat);
 int			ex_pipe(t_ast *ast);
 int			ex_pipe_switch(t_ast *left, t_ast *right);
 
-void		ex_expansions(t_list *list);
+void		ex_expansions(t_list **list);
 void		append_line(char **dest, char *src, size_t buff_size);
 void		append_char(char **dest, char ch, size_t buff_size);
 void		ex_expansions_tild(t_token *token);
 void		ex_expansions_param(t_token *token);
 void		ex_expansions_remquotes(t_token *token);
-void		ex_expansions_pathname(t_token *token);
+void		ex_expansions_pathname(t_list **alist, t_list **list);
 
 int			ex_getpath(char *token, char **cmd);
 int			ex_check_executable(char *path);

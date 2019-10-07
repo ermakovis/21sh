@@ -91,7 +91,7 @@ int				ex_simple(t_ast *ast)
 	int			ret;
 
 	status = SUCCESS;
-	ex_expansions(ast->token);
+	ex_expansions(&ast->token);
 	ex_assignments(&ast->token);
 	if (ast->token == NULL)
 		return (SUCCESS);
@@ -101,7 +101,6 @@ int				ex_simple(t_ast *ast)
 		return (FAILURE);
 	if (pid == 0)
 		exit(ex_simple_exec(ast));
-	//waitpid(pid, &status, WUNTRACED);
 	status = ex_job(pid, ast);	
 	ret = ex_exit_status(status);
 	ex_set_return_var(ret);

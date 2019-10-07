@@ -34,6 +34,31 @@ void		print_token_line(t_list *list)
 	ft_printf("\n");
 }
 
+int			cmp_token(t_token *token_a, t_token *token_b)
+{
+	return (ft_strcmp(token_a->line, token_b->line));
+}
+
+void		add_full_token(t_list **alist, char *line, int token, int operator)
+{
+	t_list		*new_list;
+	t_token		*new;
+	size_t		size;
+
+	size = sizeof(t_token);
+	if (!(new = (t_token*)malloc(size)))
+		cleanup(-1, "Malloc failed at add_token");
+	ft_bzero(new, size);
+	if (!(new->line = ft_strdup(line)))
+		cleanup(-1, "Malloc failed at add_token 1");
+	new->token_type = token;
+	new->operator_type = operator;
+	if (!(new_list = ft_lstnew(new, size)))
+		cleanup(-1, "Malloc failed at add_token 2");
+	ft_memdel((void**)&new);
+	ft_lstadd_last(alist, new_list);
+}
+
 int			add_token(char *line, int line_len, int token, int operator)
 {
 	t_list		*new_list;
