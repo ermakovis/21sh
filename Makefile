@@ -58,7 +58,7 @@ EXE_NAME=execute.c\
 	ex_simple.c\
 	ex_job.c\
 	ex_pipe.c\
-	ex_command.c\
+	ex_common.c\
 	ex_getpath.c\
 	ex_assignments.c\
 	ex_redirections.c\

@@ -22,19 +22,19 @@ int			execute(t_ast *ast);
 int			ex_semi(t_ast *ast);
 
 /*
-**	ex_command.c
+**	ex_common.c
 */
-int			ex_command(t_ast *ast);
 void		ex_tokens(char ***tokens, t_list *list);
 void		ex_env(char ***env);
 void		ex_command_setpgid(bool bg);
+int			ex_builtin(t_list *list);
+int			ex_exit_status(int status);
+int			ex_set_return_var(int ret);
 
 /*
 **	ex_simple.c
 */
 int			ex_simple(t_ast *ast);
-int			ex_exit_status(int status);
-int			ex_set_return_var(int ret);
 
 /*
 **	ex_job.c

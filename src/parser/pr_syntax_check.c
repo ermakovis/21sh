@@ -76,25 +76,26 @@ static int	pr_syntax_check_background(t_list *list)
 static int	pr_syntax_check_pipe(t_list *list)
 {
 	t_list	*prev;
-	t_token *token;
+	int		op_type;
 
 	prev = 0;
 	while(list)
 	{
-		token = list->content;
-		if (token->operator_type == PIPE && (!prev || !list->next))
+		op_type = ((t_token*)list->content)->operator_type;
+		if (op_type == PIPE && (!prev || !list->next))
 		{
 			ft_printf("%s: unexpected token near `|'\n", g_msh->shell_name);
 			return (FAILURE);
 		}
-		if (token->operator_type == PIPE && list->next)
+		if (op_type == PIPE && list->next)
 		{
-			token = list->next->content;
-			if (token->operator_type == SEMI || token->operator_type == AND_IF\
-				|| token->operator_type == OR_IF \
-				|| token->operator_type == PIPE)
-			ft_printf("%s: unexpected token near `|'\n", g_msh->shell_name);
-			return (FAILURE);
+			op_type = ((t_token*)list->next->content)->operator_type;
+			if (op_type == SEMI || op_type == AND_IF ||\
+				op_type == OR_IF || op_type == PIPE)
+			{
+				ft_printf("%s: unexpected token near `|'\n", g_msh->shell_name);
+				return (FAILURE);
+			}
 		}
 		prev = list;
 		list = list->next;

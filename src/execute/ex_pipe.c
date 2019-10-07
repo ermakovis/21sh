@@ -19,12 +19,13 @@ int				ex_pipe_exec(t_ast *ast)
 	char	*cmd;
 	int		ret;
 
-	ut_signal_child();
+	cmd = NULL;
 	ex_command_setpgid(ast->bg);
 	ex_expansions(&ast->token);
 	ex_redirections(ast->token);
 	ex_env(&env);
 	ex_tokens(&tokens, ast->token);
+	ut_signal_child();
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
 		ret = FAILURE;
 	else if (ex_check_executable(cmd) == FAILURE)
@@ -59,7 +60,6 @@ static int		ex_pipe_right(t_ast *ast, int fd[2])
 	status = ex_job(pid, ast);	
 	ret = ex_exit_status(status);
 	ex_set_return_var(ret);
-	//	waitpid(pid, &status, 0);
 	return (ex_exit_status(status));
 }
 
@@ -80,12 +80,9 @@ int				ex_pipe_switch(t_ast *left, t_ast *right)
 			return (FAILURE);
 		exit(ex_pipe_exec(left));
 	}
-	else
-	{
-		status_right = ex_pipe_right(right, fd);
-		close(fd[0]);
-		waitpid(pid, NULL, 0);
-	}
+	status_right = ex_pipe_right(right, fd);
+	close(fd[0]);
+	waitpid(pid, NULL, 0);
 	return (status_right);
 }
 
