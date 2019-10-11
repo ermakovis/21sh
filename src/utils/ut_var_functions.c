@@ -61,7 +61,7 @@ void		print_var(t_list *list)
 	if (!list || !list->content)
 		return ;
 	var = list->content;
-	ft_printf("%s=%s\n", var->name, var->value);
+	ft_printf("%s=`%s'\n", var->name, var->value);
 }
 
 void		delete_var(void *content, size_t size)

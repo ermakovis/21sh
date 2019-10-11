@@ -55,6 +55,7 @@ typedef struct			s_msh
 	t_list				*var;
 	t_list				*env;
 	t_list				*bin;
+	t_list				*alias;
 	t_list				*history;
 }						t_msh;
 

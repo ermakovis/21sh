@@ -19,7 +19,7 @@ int				lx_redirect_check(char ch)
 	return (0);
 }
 
-int				lx_redirect_get(char *line)
+int				lx_redirect_get(char *line, t_list **tokens)
 {
 	int		len;
 
@@ -27,16 +27,16 @@ int				lx_redirect_get(char *line)
 	while (ft_isdigit(line[len]))
 		len++;
 	if (ft_strncmp(&line[len], "<<", 2) == 0)
-		return (add_token(line, len + 2, REDIRECT, DLESS));
+		return (add_token(tokens, lx_line(line, len + 2), REDIRECT, DLESS));
 	else if (ft_strncmp(&line[len], "<&", 2) == 0)
-		return (add_token(line, len + 2, REDIRECT, LESS_AND));
+		return (add_token(tokens, lx_line(line, len + 2), REDIRECT, LESS_AND));
 	else if (ft_strncmp(&line[len], "<", 1) == 0)
-		return (add_token(line, len + 1, REDIRECT, LESS));
+		return (add_token(tokens, lx_line(line, len + 1), REDIRECT, LESS));
 	else if (ft_strncmp(&line[len], ">>", 2) == 0)
-		return (add_token(line, len + 2, REDIRECT, DMORE));
+		return (add_token(tokens, lx_line(line, len + 2), REDIRECT, DMORE));
 	else if (ft_strncmp(&line[len], ">&", 2) == 0)
-		return (add_token(line, len + 2, REDIRECT, MORE_AND));
+		return (add_token(tokens, lx_line(line, len + 2), REDIRECT, MORE_AND));
 	else if (ft_strncmp(&line[len], ">", 1) == 0)
-		return (add_token(line, len + 1, REDIRECT, MORE));
-	return (add_token(line, len, WORD, NONE));
+		return (add_token(tokens, lx_line(line, len + 1), REDIRECT, MORE));
+	return (add_token(tokens, lx_line(line, len), WORD, NONE));
 }

@@ -112,9 +112,7 @@ void		ex_tokens(char ***tokens, t_list *list)
 	ft_bzero(ret, sizeof(char*) * size);
 	while (list)
 	{
-		if (((t_token*)list->content)->token_type == ASSIGNMENT)
-			;
-		else if (((t_token*)list->content)->token_type == REDIRECT)
+		if (((t_token*)list->content)->token_type == REDIRECT)
 			list = list->next;
 		else
 			ret[i++] = ft_strdup(((t_token*)list->content)->line);

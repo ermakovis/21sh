@@ -23,7 +23,7 @@ static int		rl_quotes_check(char *line)
 		rl_print_char('\n');
 		ft_printf("> ");
 	}
-	return (!dquote && !squote);
+	return (!(dquote || squote));
 }
 
 static int		rl_bslash_check(char *line)
@@ -77,9 +77,9 @@ int		rl_newline_check(void)
 
 	line = g_msh->rl->line;
 	if (rl_quotes_check(line) == 0)
-		return (0);
+		return (1);
 	if (rl_bslash_check(line) == 0)
-		return (0);
+		return (1);
 	return (rl_braces_check(line));
 
 }

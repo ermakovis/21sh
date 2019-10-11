@@ -19,17 +19,19 @@ int				lx_operator_check(char ch)
 	return (0);
 }
 
-int				lx_operator_get(char *line)
+int				lx_operator_get(char *line, t_list **tokens)
 {
+	char	*token_line;
+
 	if (ft_strncmp(line, ";", 1) == 0)
-		return (add_token(line, 1, OPERATOR, SEMI));
+		return (add_token(tokens, lx_line(";", 0), OPERATOR, SEMI));
 	else if (ft_strncmp(line, "&&", 2) == 0)
-		return (add_token(line, 2, OPERATOR, AND_IF));
+		return (add_token(tokens, lx_line("&&", 0), OPERATOR, AND_IF));
 	else if (ft_strncmp(line, "&", 1) == 0)
-		return (add_token(line, 1, OPERATOR, AND));
+		return (add_token(tokens, lx_line("&", 0), OPERATOR, AND));
 	else if (ft_strncmp(line, "||", 2) == 0)
-		return (add_token(line, 2, OPERATOR, OR_IF));
+		return (add_token(tokens, lx_line("||", 0), OPERATOR, OR_IF));
 	else if (ft_strncmp(line, "|", 1) == 0)
-		return (add_token(line, 1, OPERATOR, PIPE));
+		return (add_token(tokens, lx_line("|", 0), OPERATOR, PIPE));
 	return (0);
 }

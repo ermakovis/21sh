@@ -48,8 +48,7 @@ static t_list	*ex_exp_pathname_cycle(DIR *dir, char *path, char *pat)
 			}
 			else
 				join_line = ft_strdup(entry->d_name);
-			add_full_token(&list, join_line, WORD, NONE);
-			ft_strdel(&join_line);
+			add_token(&list, join_line, WORD, NONE);
 		}
 	}
 	if (list)

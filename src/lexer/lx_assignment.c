@@ -26,12 +26,36 @@ int			lx_assignment_check(char *line)
 	return (0);
 }
 
-int			lx_assignment_get(char *line)
+static int		lx_assignment_dquote_len(char *line)
 {
 	int		len;
 
-	len = 0;
-	while (line[len] && ft_isprint(line[len]) && !ft_isspace(line[len]))
+	len = 1;
+	while (line[len] && line[len] != '\"')
+	{
+		if (line[len] == '\\')
+			len++;
 		len++;
-	return (add_token(line, len, ASSIGNMENT, NONE));
+	}
+	return (len + 1);
+}
+
+int			lx_assignment_get(char *line, t_list **tokens)
+{
+	int		len;
+	char	*token_line;
+
+	len = 0;
+	while (line[len] && ft_isprint(line[len]))
+	{
+		if (line[len] == '\\')
+			len++;
+		else if (line[len] == '\'')
+			len += ft_strclen(&line[len + 1], "'\'") + 1;
+		else if (line[len] == '\"')
+			len += lx_assignment_dquote_len(&line[len]);
+		else
+			len++;
+	}
+	return (add_token(tokens, lx_line(line, len), ASSIGNMENT, NONE));
 }

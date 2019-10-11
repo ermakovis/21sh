@@ -41,7 +41,7 @@ int				lx_word_check(char ch)
 ** if starts with digits and starts
 */
 
-int				lx_word_get(char *line)
+int				lx_word_get(char *line, t_list **tokens)
 {
 	int		len;
 	int		digit_check;
@@ -51,7 +51,7 @@ int				lx_word_get(char *line)
 	while (line[len] && lx_word_check(line[len]))
 	{
 		if (lx_redirect_check(line[len]) && digit_check)
-			return (lx_redirect_get(line));
+			return (lx_redirect_get(line, tokens));
 		if (!ft_isdigit(line[len]))
 			digit_check = 0;
 		if (line[len] == '\\' && line[len + 1] && line[len + 1] == '\n')
@@ -65,6 +65,6 @@ int				lx_word_get(char *line)
 		else
 			len++;
 	}
-	add_token(line, len, WORD, NONE);
+	add_token(tokens, lx_line(line, len), WORD, NONE);
 	return (len);
 }

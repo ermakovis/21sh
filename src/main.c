@@ -61,7 +61,7 @@ int					main(int argc, char **argv, char **env)
 	{
 		if (read_line(RL_MODE) == SUCCESS)
 		{
-			lexer();
+			g_msh->tokens = lexer(g_msh->rl->line);
 			parser();
 			execute(g_msh->ast);
 		}
