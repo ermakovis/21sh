@@ -41,8 +41,13 @@ static t_list	*ex_exp_pathname_cycle(DIR *dir, char *path, char *pat)
 			ft_strcmp(entry->d_name, ".") &&\
 			ex_globbing(entry->d_name, pat, 0, 0))
 		{
-			if (!(join_line = ft_strjoin(path, entry->d_name)))
-				cleanup(-1, "Malloc failed at ex_exp_pathname_cycle");
+			if (ft_strcmp(path, "./"))
+			{
+				if (!(join_line = ft_strjoin(path, entry->d_name)))
+					cleanup(-1, "Malloc failed at ex_exp_pathname_cycle");
+			}
+			else
+				join_line = ft_strdup(entry->d_name);
 			add_full_token(&list, join_line, WORD, NONE);
 			ft_strdel(&join_line);
 		}

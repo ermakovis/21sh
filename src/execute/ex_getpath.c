@@ -22,7 +22,7 @@ int			ex_check_executable(char *path)
 	return (SUCCESS);
 }
 
-static char	*eg_exec_join(char *s1, char *s2)
+static char	*ex_exec_join(char *s1, char *s2)
 {
 	char	*join;
 	int		s1len;
@@ -41,23 +41,36 @@ static char	*eg_exec_join(char *s1, char *s2)
 	return (join);
 }
 
-static void	eg_get_full_path(char *path, char *token, char **cmd)
+static void	ex_get_full_path(char *path, char *token, char **cmd)
 {
 	if (ft_strnequ(token, path, ft_strlen(path)))
 		*cmd = ft_strdup(token);
 	else
-		*cmd = eg_exec_join(path, token);
+		*cmd = ex_exec_join(path, token);
 }
 
 static int	ex_getpath_nopath(char *token, char **cmd)
 {
-	if (ft_test_path(token))
+	int		item_type;
+
+	if (!ft_test_path(token))
 	{
-		*cmd = token;
-		return (SUCCESS);
+		ft_dprintf(2, "%s: %s: command not found\n", g_msh->shell_name, token);
+		return (FAILURE);
 	}
-	ft_dprintf(2, "%s: command not found\n", token);
-	return (FAILURE);
+	if ((item_type = ft_item_type(token)) == -1)
+	{
+		ft_dprintf(2, "%s: %s: wrong item type\n", g_msh->shell_name, token);
+		return (FAILURE);
+	}
+	if (item_type == 2)
+	{
+		ft_dprintf(2, "%s: %s: is a directory\n", g_msh->shell_name, token);
+		return (FAILURE);
+	}
+	if (!(*cmd = ft_strdup(token)))
+		cleanup(-1, "Malloc failed at ex_getpath_nopath");
+	return (SUCCESS);
 }
 
 int			ex_getpath(char *token, char **cmd)
@@ -75,14 +88,14 @@ int			ex_getpath(char *token, char **cmd)
 	i = -1;
 	while (paths[++i])
 	{
-		eg_get_full_path(paths[i], token, cmd);
+		ex_get_full_path(paths[i], token, cmd);
 		if (ft_test_path(*cmd))
 			break ;
 		else
 			ft_memdel((void**)cmd);
 	}
 	ft_free_table(&paths);
-	if (*cmd == NULL)
+	if (!*cmd)
 		return (ex_getpath_nopath(token, cmd));
 	return (SUCCESS);
 }
