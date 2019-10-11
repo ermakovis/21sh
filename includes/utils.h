@@ -71,6 +71,10 @@ int						cmp_bins(t_bin *bin, char *data_ref);
 void					delete_builtins(void *content, size_t size);
 
 /*
+**	init_alias.c
+*/
+void					init_alias(void);
+/*
 **  utils.c
 */
 void					realloc_check(char **old_ptr, size_t old_size);

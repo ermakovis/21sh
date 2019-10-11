@@ -77,6 +77,7 @@ EXE_NAME=execute.c\
 UT_NAME=init.c\
 	init_env.c\
 	init_bins.c\
+	init_alias.c\
 	utils.c\
 	ut_str_functions.c\
 	ut_var_functions.c\
