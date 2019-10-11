@@ -65,4 +65,5 @@ void			init_bins(void)
 	add_builtin("setenv", &bin_setenv);
 	add_builtin("unsetenv", &bin_unsetenv);
 	add_builtin("alias", &bin_alias);
+	add_builtin("unalias", &bin_unalias);
 }

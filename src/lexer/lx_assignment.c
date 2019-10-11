@@ -46,7 +46,7 @@ int			lx_assignment_get(char *line, t_list **tokens)
 	char	*token_line;
 
 	len = 0;
-	while (line[len] && ft_isprint(line[len]))
+	while (line[len] && ft_isprint(line[len]) && !ft_isspace(line[len]))
 	{
 		if (line[len] == '\\')
 			len++;

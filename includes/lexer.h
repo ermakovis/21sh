@@ -52,6 +52,7 @@ enum					e_operators
 */
 t_list					*lexer(char *line);
 char					*lx_line(char *line, int len);
+t_list					*lx_tokens(char *line);
 
 /*
 **	lx_operator.c
@@ -78,6 +79,11 @@ int						lx_word_get(char *line, t_list **tokens);
 */
 int						lx_assignment_check(char *line);
 int						lx_assignment_get(char *line, t_list **tokens);
+
+/*
+**	lx_alias.c
+*/
+void					lx_alias(t_list **alist);
 
 /*
 **	lx_struct_functions.c

@@ -43,6 +43,7 @@ LX_NAME=lexer.c\
 	lx_redirect.c\
 	lx_word.c\
 	lx_assignment.c\
+	lx_alias.c\
 	lx_struct_functions.c
 PR_NAME=parser.c\
 	pr_heredoc.c\
@@ -54,7 +55,8 @@ BIN_NAME=bin_exit.c\
 	bin_fg.c\
 	bin_jobs.c\
 	bin_env.c\
-	bin_alias.c
+	bin_alias.c\
+	bin_unalias.c
 EXE_NAME=execute.c\
 	ex_simple.c\
 	ex_job.c\
