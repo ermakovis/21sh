@@ -12,7 +12,6 @@
 
 #include "msh.h"
 
-
 int				ex_simple_exec(t_ast *ast)
 {
 	char	**tokens;

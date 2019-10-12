@@ -1,24 +1,68 @@
 #include "msh.h"
 
+static void	ex_expansions_tild_split(char *line, char **left, char **right)
+{
+	int		slash_pos;
+
+	line++;
+	slash_pos = 0;
+	*left = 0;
+	*right = 0;
+	while (line[slash_pos] && line[slash_pos] != '/')
+		slash_pos++;
+	if (slash_pos)
+		if (!(*left = ft_strndup(line, slash_pos)))
+			cleanup(-1, "Malloc failed at ex_expansions_tild_split");
+	if (line[slash_pos])
+		if (!(*right = ft_strdup(line + slash_pos)))
+			cleanup(-1, "Malloc failed at ex_expansions_tild_split");
+}
+
+static int	ex_expansions_tild_swap(char **left)
+{
+	char		*find;
+	t_passwd	*passwd;
+
+	find = 0;
+	if (!*left)
+		if (!(find = find_var(g_msh->env, "HOME")))
+			return (FAILURE);
+	if (ft_strequ(*left, "+"))
+		if (!(find = find_var(g_msh->env, "PWD")))
+			return (FAILURE);
+	if (ft_strequ(*left, "-"))
+		if (!(find = find_var(g_msh->env, "OLDPWD")))
+			return (FAILURE);
+	if (!find)
+	{
+		if (!(passwd = getpwnam(*left)))
+			return (FAILURE);
+		find = passwd->pw_dir;
+	}
+	ft_memdel((void**)left);
+	if (!(*left = ft_strdup(find)))
+		cleanup(-1, "Malloc failed at ex_expansions_tild_swap");
+}
+
 void		ex_expansions_tild(t_token *token)
 {
+	char	*left;
+	char	*right;
 	char	*new;
 
 	if (token->line[0] != '~')
 		return ;
-	if (!(new = ft_strnew(NAME_MAX)))
-		cleanup(-1, "Malloc failed at ex_expansions_tild");
-	if (ft_strequ(token->line, "~+"))
-		append_line(&new, find_var(g_msh->env, "PWD"), NAME_MAX);
-	else if (ft_strequ(token->line, "~-"))
-		append_line(&new, find_var(g_msh->env, "OLDPWD"), NAME_MAX);
-	else if (ft_strequ(token->line, "~"))
-		append_line(&new, find_var(g_msh->env, "HOME"), NAME_MAX);
-	else
+	new = 0;
+	ex_expansions_tild_split(token->line, &left, &right);
+	if (ex_expansions_tild_swap(&left) == FAILURE)
+		;
+	else if (!(new = ft_strjoin(left, right)))
+		;
+	ft_memdel((void**)&left);
+	ft_memdel((void**)&right);
+	if (new)
 	{
-		ft_memdel((void**)&new);
-		return ;
+		ft_memdel((void**)&token->line);
+		token->line = new;
 	}
-	ft_memdel((void**)&token->line);
-	token->line = new;
 }

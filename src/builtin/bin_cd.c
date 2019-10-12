@@ -7,22 +7,24 @@ static int	bin_cd_change(char *path)
 
 	if (!(ret = ft_test_path(path)))
 	{
-		ft_dprintf(2, "cd: %s: No such file or directory\n", path);
-		return (1) ;
+		ft_dprintf(STDERR_FILENO, "cd: %s: No such file or directory\n", path);
+		return (BIN_FAILURE) ;
 	}
 	else if (ft_item_type(path) != 2)
 	{
-		ft_dprintf(2, "cd: %s: Not a directory\n", path);
-		return (1);
+		ft_dprintf(STDERR_FILENO, "cd: %s: Not a directory\n", path);
+		return (BIN_FAILURE);
 	}
 	else if (!(ret & 1))
 	{
-		ft_dprintf(2, "cd: %s: Permission denied\n", path);
-		return (1);
+		ft_dprintf(STDERR_FILENO, "cd: %s: Permission denied\n", path);
+		return (BIN_FAILURE);
 	}
+	if (chdir(path) == -1)
+		ft_dprintf(STDERR_FILENO, "cd: %s: chdir failed\n", path);
 	set_var(g_msh->env, "OLDPWD", find_var(g_msh->env, "PWD"));
 	set_var(g_msh->env, "PWD", getcwd(cwd, PATH_MAX));
-	return (0);
+	return (BIN_SUCCESS);
 }
 
 int			bin_cd(t_list *list)
@@ -31,7 +33,7 @@ int			bin_cd(t_list *list)
 	int		tokens_count;
 	char	**tokens;
 
-	ret = 1;
+	ret = BIN_FAILURE;
 	tokens_count = ft_lstsize(list);
 	ex_tokens(&tokens, list);
 	if (tokens_count > 2)

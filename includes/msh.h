@@ -25,6 +25,7 @@
 # include <termios.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <pwd.h>
 # include <sys/types.h>
 # include <stdio.h>
 
@@ -39,6 +40,7 @@ typedef struct winsize	t_wsize;
 typedef struct termios	t_term;
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
+typedef struct passwd	t_passwd;
 
 typedef struct			s_msh
 {
