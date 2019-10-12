@@ -19,7 +19,6 @@ typedef struct			s_token
 	int					token_type;
 	int					operator_type;
 	char				*heredoc;
-	char				*alias;
 }						t_token;
 
 enum					e_tokentype

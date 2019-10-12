@@ -63,7 +63,6 @@ int			ex_job(pid_t pid, t_ast *ast)
 	t_job	*job;
 
 	cmd_line = ft_strdup(((t_token*)ast->token->content)->line);
-	//there will be function to get full line
 	job = get_job(pid, cmd_line);
 	setpgid(0,0);
 	status = SUCCESS;
