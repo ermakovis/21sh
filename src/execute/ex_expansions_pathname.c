@@ -8,22 +8,17 @@ static bool	ex_exp_pathname_split(char *line, char **path, char **pat)
 
 	i = -1;
 	len = 0;
-	if (!(ft_strchr(line, '/')))
-	{
-		if (!(*path = ft_strdup("./")))
-			cleanup (-1, "Malloc failed at get_path");
-		if (!(*pat = ft_strdup(line)))
-			cleanup (-1, "Malloc failed at get_path");
-		return (true);
-	}
+	*path = 0;
+	*pat = 0;
 	while (line[++i])
 		if (line[i] == '/')
 			len = i;
 	if (!line[len + 1])
 		return (false);
-	if (!(*path = ft_strndup(line, len + 1)))
-		cleanup (-1, "Malloc failed at get_path");
-	if (!(*pat = ft_strdup(line + len + 1)))
+	if (len)	
+		if (!(*path = ft_strndup(line, len + 1)))
+			cleanup (-1, "Malloc failed at get_path");
+	if (!(*pat = ft_strdup(line + len + (len ? 1 : 0))))
 		cleanup (-1, "Malloc failed at get_path");
 	return (true);
 }
@@ -38,16 +33,11 @@ static t_list	*ex_exp_pathname_cycle(DIR *dir, char *path, char *pat)
 	while ((entry = readdir(dir)))
 	{
 		if (ft_strcmp(entry->d_name, "..") &&\
-			ft_strcmp(entry->d_name, ".") &&\
-			ex_globbing(entry->d_name, pat, 0, 0))
+				ft_strcmp(entry->d_name, ".") &&\
+				ex_globbing(entry->d_name, pat, 0, 0))
 		{
-			if (ft_strcmp(path, "./"))
-			{
-				if (!(join_line = ft_strjoin(path, entry->d_name)))
-					cleanup(-1, "Malloc failed at ex_exp_pathname_cycle");
-			}
-			else
-				join_line = ft_strdup(entry->d_name);
+			if (!(join_line = ft_strjoin(path, entry->d_name)))
+				cleanup(-1, "Malloc failed at ex_exp_pathname_cycle");
 			add_token(&list, join_line, WORD, NONE);
 		}
 	}
@@ -69,6 +59,17 @@ static void	ex_exp_pathname_insert(t_list **alist, t_list **list, t_list *new)
 	*list = tmp;
 }
 
+static int	ex_exp_pathname_getdir(char *path, DIR **dir)
+{
+	if (!path)
+		if (!(*dir = opendir(".")))
+			return (FAILURE);
+	if (path && *path)
+		if (!(*dir = opendir(path)))
+			return (FAILURE);
+	return (SUCCESS);	
+}
+
 void		ex_expansions_pathname(t_list **alist, t_list **list)
 {
 	char	*path;
@@ -82,11 +83,11 @@ void		ex_expansions_pathname(t_list **alist, t_list **list)
 		return ;
 	if (!(ex_exp_pathname_split(token->line, &path, &pat)))
 		return ;	
-	if ((dir = opendir(path)))
+	if (ex_exp_pathname_getdir(path, &dir) == SUCCESS)
 		if ((new_list = ex_exp_pathname_cycle(dir, path, pat)))
 			ex_exp_pathname_insert(alist, list, new_list);
 	if (dir)
 		closedir(dir);
-	ft_strdel(&path);
-	ft_strdel(&pat);
+	ft_memdel((void**)&path);
+	ft_memdel((void**)&pat);
 }

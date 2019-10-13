@@ -12,16 +12,6 @@
 
 #include "msh.h"
 
-int			ex_check_executable(char *path)
-{
-	if (!(ft_test_path(path) & 1))
-	{
-		ft_dprintf(2, "%s: permission denied\n", path);
-		return (FAILURE);
-	}
-	return (SUCCESS);
-}
-
 static char	*ex_exec_join(char *s1, char *s2)
 {
 	char	*join;
@@ -39,14 +29,6 @@ static char	*ex_exec_join(char *s1, char *s2)
 		ft_memset(join + s1len, '/', 1);
 	ft_memcpy(join + s1len + 1, s2, s2len);
 	return (join);
-}
-
-static void	ex_get_full_path(char *path, char *token, char **cmd)
-{
-	if (ft_strnequ(token, path, ft_strlen(path)))
-		*cmd = ft_strdup(token);
-	else
-		*cmd = ex_exec_join(path, token);
 }
 
 static int	ex_getpath_nopath(char *token, char **cmd)
@@ -73,6 +55,31 @@ static int	ex_getpath_nopath(char *token, char **cmd)
 	return (SUCCESS);
 }
 
+static int	ex_getpath_cycle(char **paths, char *token, char **cmd)
+{
+	int		i;
+
+	i = -1;
+	while (paths[++i])
+	{
+		if (ft_strnequ(token, paths[i], ft_strlen(paths[i])))
+			*cmd = ft_strdup(token);
+		else
+			*cmd = ex_exec_join(paths[i], token);
+		if (ft_test_path(*cmd))
+			break ;
+		else
+			ft_memdel((void**)cmd);
+	}
+	if (!(ft_test_path(*cmd) & 1))
+	{
+		ft_dprintf(2, "%s: permission denied\n", *cmd);
+		ft_free_table(&paths);
+		return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
 int			ex_getpath(char *token, char **cmd)
 {
 	int		i;
@@ -81,19 +88,14 @@ int			ex_getpath(char *token, char **cmd)
 
 	if (!token || !*token)
 		return (FAILURE);
+	if (ft_strchr(token, '/'))
+		return (ex_getpath_nopath(token, cmd));
 	if (!(paths_env = find_var(g_msh->env, "PATH")))
 		return (ex_getpath_nopath(token, cmd));
 	if (!(paths = ft_strsplit(paths_env, ':')))
 		return (ex_getpath_nopath(token, cmd));
-	i = -1;
-	while (paths[++i])
-	{
-		ex_get_full_path(paths[i], token, cmd);
-		if (ft_test_path(*cmd))
-			break ;
-		else
-			ft_memdel((void**)cmd);
-	}
+	if (ex_getpath_cycle(paths, token, cmd) == FAILURE)
+		return (FAILURE);
 	ft_free_table(&paths);
 	if (!*cmd)
 		return (ex_getpath_nopath(token, cmd));

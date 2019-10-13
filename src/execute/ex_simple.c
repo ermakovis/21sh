@@ -24,10 +24,9 @@ int				ex_simple_exec(t_ast *ast)
 	ex_redirections(ast->token);
 	ex_env(&env);
 	ex_tokens(&tokens, ast->token);
+	//ft_print_table(tokens);
 	ut_signal_child();
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
-		ret = FAILURE;
-	else if (ex_check_executable(cmd) == FAILURE)
 		ret = FAILURE;
 	else if ((ret = execve(cmd, tokens, env) == -1))
 		ft_dprintf(2, "%s: launch failed\n", cmd);

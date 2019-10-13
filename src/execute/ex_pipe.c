@@ -28,8 +28,6 @@ int				ex_pipe_exec(t_ast *ast)
 	ut_signal_child();
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
 		ret = FAILURE;
-	else if (ex_check_executable(cmd) == FAILURE)
-		ret = FAILURE;
 	else if ((ret = execve(cmd, tokens, env) == -1))
 		ft_dprintf(2, "%s: launch failed\n", cmd);
 	ft_memdel((void**)&cmd);
