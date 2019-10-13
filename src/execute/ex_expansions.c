@@ -37,12 +37,14 @@ void	ex_expansions(t_list **alist)
 	{
 		if (((t_token*)list->content)->token_type == WORD)
 		{
+			ft_lstiter(*alist, &print_token);
 			ex_expansions_tild(list->content);
 			ex_expansions_param(list->content);
 			//ex_expansion_command_sub(list);
 			//ex_expansion_arithmetic(list);
 			ex_expansions_pathname(alist, &list);
 			ex_expansions_remquotes(list->content);
+			ft_lstiter(*alist, &print_token);
 		}
 		list = list->next;
 	}

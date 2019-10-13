@@ -40,11 +40,16 @@ static int	ex_getpath_nopath(char *token, char **cmd)
 		ft_dprintf(2, "%s: %s: command not found\n", g_msh->shell_name, token);
 		return (FAILURE);
 	}
-	if ((item_type = ft_item_type(token)) == -1)
+	if (!(ft_test_path(token) & 1))
 	{
-		ft_dprintf(2, "%s: %s: wrong item type\n", g_msh->shell_name, token);
+		ft_dprintf(2, "%s: %s: permission denied\n", g_msh->shell_name, token);
 		return (FAILURE);
 	}
+	//if ((item_type = ft_item_type(token)) == -1)
+	//{
+	//	ft_dprintf(2, "%s: %s: wrong item type\n", g_msh->shell_name, token);
+	//	return (FAILURE);
+	//}
 	if (item_type == 2)
 	{
 		ft_dprintf(2, "%s: %s: is a directory\n", g_msh->shell_name, token);

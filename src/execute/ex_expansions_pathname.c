@@ -48,15 +48,27 @@ static t_list	*ex_exp_pathname_cycle(DIR *dir, char *path, char *pat)
 
 static void	ex_exp_pathname_insert(t_list **alist, t_list **list, t_list *new)
 {
-	t_list	*tmp;
-
-	tmp = new;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = (*alist)->next;
-	(*alist)->next = new;
-	ft_lst_remove(alist, *list, &del_token);
-	*list = tmp;
+	t_list	*new_last;
+	t_list	*tmp_alist;
+	
+	new_last = new;
+	while (new_last->next)
+		new_last = new_last->next;
+	tmp_alist = *alist;
+	if (tmp_alist == *list)
+	{
+		new_last->next = tmp_alist->next;
+		*alist = new;
+	}
+	else	
+	{
+		while (tmp_alist->next != *list)
+			tmp_alist = tmp_alist->next;
+		new_last->next = tmp_alist->next->next;
+		tmp_alist->next = new;
+	}
+	ft_lstdelone(list, &del_token);
+	*list = new_last;
 }
 
 static int	ex_exp_pathname_getdir(char *path, DIR **dir)
