@@ -56,7 +56,8 @@ BIN_NAME=bin_exit.c\
 	bin_jobs.c\
 	bin_env.c\
 	bin_alias.c\
-	bin_unalias.c
+	bin_unalias.c\
+	bin_echo.c
 EXE_NAME=execute.c\
 	ex_simple.c\
 	ex_job.c\

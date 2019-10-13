@@ -14,5 +14,6 @@ int		bin_jobs(t_list *list);
 int		bin_alias(t_list *list);
 int		bin_alias_action(char *line);
 int		bin_unalias(t_list *list);
+int		bin_echo(t_list *list);
 
 #endif
