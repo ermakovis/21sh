@@ -1,29 +1,32 @@
 #include "msh.h"
 
-static int	is_quote(char ch)
-{
-	if (ch == '\'')
-		return (1);
-	if (ch == '\"')
-		return (1);
-	if (ch == '\\')
-		return (1);
-	return (0);
-}
-
 void		ex_expansions_remquotes(t_token *token)
 {
 	size_t	i;
-	size_t	len;
+	int		squote;
+	int		dquote;
+	char	*line;
 
 	i = 0;
-	len = ft_strlen(token->line);
-	while (token->line[i])
+	squote = 0;
+	dquote = 0;
+	line = token->line;
+	while (line[i])
 	{
-		if (is_quote(token->line[i]))
+		if (line[i] == '\\' && !squote)
 		{
-			ft_memmove(&token->line[i], &token->line[i + 1], len - i);
-			len--;
+			ft_memmove(&line[i], &line[i + 1], ft_strlen(&line[i]));
+			i++;
+		}
+		else if (token->line[i] == '\'' && !dquote)
+		{
+			ft_memmove(&line[i], &line[i + 1], ft_strlen(&line[i]));
+			squote ^= 1;
+		}
+		else if (line[i] == '\"' && !squote)
+		{
+			ft_memmove(&line[i], &line[i + 1],ft_strlen(&line[i]));
+			dquote ^= 1;
 		}
 		else
 			i++;

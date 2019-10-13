@@ -15,6 +15,8 @@ static t_list	*lx_alias_find(t_list **alist, char **line, t_list **used)
 			token = list->content;
 			while (list && token->token_type == ASSIGNMENT)
 				list = list->next;
+			if (!list)
+				return (0);
 			token = list->content;
 			if (!ft_lst_find(*used, token->line, &ft_strcmp))
 				if ((*line = find_var(g_msh->alias, token->line)))

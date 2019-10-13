@@ -1,6 +1,7 @@
 alias test='echo "Test works"!'
 alias ll='ls -l'
 
+asdasda asd ad asd a
 
 alias la='la -a'
 alias qwe=asd

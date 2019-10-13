@@ -54,10 +54,8 @@ int				lx_word_get(char *line, t_list **tokens)
 			return (lx_redirect_get(line, tokens));
 		if (!ft_isdigit(line[len]))
 			digit_check = 0;
-		if (line[len] == '\\' && line[len + 1] && line[len + 1] == '\n')
+		if (line[len] == '\\' && line[len + 1] == '\n' && line[len + 2])
 			ft_memmove(&line[len], &line[len + 2], ft_strlen(line) - len);
-		else if (line[len] == '\\')
-			len++;
 		else if (line[len] == '\'')
 			len += ft_strclen(&line[len + 1], "'\'") + 1;
 		else if (line[len] == '\"')

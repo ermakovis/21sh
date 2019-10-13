@@ -28,16 +28,24 @@ static int		rl_quotes_check(char *line)
 
 static int		rl_bslash_check(char *line)
 {
-	int		len;
+	int		i;
+	int		is_quoted;
 
-	len = ft_strlen(line);
-	if (len > 2 && line[len - 1] == '\\' && line[len - 2] == '\\')
-		return (1);
-	if (len > 1 && line[len - 1] == '\\')
+	i = -1;
+	while (line[++i])
 	{
-		rl_print_char('\n');
-		ft_printf("> ");
-		return (0);
+		is_quoted = 0;
+		if (line[i] == '\\')
+		{
+			is_quoted = 1;
+			i++;
+		}
+		if (!line[i] && is_quoted)
+		{
+			rl_print_char('\n');
+			ft_printf("> ");
+			return (0);
+		}
 	}
 	return (1);
 }
@@ -83,10 +91,3 @@ int		rl_newline_check(void)
 	return (rl_braces_check(line));
 
 }
-
-
-
-
-
-
-
