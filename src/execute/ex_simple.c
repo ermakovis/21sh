@@ -24,7 +24,6 @@ int				ex_simple_exec(t_ast *ast)
 	ex_redirections(ast->token);
 	ex_env(&env);
 	ex_tokens(&tokens, ast->token);
-	//ft_print_table(tokens);
 	ut_signal_child();
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
 		ret = FAILURE;
@@ -55,6 +54,5 @@ int				ex_simple(t_ast *ast)
 		exit(ex_simple_exec(ast));
 	status = ex_job(pid, ast);	
 	ret = ex_exit_status(status);
-	ex_set_return_var(ret);
-	return (ret);
+	return (ex_set_return_var(ret));
 }
