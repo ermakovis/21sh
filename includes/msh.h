@@ -53,6 +53,7 @@ typedef struct			s_msh
 	t_term				*original_state;
 	t_ast				*ast;
 	t_list				*tokens;
+	t_list				*hash;
 	t_list				*jobs;
 	t_list				*var;
 	t_list				*env;

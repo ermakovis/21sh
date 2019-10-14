@@ -57,7 +57,8 @@ BIN_NAME=bin_exit.c\
 	bin_env.c\
 	bin_alias.c\
 	bin_unalias.c\
-	bin_echo.c
+	bin_echo.c\
+	bin_hash.c
 EXE_NAME=execute.c\
 	ex_simple.c\
 	ex_job.c\
@@ -79,10 +80,12 @@ UT_NAME=init.c\
 	init_env.c\
 	init_bins.c\
 	init_alias.c\
+	init_hash.c\
 	utils.c\
 	ut_str_functions.c\
 	ut_var_functions.c\
 	ut_job_functions.c\
+	ut_hash_functions.c\
 	ut_terminal_mods.c\
 	ut_signals.c\
 	cleanup.c

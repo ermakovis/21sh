@@ -87,4 +87,5 @@ void			init(char **env)
 	init_cmd();
 	init_orig_state();
 	init_alias();
+	init_hash();
 }

@@ -15,5 +15,7 @@ int		bin_alias(t_list *list);
 int		bin_alias_action(char *line);
 int		bin_unalias(t_list *list);
 int		bin_echo(t_list *list);
+int		bin_hash(t_list *list);
+void	bin_hash_print(void);
 
 #endif

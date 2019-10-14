@@ -22,8 +22,8 @@ static int	bin_echo_printspecial(char ch)
 		ft_printf("\t");
 	else if (ch == 'v')
 		ft_printf("\v");
-//	else if (ch == '0')
-//		ft_printf("\033");
+	else if (ch == '0')
+		ft_printf("\033");
 	return (BIN_SUCCESS);
 }
 

@@ -12,25 +12,6 @@
 
 #include "msh.h"
 
-static char	*ex_exec_join(char *s1, char *s2)
-{
-	char	*join;
-	int		s1len;
-	int		s2len;
-
-	if (!s1 && !s2)
-		return (NULL);
-	s1len = ft_strlen(s1);
-	s2len = ft_strlen(s2);
-	if (!(join = ft_strnew(s1len + s2len + 1)))
-		return (NULL);
-	ft_memcpy(join, s1, s1len);
-	if (*(join + s1len) != '/')
-		ft_memset(join + s1len, '/', 1);
-	ft_memcpy(join + s1len + 1, s2, s2len);
-	return (join);
-}
-
 static int	ex_getpath_nopath(char *token, char **cmd)
 {
 	int		item_type;
@@ -60,48 +41,24 @@ static int	ex_getpath_nopath(char *token, char **cmd)
 	return (SUCCESS);
 }
 
-static int	ex_getpath_cycle(char **paths, char *token, char **cmd)
-{
-	int		i;
-
-	i = -1;
-	while (paths[++i])
-	{
-		if (ft_strnequ(token, paths[i], ft_strlen(paths[i])))
-			*cmd = ft_strdup(token);
-		else
-			*cmd = ex_exec_join(paths[i], token);
-		if (ft_test_path(*cmd))
-			break ;
-		else
-			ft_memdel((void**)cmd);
-	}
-	if (!(ft_test_path(*cmd) & 1))
-	{
-		ft_dprintf(2, "%s: permission denied\n", *cmd);
-		ft_free_table(&paths);
-		return (FAILURE);
-	}
-	return (SUCCESS);
-}
-
 int			ex_getpath(char *token, char **cmd)
 {
+	t_list	*list;
+	t_hash	*hash;
 	int		i;
-	char	**paths;
-	char	*paths_env;
 
+	*cmd = 0;
 	if (!token || !*token)
 		return (FAILURE);
 	if (ft_strchr(token, '/'))
 		return (ex_getpath_nopath(token, cmd));
-	if (!(paths_env = find_var(g_msh->env, "PATH")))
-		return (ex_getpath_nopath(token, cmd));
-	if (!(paths = ft_strsplit(paths_env, ':')))
-		return (ex_getpath_nopath(token, cmd));
-	if (ex_getpath_cycle(paths, token, cmd) == FAILURE)
-		return (FAILURE);
-	ft_free_table(&paths);
+	if (list = ft_lst_find(g_msh->hash, token, &cmp_hash))
+	{
+		hash = list->content;
+		(hash->hits)++;
+		if (!(*cmd = ft_strdup(hash->command)))
+			cleanup(-1, "Malloc failed at ex_getpath");
+	}
 	if (!*cmd)
 		return (ex_getpath_nopath(token, cmd));
 	return (SUCCESS);

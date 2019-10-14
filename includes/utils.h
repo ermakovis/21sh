@@ -31,6 +31,14 @@ typedef struct			s_job
 	char				*cmd_line;
 }						t_job;
 
+typedef struct			s_hash
+{
+	int					hits;
+	int					searched;
+	char				*command;
+	char				*short_name;
+}						t_hash;
+
 typedef struct			s_cmd
 {
 	char				*area;
@@ -75,6 +83,10 @@ void					delete_builtins(void *content, size_t size);
 */
 void					init_alias(void);
 /*
+**	init_hash.c
+*/
+void					init_hash(void);
+/*
 **  utils.c
 */
 void					realloc_check(char **old_ptr, size_t old_size);
@@ -110,6 +122,14 @@ void					print_job(t_list *list);
 void					del_job(void *content, size_t content_size);
 t_job					*get_job(pid_t pid, char *cmd_line);
 void					add_job(t_list **alist, t_job *job);
+
+/*
+**	ut_hash_functions.c
+*/
+int						cmp_hash(t_hash *hash, char *data_ref);
+void					print_hash(t_list *list);
+void					add_hash(char *command, char *short_name);
+void					del_hash(void *content, size_t size);
 
 /*
 **	ut_terminal_mods.c
