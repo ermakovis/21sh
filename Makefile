@@ -58,6 +58,7 @@ BIN_NAME=bin_exit.c\
 	bin_alias.c\
 	bin_unalias.c\
 	bin_echo.c\
+	bin_type.c\
 	bin_hash.c
 EXE_NAME=execute.c\
 	ex_simple.c\

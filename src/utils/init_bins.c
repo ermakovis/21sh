@@ -68,4 +68,5 @@ void			init_bins(void)
 	add_builtin("unalias", &bin_unalias);
 	add_builtin("echo", &bin_echo);
 	add_builtin("hash", &bin_hash);
+	add_builtin("type", &bin_type);
 }

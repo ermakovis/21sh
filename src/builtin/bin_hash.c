@@ -79,21 +79,25 @@ int			bin_hash(t_list *list)
 	int		ret;
 
 	ret = BIN_SUCCESS;
-	ex_tokens(&tokens, list);
 	i = 0;
+	ex_tokens(&tokens, list);
 	if (!tokens[i + 1])
 	{
 		bin_hash_print();
-		return (BIN_SUCCESS);
+		ret = BIN_SUCCESS;
 	}
-	if (tokens[i + 1] && !ft_strcmp(tokens[i + 1], "-r"))
+	else if (tokens[i + 1] && !ft_strcmp(tokens[i + 1], "-r"))
 	{
 		bin_hash_clean();
 		i++;
 	}
-	while (tokens[++i])
-		if (bin_hash_search(tokens[i]) == BIN_FAILURE)
-			ret = BIN_FAILURE;
+	else
+	{
+		while (tokens[++i])
+			if (bin_hash_search(tokens[i]) == BIN_FAILURE)
+				ret = BIN_FAILURE;
+	}
+	ft_free_table(&tokens);
 	return (ret);
 }
 

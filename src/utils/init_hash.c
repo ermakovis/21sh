@@ -56,4 +56,5 @@ void	init_hash(void)
 		return ;
 	while (paths[++i])
 		init_hash_cycle(paths[i]);
+	ft_free_table(&paths);
 }
