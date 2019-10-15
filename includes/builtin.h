@@ -10,6 +10,7 @@ int		bin_env(t_list *list);
 int		bin_setenv(t_list *list);
 int		bin_unsetenv(t_list *list);
 int		bin_fg(t_list *list);
+int		bin_bg(t_list *list);
 int		bin_jobs(t_list *list);
 int		bin_alias(t_list *list);
 int		bin_alias_action(char *line);

@@ -53,6 +53,7 @@ PR_NAME=parser.c\
 BIN_NAME=bin_exit.c\
 	bin_cd.c\
 	bin_fg.c\
+	bin_bg.c\
 	bin_jobs.c\
 	bin_env.c\
 	bin_alias.c\

@@ -5,18 +5,23 @@
 **	NOTE: mb a little overreaction on SIGCONT fail
 */
 
+static int		bin_fg_failure_message(char *line)
+{
+	ft_printf("%s: fg: %s\n", g_msh->shell_name, line);
+	return (BIN_FAILURE);
+}
+
 static int		bin_fg_action(int pos)
 {
 	t_list	*list;
 	t_job	*job;
 	int		status;
 
-	status = SUCCESS;
+	status = BIN_SUCCESS;
+	if (ft_lstsize(g_msh->jobs) == 0)
+		return (bin_fg_failure_message("current: no such job"));
 	if (!(list = ft_lst_num(g_msh->jobs, pos)))
-	{
-		ft_dprintf(2, "%s: fg: %d: no such job\n", g_msh->shell_name);
-		status = FAILURE;
-	}
+		return (bin_fg_failure_message("current: no such job"));
 	else
 	{
 		job = list->content;
@@ -38,7 +43,7 @@ int		bin_fg(t_list *list)
 	char	**tokens;
 	int		ret;
 
-	ret = FAILURE;
+	ret = BIN_FAILURE;
 	//ex_job_check(1);
 	tokens_count = ft_lstsize(list);
 	ex_tokens(&tokens, list);
