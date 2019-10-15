@@ -46,6 +46,7 @@ int			parser(void)
 	pr_heredoc();
 	bg = pr_bg_check();
 	g_msh->ast = pr_ast_create();
+	pr_ast_fillcommand(g_msh->ast);
 	if (bg)
 		pr_bg_mark(g_msh->ast);
 	if (g_msh->display_flags & PARSER_V)

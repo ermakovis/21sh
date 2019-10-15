@@ -41,6 +41,10 @@ void				pr_heredoc(void);
 int					pr_syntax_check(void);
 
 /*
+**	pr_ast_fillcommand.c
+*/
+void				pr_ast_fillcommand(t_ast *ast);
+/*
 **	pr_ast_functions.c
 */
 t_ast				*pr_ast_create_node(t_ast *node, t_ast *left, t_ast *right);

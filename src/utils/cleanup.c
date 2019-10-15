@@ -50,6 +50,7 @@ void		cleanup(int exit_code, char *message)
 	ft_lstdel(&g_msh->alias, &delete_var);
 	ft_lstdel(&g_msh->bin, &delete_builtins);
 	ft_lstdel(&g_msh->tokens, &del_token);
+	ft_lstdel(&g_msh->jobs, &del_job);
 	ft_memdel((void**)&g_msh->copy_buffer);
 	ft_memdel((void**)&g_msh->shell_name);
 	ft_memdel((void**)&g_msh->original_state);

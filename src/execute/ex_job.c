@@ -62,7 +62,7 @@ int			ex_job(pid_t pid, t_ast *ast)
 	char	*cmd_line;
 	t_job	*job;
 
-	cmd_line = ft_strdup(((t_token*)ast->token->content)->line);
+	cmd_line = ft_strdup(((t_token*)ast->token->content)->full_command);
 	job = get_job(pid, cmd_line);
 	setpgid(0,0);
 	status = SUCCESS;
@@ -76,6 +76,7 @@ int			ex_job(pid_t pid, t_ast *ast)
 	{
 		add_job(&g_msh->jobs, job);
 		ft_printf("[%d], %d\n", ft_lstsize(g_msh->jobs), job->pid);
+		ft_memdel((void**)&job);
 	}
 	return (status);
 }

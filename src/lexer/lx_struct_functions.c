@@ -68,5 +68,6 @@ void		del_token(void *content, size_t size)
 	token = content;
 	ft_memdel((void**)&(token->line));
 	ft_memdel((void**)&(token->heredoc));
+	ft_memdel((void**)&token->full_command);
 	ft_memdel((void**)&content);
 }

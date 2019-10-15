@@ -49,7 +49,8 @@ PR_NAME=parser.c\
 	pr_heredoc.c\
 	pr_syntax_check.c\
 	pr_ast_create.c\
-	pr_ast_functions.c
+	pr_ast_functions.c\
+	pr_ast_fillcommand.c
 BIN_NAME=bin_exit.c\
 	bin_cd.c\
 	bin_fg.c\
