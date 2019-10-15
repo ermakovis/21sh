@@ -51,22 +51,23 @@ void		ex_assignments(t_list **list);
 /*
 **	ex_redirections.c
 */
-void		ex_redirections(t_list *list);
+int		ex_redirections(t_list *list);
+int		ex_redirections_check(char *path);
 
 /*
 **	ex_redirections_simple.c
 */
-void		ex_redirections_simple(t_list *list);
+int		ex_redirections_simple(t_list *list);
 
 /*
 **	ex_redirections_agreg.c
 */
-void		ex_redirections_agreg(t_list *list);
+int		ex_redirections_agreg(t_list *list);
 
 /*
 **	ex_redirections_heredoc.c
 */
-void		ex_redirections_heredoc(t_list *list);
+void	ex_redirections_heredoc(t_list *list);
 
 /*
 **	ex_globbing.c

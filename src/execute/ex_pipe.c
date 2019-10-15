@@ -22,9 +22,10 @@ int				ex_pipe_exec(t_ast *ast)
 	cmd = NULL;
 	ex_command_setpgid(ast->bg);
 	ex_expansions(&ast->token);
-	ex_redirections(ast->token);
+	if (ex_redirections(ast->token) == BIN_FAILURE)
+		return (BIN_FAILURE);
 	if ((ret = ex_builtin(ast->token)) != FAILURE)
-		return (ret);
+		return (BIN_FAILURE);
 	ex_env(&env);
 	ex_tokens(&tokens, ast->token);
 	ut_signal_child();

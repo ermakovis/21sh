@@ -40,15 +40,19 @@ void		ex_redirections_agreg_less(char *redir, char *word)
 		close(num);
 }
 
-void		ex_redirections_agreg(t_list *list)
+int		ex_redirections_agreg(t_list *list)
 {
 	t_token		*token;
 	char		*word;
 
 	token = list->content;
 	word = ((t_token*)list->next->content)->line;
+	if (ex_redirections_check(word) == BIN_FAILURE)
+		return (BIN_FAILURE);
 	if (token->operator_type == MORE_AND)
-		return (ex_redirections_agreg_more(token->line, word));
+		ex_redirections_agreg_more(token->line, word);
 	else if (token->operator_type == LESS_AND)
-		return (ex_redirections_agreg_less(token->line, word));
+		ex_redirections_agreg_less(token->line, word);
+	return (BIN_SUCCESS);
 }
+

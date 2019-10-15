@@ -12,32 +12,25 @@
 
 #include "msh.h"
 
-static int	ex_getpath_nopath(char *token, char **cmd)
+static int	ex_getpath_check(char *path)
 {
-	int		item_type;
+	int		ret;
 
-	if (!ft_test_path(token))
+	if (!ft_test_path(path))
 	{
-		ft_dprintf(2, "%s: %s: command not found\n", g_msh->shell_name, token);
+		ft_dprintf(2, "%s: %s: command not found\n", g_msh->shell_name, path);
 		return (FAILURE);
 	}
-	if (!(ft_test_path(token) & 1))
+	if (!(ft_test_path(path) & 1))
 	{
-		ft_dprintf(2, "%s: %s: permission denied\n", g_msh->shell_name, token);
+		ft_dprintf(2, "%s: %s: permission denied\n", g_msh->shell_name, path);
 		return (FAILURE);
 	}
-	//if ((item_type = ft_item_type(token)) == -1)
-	//{
-	//	ft_dprintf(2, "%s: %s: wrong item type\n", g_msh->shell_name, token);
-	//	return (FAILURE);
-	//}
-	if (item_type == 2)
+	if (ft_item_type(path) == 2)
 	{
-		ft_dprintf(2, "%s: %s: is a directory\n", g_msh->shell_name, token);
+		ft_dprintf(2, "%s: %s: is a directory\n", g_msh->shell_name, path);
 		return (FAILURE);
 	}
-	if (!(*cmd = ft_strdup(token)))
-		cleanup(-1, "Malloc failed at ex_getpath_nopath");
 	return (SUCCESS);
 }
 
@@ -51,7 +44,7 @@ int			ex_getpath(char *token, char **cmd)
 	if (!token || !*token)
 		return (FAILURE);
 	if (ft_strchr(token, '/'))
-		return (ex_getpath_nopath(token, cmd));
+		return (ex_getpath_check(token));
 	if (list = ft_lst_find(g_msh->hash, token, &cmp_hash))
 	{
 		hash = list->content;
@@ -59,7 +52,9 @@ int			ex_getpath(char *token, char **cmd)
 		if (!(*cmd = ft_strdup(hash->command)))
 			cleanup(-1, "Malloc failed at ex_getpath");
 	}
-	if (!*cmd)
-		return (ex_getpath_nopath(token, cmd));
+	else if (!(*cmd = ft_strdup(token)))
+			cleanup(-1, "Malloc failed at ex_getpath");
+	if (ex_getpath_check(*cmd) == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }

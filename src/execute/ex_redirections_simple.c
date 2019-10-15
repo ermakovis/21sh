@@ -12,7 +12,7 @@
 
 #include "msh.h"
 
-void		ex_redirections_simple_more(char *redir, char *word)
+static void		ex_redirections_simple_more(char *redir, char *word)
 {
 	int		num;
 	int		fd;
@@ -21,11 +21,12 @@ void		ex_redirections_simple_more(char *redir, char *word)
 		num = atoi(redir);
 	else
 		num = 1;
-	fd = open(word, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	if ((fd = open(word, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
+		ft_dprintf(2, "%s: failed to open %s");
 	dup2(fd, num);
 }
 
-void		ex_redirections_simple_dmore(char *redir, char *word)
+static void		ex_redirections_simple_dmore(char *redir, char *word)
 {
 	int		num;
 	int		fd;
@@ -34,11 +35,12 @@ void		ex_redirections_simple_dmore(char *redir, char *word)
 		num = atoi(redir);
 	else
 		num = 1;
-	fd = open(word, O_RDWR | O_CREAT | O_APPEND, 0666);
+	if ((fd = open(word, O_RDWR | O_CREAT | O_APPEND, 0666)) == - 1)
+		ft_dprintf(2, "%s: failed to open %s");
 	dup2(fd, num);
 }
 
-void		ex_redirections_simple_less(char *redir, char *word)
+static void		ex_redirections_simple_less(char *redir, char *word)
 {
 	int		num;
 	int		fd;
@@ -47,21 +49,25 @@ void		ex_redirections_simple_less(char *redir, char *word)
 		num = atoi(redir);
 	else
 		num = 0;
-	fd = open(word, O_RDONLY);
+	if ((fd = open(word, O_RDONLY)) == -1)
+		ft_dprintf(2, "%s: failed to open %s");
 	dup2(fd, num);
 }
 
-void		ex_redirections_simple(t_list *list)
+int				ex_redirections_simple(t_list *list)
 {
 	t_token		*token;
 	char		*word;
 
 	token = list->content;
 	word = ((t_token*)list->next->content)->line;
+	if (ex_redirections_check(word) == BIN_FAILURE)
+		return (BIN_FAILURE);
 	if (token->operator_type == MORE)
-		return (ex_redirections_simple_more(token->line, word));
+		ex_redirections_simple_more(token->line, word);
 	else if (token->operator_type == DMORE)
-		return (ex_redirections_simple_dmore(token->line, word));
+		ex_redirections_simple_dmore(token->line, word);
 	else if (token->operator_type == LESS)
-		return (ex_redirections_simple_less(token->line, word));
+		ex_redirections_simple_less(token->line, word);
+	return (BIN_SUCCESS);
 }

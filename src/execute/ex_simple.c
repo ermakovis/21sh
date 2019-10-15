@@ -33,7 +33,8 @@ int				ex_simple_exec(t_ast *ast)
 	int		ret;
 
 	ex_command_setpgid(ast->bg);
-	ex_redirections(ast->token);
+	if (ex_redirections(ast->token) == BIN_FAILURE)
+		return (BIN_FAILURE);
 	ex_env(&env);
 	ex_tokens(&tokens, ast->token);
 	ut_signal_child();
