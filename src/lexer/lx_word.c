@@ -32,7 +32,9 @@ static int		lx_word_dquote_len(char *line)
 
 int				lx_word_check(char ch)
 {
-	if (ft_isprint(ch) && !ft_isspace(ch) && ch != '|' && ch != ';')
+	if (ch == '|' || ch == ';' || ch == '>' || ch == '<')
+		return (0);
+	if (ft_isprint(ch) && !ft_isspace(ch))
 		return (1);
 	return (0);
 }

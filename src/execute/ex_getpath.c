@@ -43,9 +43,8 @@ int			ex_getpath(char *token, char **cmd)
 	*cmd = 0;
 	if (!token || !*token)
 		return (FAILURE);
-	if (ft_strchr(token, '/'))
-		return (ex_getpath_check(token));
-	if (list = ft_lst_find(g_msh->hash, token, &cmp_hash))
+	if (!ft_strchr(token, '/') &&\
+		(list = ft_lst_find(g_msh->hash, token, &cmp_hash)))
 	{
 		hash = list->content;
 		(hash->hits)++;

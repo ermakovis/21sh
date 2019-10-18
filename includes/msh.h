@@ -55,6 +55,7 @@ typedef struct			s_msh
 	t_list				*tokens;
 	t_list				*hash;
 	t_list				*jobs;
+	t_list				*cmd_var;
 	t_list				*var;
 	t_list				*env;
 	t_list				*bin;

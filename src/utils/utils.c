@@ -50,20 +50,19 @@ void		ft_notrealloc(char **old_ptr, size_t old_size, size_t new_size)
 	*old_ptr = new_ptr;
 }
 
-char		*var_to_str(t_var *var)
+char		*var_to_str(char *name, char *value)
 {
 	char	*ret;
 	size_t	name_len;
 	size_t	val_len;
 
-	name_len = ft_strlen(var->name);
-	val_len = ft_strlen(var->value);
-	if (!(ret = (char*)malloc(name_len + val_len + 2)))
+	name_len = ft_strlen(name);
+	val_len = ft_strlen(value);
+	if (!(ret = (char*)ft_memalloc(name_len + val_len + 2)))
 		cleanup(-1, "Malloc failed at var_to_srt");
-	ft_bzero(ret, name_len + val_len + 2);
-	ft_memcpy(ret, var->name, name_len);
+	ft_memcpy(ret, name, name_len);
 	ret[name_len] = '=';
-	ft_memcpy(ret + name_len + 1, var->value, val_len);
+	ft_memcpy(ret + name_len + 1, value, val_len);
 	return (ret);
 }
 

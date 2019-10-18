@@ -57,7 +57,7 @@ static void		init_msh(void)
 	if (!(new_msh = (t_msh*)malloc(sizeof(t_msh))))
 		cleanup(-1, "Failed to malloc for main structure");
 	ft_bzero(new_msh, sizeof(t_msh));
-	new_msh->shell_name = ft_strdup("msh");
+	new_msh->shell_name = ft_strdup("42sh");
 	g_msh = new_msh;
 }
 

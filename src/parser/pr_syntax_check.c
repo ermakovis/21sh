@@ -28,11 +28,11 @@ static int		pr_syntax_check_redirect(t_list *list)
 			g_msh->shell_name, token->line);
 		return (FAILURE);
 	}
-	if (ft_isnumber(token->line) && (num = ft_atoi(token->line)) > 2)
-	{
-		ft_printf("%s: %d: bad file descriptor\n", g_msh->shell_name, num);
-		return (FAILURE);
-	}
+//	if (ft_isnumber(token->line) && (num = ft_atoi(token->line)) > 2)
+//	{
+//		ft_printf("%s: %d: bad file descriptor\n", g_msh->shell_name, num);
+//		return (FAILURE);
+//	}
 	return (SUCCESS);
 }
 

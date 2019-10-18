@@ -24,12 +24,16 @@ int			ex_semi(t_ast *ast);
 /*
 **	ex_common.c
 */
-void		ex_tokens(char ***tokens, t_list *list);
-void		ex_env(char ***env);
 void		ex_command_setpgid(bool bg);
 int			ex_builtin(t_list *list);
 int			ex_exit_status(int status);
 int			ex_set_return_var(int ret);
+
+/*
+**	ex_tokens.c
+*/
+void		ex_tokens(char ***tokens, t_list *list);
+void		ex_env(char ***env);
 
 /*
 **	ex_simple.c

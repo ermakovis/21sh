@@ -48,7 +48,7 @@ t_list			*lx_tokens(char *line)
 	tokens = 0;
 	while (*line)
 	{
-		if (lx_assignment_check(line))
+		if (lx_assignment_check(line, tokens))
 			line += lx_assignment_get(line, &tokens);
 		else if (lx_operator_check(*line))
 			line += lx_operator_get(line, &tokens);

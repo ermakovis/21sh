@@ -106,7 +106,7 @@ void					ft_notrealloc(char **old_ptr, size_t old_size,\
 							size_t new_size);
 void					display_prompt(void);
 void					append_str(char **str, int *i, char *new);
-char					*var_to_str(t_var *var);
+char					*var_to_str(char *name, char *value);
 int						get_char(long *ch);
 int						is_special(char ch);
 

@@ -78,7 +78,7 @@ int						lx_word_get(char *line, t_list **tokens);
 /*
 **	lx_assignment.c
 */
-int						lx_assignment_check(char *line);
+int						lx_assignment_check(char *line, t_list *tokens);
 int						lx_assignment_get(char *line, t_list **tokens);
 
 /*

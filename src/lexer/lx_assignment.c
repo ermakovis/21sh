@@ -12,12 +12,20 @@
 
 #include "msh.h"
 
-int			lx_assignment_check(char *line)
+int			lx_assignment_check(char *line, t_list *list)
 {
 	int		len;
 	int		eq_pos;
 
 	len = 0;
+	if (ft_isdigit(line[len]))
+		return (0);
+	while (list)
+	{	
+		if (((t_token*)list->content)->token_type != ASSIGNMENT)
+			return (0);
+		list = list->next;
+	}
 	while (line[len] && ft_isprint(line[len]) && !ft_isspace(line[len]))
 		len++;
 	eq_pos = ft_strclen(line, "=");
@@ -46,7 +54,7 @@ int			lx_assignment_get(char *line, t_list **tokens)
 	char	*token_line;
 
 	len = 0;
-	while (line[len] && ft_isprint(line[len]) && !ft_isspace(line[len]))
+	while (line[len] && lx_word_check(line[len])) 
 	{
 		if (line[len] == '\\')
 			len++;
