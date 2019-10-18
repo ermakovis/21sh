@@ -27,9 +27,21 @@ typedef struct			s_bin
  
 typedef struct			s_job
 {
+	int					num;
 	pid_t				pid;
 	char				*cmd_line;
+	int					state;				
+	int					status;
 }						t_job;
+
+enum					e_jobstatus
+{
+	STOPPED,
+	RUNNING,
+	SIGNALED,
+	ERROR,
+	DONE
+};
 
 typedef struct			s_hash
 {

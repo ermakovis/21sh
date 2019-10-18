@@ -20,7 +20,6 @@ void		del_job(void *content, size_t content_size)
 	(void)content_size;
 	job = content;
 	ft_memdel((void**)&job->cmd_line);
-	job->pid = 0;
 	ft_memdel((void**)&content);
 }
 

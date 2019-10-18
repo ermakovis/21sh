@@ -1,35 +1,5 @@
 #include "msh.h"
 
-void	ex_job_check(int sig)
-{
-	t_list	*list;
-	t_list	*tmp;
-	t_job	*job;
-	int		count;
-	int		status;
-	int		ret;
-
-	count = 1;
-	list = g_msh->jobs;
-	while (list)
-	{
-		job = list->content;
-		if ((ret = waitpid(job->pid, &status, WNOHANG | WCONTINUED | WUNTRACED)) == -1\
-			&& sig)
-		{
-			
-			ft_printf("[%d] Done    %s\n", job->pid, job->cmd_line);
-			tmp = list;
-			list = list->next;
-			ft_lst_remove(&g_msh->jobs, tmp, &del_job);
-		}
-		else
-			list = list->next;
-		count++;
-	}
-	signal(SIGCHLD, SIG_DFL);
-}
-
 int		ex_wait(t_job *job)
 {
 	int		status;
@@ -75,7 +45,7 @@ int			ex_job(pid_t pid, t_ast *ast)
 	else
 	{
 		add_job(&g_msh->jobs, job);
-		ft_printf("[%d], %d\n", ft_lstsize(g_msh->jobs), job->pid);
+		ft_printf("[%d] %d\n", ft_lstsize(g_msh->jobs), job->pid);
 		ft_memdel((void**)&job);
 	}
 	return (status);

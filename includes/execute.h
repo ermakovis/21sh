@@ -41,7 +41,12 @@ int			ex_simple(t_ast *ast);
 */
 int			ex_wait(t_job *job);
 int			ex_job(pid_t pid, t_ast *ast);
-void		ex_job_check(int sig);
+void		ex_job_update_status(void);
+
+/*
+** ex_job_state.c
+*/
+void		ex_job_state(void);
 
 /*
 **	ex_assignments.c

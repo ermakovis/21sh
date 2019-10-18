@@ -65,6 +65,7 @@ BIN_NAME=bin_exit.c\
 EXE_NAME=execute.c\
 	ex_simple.c\
 	ex_job.c\
+	ex_job_state.c\
 	ex_pipe.c\
 	ex_common.c\
 	ex_getpath.c\
