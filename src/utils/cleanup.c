@@ -46,6 +46,7 @@ void		cleanup(int exit_code, char *message)
 	ft_lstdel(&g_msh->history, &delete_str);
 	ft_lstdel(&g_msh->env, &delete_var);
 	ft_lstdel(&g_msh->var, &delete_var);
+	ft_lstdel(&g_msh->cmd_var, &delete_var);
 	ft_lstdel(&g_msh->hash, &del_hash);
 	ft_lstdel(&g_msh->alias, &delete_var);
 	ft_lstdel(&g_msh->bin, &delete_builtins);

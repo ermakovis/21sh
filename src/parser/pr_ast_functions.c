@@ -73,7 +73,6 @@ void		pr_ast_print(t_ast *ast, int lvl)
 		++lvl;
 	ft_printf("%*.s*****\n%*.s", lvl * 4, " ", lvl * 4, " ");
 	print_token_line(ast->token);
-	ft_printf("%d bg\n", ast->bg);
 	ft_printf("%*.s*****\n", lvl * 4, " ");
 	if (ast->right)
 		pr_ast_print(ast->right, lvl--);

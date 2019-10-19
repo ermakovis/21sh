@@ -1,18 +1,5 @@
 #include "msh.h"
 
-static char *ex_env_getvalue(char *name)
-{
-	t_list *list;
-
-	if (list = ft_lst_find(g_msh->cmd_var, name, &cmp_var))
-		return (((t_var*)list->content)->value);
-	if (list = ft_lst_find(g_msh->var, name, &cmp_var))
-		return (((t_var*)list->content)->value);
-	if (list = ft_lst_find(g_msh->env, name, &cmp_var))
-		return (((t_var*)list->content)->value);
-	return (ft_strdup("SOMETHING GONE HORRIBLY WRONG\n"));
-}
-
 void		ex_env(char ***env)
 {
 	t_list	*env_list;
@@ -30,8 +17,7 @@ void		ex_env(char ***env)
 	while (env_list)
 	{
 		var = env_list->content;
-		value = ex_env_getvalue(var->name);
-		ret[i++] = var_to_str(var->name, value);
+		ret[i++] = var_to_str(var->name, var->value);
 		env_list = env_list->next;
 	}
 	*env = ret;

@@ -12,7 +12,7 @@
 
 #include "msh.h"
 
-static t_list	**ex_ass_get_varlist(t_list *list)
+static t_list	**ex_assign_get_varlist(t_list *list)
 {
 	t_token		*token;
 
@@ -26,6 +26,29 @@ static t_list	**ex_ass_get_varlist(t_list *list)
 	return (&g_msh->var);
 }
 
+static void	ex_assign_swap(void)
+{
+	t_list	*list_src;
+	t_list	*list_dst;
+	t_var	*var_src;
+	t_var	*var_dst;
+	char	*placeholder;
+
+	list_src = g_msh->cmd_var;
+	while (list_src)
+	{
+		var_src = list_src->content;
+		if ((list_dst = ft_lst_find(g_msh->env, var_src->name, &cmp_var)))
+		{
+			var_dst = list_dst->content;
+			placeholder = var_src->value;
+			var_src->value = var_dst->value;
+			var_dst->value = placeholder;
+		}
+		list_src = list_src->next;
+	}
+}
+
 void		ex_assignments(t_list **list)
 {
 	t_token		*token;
@@ -35,8 +58,9 @@ void		ex_assignments(t_list **list)
 
 	if (!*list)
 		return ;
+	ex_assign_swap();
 	ft_lstdel(&g_msh->cmd_var, &delete_var);
-	var_list = ex_ass_get_varlist(*list);
+	var_list = ex_assign_get_varlist(*list);
 	while (*list && ((t_token*)(*list)->content)->token_type == ASSIGNMENT)
 	{
 		token = (*list)->content;
@@ -49,5 +73,5 @@ void		ex_assignments(t_list **list)
 			add_var(line, line + eq_pos + 1, var_list);
 		ft_lstpop(list, &del_token);
 	}
-	ft_lstiter(g_msh->cmd_var, &print_var);
+	ex_assign_swap();
 }
