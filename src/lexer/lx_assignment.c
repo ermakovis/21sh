@@ -14,18 +14,18 @@
 
 int			lx_assignment_check(char *line, t_list *list)
 {
+	t_list	*prev;
 	int		len;
 	int		eq_pos;
 
 	len = 0;
 	if (ft_isdigit(line[len]))
 		return (0);
-	while (list)
-	{	
-		if (((t_token*)list->content)->token_type != ASSIGNMENT)
-			return (0);
+	while (list && list->next)
 		list = list->next;
-	}
+	if (!(!list || ((t_token*)list->content)->token_type == ASSIGNMENT ||\
+		((t_token*)list->content)->token_type == OPERATOR))
+		return (0);
 	while (line[len] && ft_isprint(line[len]) && !ft_isspace(line[len]))
 		len++;
 	eq_pos = ft_strclen(line, "=");
