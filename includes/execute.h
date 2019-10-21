@@ -12,6 +12,18 @@
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
+# define EXP_FAILURE -1 
+# define EXP_NUM (1 << 1)
+# define EXP_USEDEF (1 << 2)
+# define EXP_USEASS (1 << 3)
+# define EXP_USEERR (1 << 4)
+# define EXP_USEALT (1 << 5)
+# define EXP_REMSMALL (1 << 6)
+# define EXP_REMLARGE (1 << 7)
+# define EXP_REMSMALL_REV (1 << 8)
+# define EXP_REMLARGE_REV (1 << 9)
+# define EXP_ERROR (1 << 10)
+
 
 # include <sys/wait.h>
 
@@ -93,8 +105,11 @@ int			ex_pipe_switch(t_ast *left, t_ast *right);
 void		ex_expansions(t_list **list);
 void		append_line(char **dest, char *src, size_t buff_size);
 void		append_char(char **dest, char ch, size_t buff_size);
-void		ex_expansions_tild(t_token *token);
-void		ex_expansions_param(t_token *token);
+void		ex_expansions_tild(char **line);
+void		ex_expansions_param(char **line);
+int			ex_expansions_param_replace(char **new, char *line);
+int			ex_expansions_param_switch(char *param, char *word,\
+			int flags, char **new);
 void		ex_expansions_remquotes(t_token *token);
 void		ex_expansions_pathname(t_list **alist, t_list **list);
 

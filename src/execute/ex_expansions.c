@@ -31,14 +31,16 @@ void	append_line(char **dest, char *src, size_t buff_size)
 void	ex_expansions(t_list **alist)
 {
 	t_list	*list;
+	t_token *token;
 
 	list = *alist;
 	while (list)
 	{
-		if (((t_token*)list->content)->token_type == WORD)
+		token = list->content;
+		if (token->token_type == WORD)
 		{
-			ex_expansions_tild(list->content);
-			ex_expansions_param(list->content);
+			ex_expansions_tild(&token->line);
+			ex_expansions_param(&token->line);
 			//ex_expansion_command_sub(list);
 			//ex_expansion_arithmetic(list);
 			ex_expansions_pathname(alist, &list);

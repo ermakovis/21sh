@@ -40,6 +40,27 @@ int				lx_word_check(char ch)
 }
 
 /*
+**	braces balance checked at read_line, so i don't care about it here
+*/
+int				lx_word_braces_len(char *line)
+{
+	int		pile_size;
+	int		len;
+
+	pile_size = 1;
+	len = 1;
+	while (line[len] && pile_size)
+	{
+		if (line[len] == '(' || line[len] == '[' || line[len] == '{')
+			pile_size++;
+		else if (line[len] == ')' || line[len] == ']' || line[len] == '}')
+			pile_size--;
+		len++;	
+	}
+	return (len);
+}
+
+/*
 ** if starts with digits and starts
 */
 
@@ -62,6 +83,8 @@ int				lx_word_get(char *line, t_list **tokens)
 			len += ft_strclen(&line[len + 1], "'\'") + 1;
 		else if (line[len] == '\"')
 			len += lx_word_dquote_len(&line[len]);
+		else if (line[len] == '[' || line[len] == '(' || line[len] == '{')
+			len += lx_word_braces_len(&line[len]);
 		else
 			len++;
 	}

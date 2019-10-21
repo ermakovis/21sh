@@ -44,16 +44,16 @@ static int	ex_expansions_tild_swap(char **left)
 		cleanup(-1, "Malloc failed at ex_expansions_tild_swap");
 }
 
-void		ex_expansions_tild(t_token *token)
+void		ex_expansions_tild(char **line)
 {
 	char	*left;
 	char	*right;
 	char	*new;
 
-	if (token->line[0] != '~')
+	if (*line[0] != '~')
 		return ;
 	new = 0;
-	ex_expansions_tild_split(token->line, &left, &right);
+	ex_expansions_tild_split(*line, &left, &right);
 	if (ex_expansions_tild_swap(&left) == FAILURE)
 		;
 	else if (!(new = ft_strjoin(left, right)))
@@ -62,7 +62,7 @@ void		ex_expansions_tild(t_token *token)
 	ft_memdel((void**)&right);
 	if (new)
 	{
-		ft_memdel((void**)&token->line);
-		token->line = new;
+		ft_memdel((void**)&*line);
+		*line = new;
 	}
 }
