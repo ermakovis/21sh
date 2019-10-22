@@ -68,7 +68,7 @@ bool		ex_globbing(char *str, char *pat, char *b_str, char *b_pat)
 	if (*pat == '?')
 		return (ex_globbing(str + 1, pat + 1, b_str, b_pat));
 	if (*pat == '*')
-		return (ex_globbing(str + 1, pat + 1, str, pat + 1)); 
+		return (ex_globbing(str, pat + 1, str, pat + 1)); 
 	if (*pat == '[')
 		return (ex_glob_class(str, pat + 1, b_str, b_pat));
 	if (*pat == '\"' || *pat == '\'')

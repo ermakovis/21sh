@@ -5,7 +5,7 @@ static int	ex_exp_param_split_simple(char **param, char *line)
 	int	len;
 
 	len = 0;
-	while (line[len] && !ft_strchr("\n\t\'\"\\\t |$;", line[len]))
+	while (line[len] && !ft_strchr("\n\t\'\"\\\t |$;}", line[len]))
 		len++;
 	if (!(*param = ft_strndup(line, len)))
 		cleanup(-1, "Malloc failed at ex_exp_param_split_simple");
@@ -14,21 +14,21 @@ static int	ex_exp_param_split_simple(char **param, char *line)
 
 static int	ex_exp_param_options(char *line, int *flags)
 {
-	if (ft_strncmp(line, ":-", 2))
+	if (!ft_strncmp(line, ":-", 2))
 		*flags |= EXP_USEDEF; 
-	else if (ft_strncmp(line, ":=", 2))
+	else if (!ft_strncmp(line, ":=", 2))
 		*flags |= EXP_USEASS;
-	else if (ft_strncmp(line, ":?", 2))
+	else if (!ft_strncmp(line, ":?", 2))
 		*flags |= EXP_USEERR;
-	else if (ft_strncmp(line, ":+", 2))
+	else if (!ft_strncmp(line, ":+", 2))
 		*flags |= EXP_USEALT;
-	else if (ft_strncmp(line, "##", 2))
+	else if (!ft_strncmp(line, "##", 2))
 		*flags |= EXP_REMLARGE; 
-	else if (ft_strncmp(line, "#", 1))
+	else if (!ft_strncmp(line, "#", 1))
 		*flags |= EXP_REMSMALL;
-	else if (ft_strncmp(line, "%%", 2))
+	else if (!ft_strncmp(line, "%%", 2))
 		*flags |= EXP_REMLARGE_REV;
-	else if (ft_strncmp(line, "%", 1))
+	else if (!ft_strncmp(line, "%", 1))
 		*flags |= EXP_REMSMALL_REV;
 	else
 		*flags |= EXP_ERROR;
@@ -51,7 +51,7 @@ static int	ex_exp_param_split(char **param, char **word,\
 	if (line[len] == '#' && len++)
 		*flags |= EXP_NUM;
 	word_start = len;
-	while (line[len] && !ft_strchr(":}#@", line[len]))
+	while (line[len] && !ft_strchr(":}%#@", line[len]))
 		len++;
 	if (!(*param = ft_strndup(&line[word_start], len - word_start)))
 		cleanup(-1, "Malloc failed at ex_exp_param_split");
@@ -84,8 +84,15 @@ int		ex_expansions_param_replace(char **new, char *line)
 	if ((len = ex_exp_param_split(&parameter, &word, &flags, line))\
 		== EXP_FAILURE)
 		return (EXP_FAILURE);
+	if (word)	
+	{
+		ex_expansions_tild(&word);
+		ex_expansions_param(&word);
+	}
 	ft_printf("%s - %s - %b\n", parameter, word, flags);
 	ex_expansions_param_switch(parameter, word, flags, new);
+	ft_memdel((void**)&parameter);
+	ft_memdel((void**)&word);
 	return (len);
 
 }

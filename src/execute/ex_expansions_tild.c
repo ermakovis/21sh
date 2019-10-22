@@ -50,7 +50,7 @@ void		ex_expansions_tild(char **line)
 	char	*right;
 	char	*new;
 
-	if (*line[0] != '~')
+	if (!line || !*line || *line[0] != '~')
 		return ;
 	new = 0;
 	ex_expansions_tild_split(*line, &left, &right);

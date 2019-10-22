@@ -107,8 +107,12 @@ void		append_line(char **dest, char *src, size_t buff_size);
 void		append_char(char **dest, char ch, size_t buff_size);
 void		ex_expansions_tild(char **line);
 void		ex_expansions_param(char **line);
+char		*ex_expansions_param_getline(char *param);
 int			ex_expansions_param_replace(char **new, char *line);
-int			ex_expansions_param_switch(char *param, char *word,\
+void		ex_expansions_param_switch(char *param, char *word,\
+			int flags, char **new);
+void		ex_expansions_param_simple(char *param, char **new);
+void		ex_expansions_param_rem(char *param, char *word,\
 			int flags, char **new);
 void		ex_expansions_remquotes(t_token *token);
 void		ex_expansions_pathname(t_list **alist, t_list **list);

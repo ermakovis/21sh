@@ -22,6 +22,18 @@ static int	ex_expansions_param_skip_bslash(char **new, char *line)
 	return (i);
 }
 
+char		*ex_expansions_param_getline(char *param)
+{
+	t_list *list;
+
+	if ((list = ft_lst_find(g_msh->var, param, &cmp_var)))
+		return (((t_var*)list->content)->value);
+	else if ((list = ft_lst_find(g_msh->env, param, &cmp_var)))
+		return (((t_var*)list->content)->value);
+	return (0);
+
+}
+
 void		ex_expansions_param(char **line)
 {
 	char	*new;
