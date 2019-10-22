@@ -102,18 +102,22 @@ bool		ex_globbing(char *str, char *pat, char *b_str, char *b_pat);
 int			ex_pipe(t_ast *ast);
 int			ex_pipe_switch(t_ast *left, t_ast *right);
 
-void		ex_expansions(t_list **list);
+int			ex_expansions(t_list **list);
 void		append_line(char **dest, char *src, size_t buff_size);
 void		append_char(char **dest, char ch, size_t buff_size);
 void		ex_expansions_tild(char **line);
-void		ex_expansions_param(char **line);
+int			ex_expansions_param(char **line);
 char		*ex_expansions_param_getline(char *param);
 int			ex_expansions_param_replace(char **new, char *line);
+int			ex_expansions_param_valid(char *param, char *word,\
+				int flags, char *line);
 void		ex_expansions_param_switch(char *param, char *word,\
-			int flags, char **new);
+				int flags, char **new);
 void		ex_expansions_param_simple(char *param, char **new);
 void		ex_expansions_param_rem(char *param, char *word,\
-			int flags, char **new);
+				int flags, char **new);
+void		ex_expansions_param_use(char *param, char *word,\
+				int flags, char **new);
 void		ex_expansions_remquotes(t_token *token);
 void		ex_expansions_pathname(t_list **alist, t_list **list);
 

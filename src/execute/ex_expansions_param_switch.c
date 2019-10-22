@@ -29,6 +29,9 @@ void		ex_expansions_param_switch(char *param, char *word,\
 	if (flags & EXP_REMSMALL || flags & EXP_REMLARGE || flags & EXP_REMSMALL_REV\
 		|| flags & EXP_REMLARGE_REV)
 		ex_expansions_param_rem(param, word, flags, new);
+	if (flags & EXP_USEDEF || flags & EXP_USEASS\
+		|| flags & EXP_USEALT || flags & EXP_USEERR)
+		ex_expansions_param_use(param, word, flags, new);
 	else if (flags == 0)
 		ex_expansions_param_simple(param, new);
 

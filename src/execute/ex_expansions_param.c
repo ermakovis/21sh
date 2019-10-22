@@ -31,37 +31,50 @@ char		*ex_expansions_param_getline(char *param)
 	else if ((list = ft_lst_find(g_msh->env, param, &cmp_var)))
 		return (((t_var*)list->content)->value);
 	return (0);
-
 }
 
-void		ex_expansions_param(char **line)
+static int	ex_expansions_param_find(char *line, char **new)
+{
+	int	dquote;
+	int	i;
+	int	ret;
+	
+	dquote = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\"')
+			dquote ^= 1;
+		if (line[i] == '\\')
+			i += ex_expansions_param_skip_bslash(new, &(line[++i]));
+		else if (line[i] == '\'' && !dquote)
+			i += ex_expansions_param_skip_squote(new, &(line[++i]));
+		else if (line[i] == '$')
+		{
+			if ((ret = ex_expansions_param_replace(new, &(line[++i])))\
+					== EXP_FAILURE)
+				return (EXP_FAILURE);
+			i += ret;
+		}
+		else
+			append_char(new, line[i++], NAME_MAX);
+	}
+	return (SUCCESS);
+}
+
+int			ex_expansions_param(char **line)
 {
 	char	*new;
-	char	*tmp_line;
-	size_t	dquote;
-	size_t	i;
-
+	int		ret;
 
 	if (!ft_strchr(*line, '$'))	
-		return ;
+		return (SUCCESS);
 	if (!(new = ft_strnew(NAME_MAX)))
 		cleanup(-1, "Malloc failed at ex_expansions_param");
-	i = 0;
-	dquote = 0;
-	tmp_line = *line;
-	while (tmp_line[i])
-	{
-		if (tmp_line[i] == '\"')
-			dquote ^= 1;
-		if (tmp_line[i] == '\\')
-			i += ex_expansions_param_skip_bslash(&new, &(tmp_line[++i]));
-		else if (tmp_line[i] == '\'' && !dquote)
-			i += ex_expansions_param_skip_squote(&new, &(tmp_line[++i]));
-		else if (tmp_line[i] == '$')
-			i += ex_expansions_param_replace(&new, &(tmp_line[++i]));
-		else
-			append_char(&new, tmp_line[i++], NAME_MAX);
-	}
+	ret = SUCCESS;
+	if (ex_expansions_param_find(*line, &new) == EXP_FAILURE)
+		ret = EXP_FAILURE;
 	ft_memdel((void**)line);
 	*line = new;
+	return (ret);
 }

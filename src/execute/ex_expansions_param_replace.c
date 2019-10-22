@@ -37,9 +37,30 @@ static int	ex_exp_param_options(char *line, int *flags)
 	return (2);
 }
 
-//TODO: Correct word len in case of nested param
+static int	ex_exp_param_word(char *line, char **word)
+{
+	int		braces_count;
+	int		len;
+
+	len = 0;
+	braces_count = 0;
+	while (line[len])
+	{
+		if (line[len] == '{')
+			braces_count++;
+		if (line[len] == '}' && !braces_count)
+			break ;
+		if (line[len] == '}')
+			braces_count--;
+		len++;
+	}
+	if (!(*word = ft_strndup(line, len)))
+		cleanup(-1, "Malloc failed at ex_exp_param_word");
+	return (len);
+}
+
 static int	ex_exp_param_split(char **param, char **word,\
-	int *flags, char *line)
+		int *flags, char *line)
 {
 	int		len;
 	int		word_start;
@@ -58,17 +79,14 @@ static int	ex_exp_param_split(char **param, char **word,\
 	if (line[len] == '}')
 		return (len + 1);
 	len += ex_exp_param_options(&line[len], flags);
-	word_start = len;
-	while(line[len] && line[len] != '}')
-		len++;
-	if (!(*word = ft_strndup(&line[word_start], len - word_start)))
-		cleanup(-1, "Malloc failed at ex_exp_param_split");
+	len += ex_exp_param_word(&line[len], word);
 	return (len + 1);
 }
 
+//TODO Norminette dat shit
 int		ex_expansions_param_replace(char **new, char *line)
 {
-	char	*parameter;
+	char	*param;
 	char	*word;
 	int		flags;	
 	int		len;
@@ -78,21 +96,27 @@ int		ex_expansions_param_replace(char **new, char *line)
 		append_char(new, '$', NAME_MAX);
 		return (0);
 	}
-	parameter = 0;
-	word = 0;
 	flags = 0;
-	if ((len = ex_exp_param_split(&parameter, &word, &flags, line))\
-		== EXP_FAILURE)
+	param = 0;
+	word = 0;
+	if ((len = ex_exp_param_split(&param, &word, &flags, line))\
+			== EXP_FAILURE)
 		return (EXP_FAILURE);
 	if (word)	
 	{
 		ex_expansions_tild(&word);
-		ex_expansions_param(&word);
+		if (ex_expansions_param(&word) == EXP_FAILURE)
+		{
+			ft_memdel((void**)&param);
+			ft_memdel((void**)&word);
+			return (EXP_FAILURE);
+		};
 	}
-	ft_printf("%s - %s - %b\n", parameter, word, flags);
-	ex_expansions_param_switch(parameter, word, flags, new);
-	ft_memdel((void**)&parameter);
+	if (ex_expansions_param_valid(param, word, flags, line) == EXP_FAILURE)
+		len = EXP_FAILURE;
+	else
+		ex_expansions_param_switch(param, word, flags, new);
+	ft_memdel((void**)&param);
 	ft_memdel((void**)&word);
 	return (len);
-
 }

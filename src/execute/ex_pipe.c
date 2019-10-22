@@ -21,7 +21,8 @@ int				ex_pipe_exec(t_ast *ast)
 
 	cmd = NULL;
 	ex_command_setpgid(ast->bg);
-	ex_expansions(&ast->token);
+	if (ex_expansions(&ast->token) == EXP_FAILURE)
+		return (EXP_FAILURE);
 	if (ex_redirections(ast->token) == BIN_FAILURE)
 		return (BIN_FAILURE);
 	if ((ret = ex_builtin(ast->token)) != FAILURE)

@@ -79,9 +79,11 @@ EXE_NAME=execute.c\
 	ex_expansions.c\
 	ex_expansions_tild.c\
 	ex_expansions_param.c\
+	ex_expansions_param_valid.c\
 	ex_expansions_param_replace.c\
 	ex_expansions_param_switch.c\
 	ex_expansions_param_rem.c\
+	ex_expansions_param_use.c\
 	ex_expansions_remquotes.c\
 	ex_expansions_pathname.c
 UT_NAME=init.c\

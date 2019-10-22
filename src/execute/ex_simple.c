@@ -56,7 +56,8 @@ int				ex_simple(t_ast *ast)
 	char		*cmd;
 
 	status = SUCCESS;
-	ex_expansions(&ast->token);
+	if (ex_expansions(&ast->token) == EXP_FAILURE)
+		return (ex_set_return_var(EXP_FAILURE));
 	ex_assignments(&ast->token);
 	if (ast->token == NULL)
 		return (SUCCESS);

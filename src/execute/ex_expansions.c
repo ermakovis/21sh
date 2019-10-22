@@ -28,7 +28,7 @@ void	append_line(char **dest, char *src, size_t buff_size)
 	*dest = ft_strcat(*dest, src);
 }
 
-void	ex_expansions(t_list **alist)
+int		ex_expansions(t_list **alist)
 {
 	t_list	*list;
 	t_token *token;
@@ -40,7 +40,8 @@ void	ex_expansions(t_list **alist)
 		if (token->token_type == WORD)
 		{
 			ex_expansions_tild(&token->line);
-			ex_expansions_param(&token->line);
+			if (ex_expansions_param(&token->line) == EXP_FAILURE)
+				return (EXP_FAILURE);
 			//ex_expansion_command_sub(list);
 			//ex_expansion_arithmetic(list);
 			ex_expansions_pathname(alist, &list);
@@ -48,4 +49,5 @@ void	ex_expansions(t_list **alist)
 		}
 		list = list->next;
 	}
+	return (SUCCESS);
 }
