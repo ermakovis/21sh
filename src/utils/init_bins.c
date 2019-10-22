@@ -69,4 +69,6 @@ void			init_bins(void)
 	add_builtin("echo", &bin_echo);
 	add_builtin("hash", &bin_hash);
 	add_builtin("type", &bin_type);
+	add_builtin("true", &bin_true);
+	add_builtin("false", &bin_false);
 }

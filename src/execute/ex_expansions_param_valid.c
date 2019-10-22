@@ -11,6 +11,8 @@ static int	ex_exp_param_valid_param(char *param)
 	int		i;
 
 	i = -1;
+	if (!ft_strcmp(param, "?"))
+		return (SUCCESS);
 	if (ft_isdigit(param[0]))
 		return (EXP_FAILURE);
 	while (param[++i])

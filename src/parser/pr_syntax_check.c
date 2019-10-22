@@ -83,7 +83,7 @@ static int	pr_syntax_check_operator(t_list *list)
 	while(list)
 	{
 		curr = list->content;
-		if (curr->token_type == OPERATOR)
+		if (curr->token_type == OPERATOR && curr->operator_type != AND)
 		{
 			next = list->next->content;
 			if (curr->operator_type == SEMI && next->token_type == NEWLINE)
