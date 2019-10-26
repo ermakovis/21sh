@@ -117,5 +117,6 @@ int					ft_item_type(char *path);
 int					ft_table_size(char **table);
 void				ft_print_table(char **table);
 void				ft_free_table(char ***table);
+int					ft_parse_options(char *line, char **options, int *flags);
 
 #endif

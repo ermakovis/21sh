@@ -28,6 +28,7 @@ typedef struct			s_bin
 typedef struct			s_job
 {
 	int					num;
+	char				sign;
 	pid_t				pid;
 	char				*cmd_line;
 	int					state;				
@@ -36,8 +37,8 @@ typedef struct			s_job
 
 enum					e_jobstatus
 {
-	STOPPED,
 	RUNNING,
+	STOPPED,
 	SIGNALED,
 	ERROR,
 	DONE
@@ -130,10 +131,10 @@ void					delete_var(void *content, size_t size);
 **	ut_job_functions.c
 */
 int						cmp_job(t_job *job, t_job *data_ref);
-void					print_job(t_list *list);
 void					del_job(void *content, size_t content_size);
-t_job					*get_job(pid_t pid, char *cmd_line);
 void					add_job(t_list **alist, t_job *job);
+t_job					*get_job(pid_t pid, char *cmd_line);
+t_job					*find_job(int num);
 
 /*
 **	ut_hash_functions.c

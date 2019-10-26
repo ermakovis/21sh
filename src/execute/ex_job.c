@@ -10,11 +10,11 @@ int		ex_wait(t_job *job)
 	waitpid(job->pid, &status, WUNTRACED);
 	if (WIFSTOPPED(status))
 	{
+		job->state = STOPPED;
 		if (!(ft_lst_find(g_msh->jobs, job, &cmp_job)))
 			add_job(&g_msh->jobs, job);
-		ft_printf("\n[%d] %d Stopped    %s\n", \
-			ft_lstget_pos(g_msh->jobs, job, &cmp_job) + 1,\
-				job->pid, job->cmd_line);
+		ft_printf("\n[%d] %d Stopped    %s\n",\
+			job->num, job->pid, job->cmd_line);
 	}
 	else
 	{
@@ -45,7 +45,7 @@ int			ex_job(pid_t pid, t_ast *ast)
 	else
 	{
 		add_job(&g_msh->jobs, job);
-		ft_printf("[%d] %d\n", ft_lstsize(g_msh->jobs), job->pid);
+		ft_printf("[%d] %d\n", job->num, job->pid);
 		ft_memdel((void**)&job);
 	}
 	return (status);

@@ -66,6 +66,9 @@ int					main(int argc, char **argv, char **env)
 			execute(g_msh->ast);
 		}
 		cycle_cleanup();
+		ex_job_state();
+		ex_job_print_completed();
+		ex_job_del_completed();
 		display_prompt();
 	}
 	cleanup(0, NULL);

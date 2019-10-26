@@ -60,6 +60,13 @@ int			ex_job(pid_t pid, t_ast *ast);
 void		ex_job_update_status(void);
 
 /*
+** ex_job_functions.c
+*/
+void		ex_job_del_completed(void);
+void		ex_job_print_completed(void);
+void		ex_job_put_signes(void);
+
+/*
 ** ex_job_state.c
 */
 void		ex_job_state(void);

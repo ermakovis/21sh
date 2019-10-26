@@ -44,7 +44,6 @@ int		bin_fg(t_list *list)
 	int		ret;
 
 	ret = BIN_FAILURE;
-	//ex_job_check(1);
 	tokens_count = ft_lstsize(list);
 	ex_tokens(&tokens, list);
 	if (tokens_count == 1)

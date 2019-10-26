@@ -1,69 +1,82 @@
 #include "msh.h"
 
-/*
-**	TODO: options, plus_sign
-*/
+#define JOBS_SHORT (1 << 1)
+#define JOBS_FULL 1 
 
-#define JOBS_NORMAL 0
-#define JOBS_BRIEF 1
-#define JOBS_FULL 2
-
-static void bin_jobs_line(t_list *list, int option)
+static void bin_jobs_line(t_job *job, int options)
 {
-	t_job *job;
-
-	job = list->content;
-	if (option != JOBS_BRIEF)
-		ft_printf("%d", 1);
-	if (option != JOBS_BRIEF)
-		ft_printf("+ ");
-	if (option != JOBS_NORMAL)
-		ft_printf("%d", job->pid);
-	if (option != JOBS_BRIEF)
-	{
-		if (job->status == RUNNING)
-			ft_printf(" %s %s", " Running ", job->cmd_line);
-		else if (job->status == STOPPED)
-			ft_printf(" %s %s", " Stopped ", job->cmd_line);
-		else if (job->status == ERROR)
-			ft_printf(" %s %s", " ERROR ", job->cmd_line);
-		else if (job->status == SIGNALED)
-			ft_printf(" %s %s", " Signaled ", job->cmd_line);
-		if (job->status == DONE)
-		{
-			ft_printf(" %s %s", " Done ", job->cmd_line);
-			ft_lst_remove(&g_msh->jobs, list, &del_job);
-		}
-	}
-	ft_printf("\n");
+	char	*status[] = {"Running", "Stopped", "Signaled", "Error", "Done"}; 
+	
+	if (options & JOBS_SHORT)
+		ft_printf("%d\n", job->pid);
+	else if (options & JOBS_FULL)
+		ft_printf("[%d]%c %5d %-20s%s\n", job->num, job->sign, job->pid,\
+			status[job->state], job->cmd_line);
+	else
+		ft_printf("[%d]%c %-20s%s\n", job->num, job->sign,  \
+			status[job->state], job->cmd_line);
 }
 
-static void bin_jobs_full(int option)
+static void bin_jobs_full(int options)
 {
 	t_list *list;
 
 	list = g_msh->jobs;
 	while (list)
 	{
-		bin_jobs_line(list, option);
+		bin_jobs_line(list->content, options);
 		list = list->next;
 	}
+}
+
+static int bin_jobs_specifics(char **table, int options)
+{
+	int		i;
+	t_job	*job;
+	int		ret;
+
+	i = -1;
+	ret = BIN_SUCCESS;
+	while (table[++i])
+	{
+		if (!ft_isnumber(table[i]))
+		{
+			ft_dprintf(2, "%s: jobs: %s: Number expected\n",\
+				g_msh->shell_name, table[i]);
+			ret = BIN_FAILURE;
+		}
+		else if (!(job = find_job(ft_atoi(table[i]))))
+		{
+			ft_dprintf(2, "%s: jobs: %s: no such job\n",\
+				g_msh->shell_name, table[i]);
+			ret = BIN_FAILURE;
+		}
+		else
+			bin_jobs_line(job, options);
+	}
+	return (ret);
 }
 
 int		bin_jobs(t_list *list)
 {
 	char	**tokens;
-	int		option;
+	int		options;
 	int		i;
+	int		ret;
 
-	if (!ft_lstsize(g_msh->jobs))
-		return (BIN_SUCCESS);
-	option = JOBS_NORMAL;
-	i = 0;
+	ret = BIN_SUCCESS;
 	ex_tokens(&tokens, list);
 	ex_job_state();
-	if (!tokens[i + 1])
-		bin_jobs_full(option);
+	ex_job_put_signes();
+	i = 1;
+	if ((ret = ft_parse_options("lp", &tokens[i], &options)) == -1)
+		return (bin_print_error("Wrong parameter", "jobs", &tokens));
+	i += ret;
+	if (!tokens[i])
+		bin_jobs_full(options);
+	else if (bin_jobs_specifics(&tokens[i], options) == BIN_FAILURE);
+		ret = BIN_FAILURE;
+	ex_job_del_completed();
 	ft_free_table(&tokens);
-	return (BIN_SUCCESS);
+	return (ret);
 }

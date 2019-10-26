@@ -62,11 +62,13 @@ BIN_NAME=bin_exit.c\
 	bin_echo.c\
 	bin_type.c\
 	bin_hash.c\
-	bin_true_false.c
+	bin_true_false.c\
+	bin_functions.c
 EXE_NAME=execute.c\
 	ex_simple.c\
 	ex_job.c\
 	ex_job_state.c\
+	ex_job_functions.c\
 	ex_pipe.c\
 	ex_common.c\
 	ex_tokens.c\
