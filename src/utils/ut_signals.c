@@ -3,6 +3,8 @@
 void				ut_signal_sigint(int sig)
 {
 	(void)sig;
+	if (g_msh->rl_mode == HEREDOC_MODE)
+		return ;
 	if (g_msh && g_msh->rl)
 	{
 		rl_jump(LINE_END);

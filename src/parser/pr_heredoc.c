@@ -48,7 +48,7 @@ static char	*pr_heredoc_read(t_list *list)
 	line = NULL;
 	ret_list = NULL;
 	cl_rl_struct();
-	while (read_line(HEREDOC_MODE))
+	while (read_line(HEREDOC_MODE) == SUCCESS)
 	{
 		line = g_msh->rl->line;
 		line_len = ft_strlen(line);

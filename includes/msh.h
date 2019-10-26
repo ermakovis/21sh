@@ -46,6 +46,7 @@ typedef struct			s_msh
 {
 	pid_t				pid;
 	int					display_flags;
+	int					rl_mode;
 	char				*shell_name;
 	char				*copy_buffer;
 	t_rl				*rl;

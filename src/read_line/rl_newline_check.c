@@ -79,10 +79,12 @@ int		rl_braces_check(char *line)
 	return (0);
 }
 
-int		rl_newline_check(void)
+int		rl_newline_check(int mode)
 {
 	char *line;
 
+	if (mode == HEREDOC_MODE)
+		return (0);	
 	line = g_msh->rl->line;
 	if (rl_quotes_check(line) == 0)
 		return (1);

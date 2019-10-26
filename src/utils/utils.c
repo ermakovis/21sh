@@ -14,6 +14,7 @@
 
 int				get_char(long *ch)
 {
+	*ch = 0;
 	read(STDIN_FILENO, ch, sizeof(long));
 	return (1);
 }

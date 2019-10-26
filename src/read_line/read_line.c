@@ -40,22 +40,31 @@ static void		rl_switch(long ch)
 		rl_print_char(ch);
 }
 
+static int		rl_endline_check(void)
+{
+	if (g_msh->rl->line_len == 0 && g_msh->rl->mode == RL_MODE)
+		cleanup(0, "");
+	if (g_msh->rl->line_len == 0 && g_msh->rl->mode == HEREDOC_MODE)
+		return (0);
+	return (1);
+}
+
 int				read_line(int mode)
 {
 	long	ch;
 	int		ret;
 
-	ch = 0;
 	init_rl();
-	g_msh->rl->mode = mode;
+	g_msh->rl_mode = mode;
 	set_terminal_raw();
 	while (get_char(&ch))
 	{
-		if (ch == 4 && g_msh->rl->line_len == 0)
-			cleanup(0, "");
+		g_msh->rl->mode = mode;
+		if (ch == 4 && !rl_endline_check())
+			return (FAILURE);
 		else if (ch == '\n')
 		{	
-			if ((ret = rl_newline_check()) == 2)
+			if ((ret = rl_newline_check(mode)) == 2)
 				return (FAILURE); 
 			if (ret == 1)
 				continue ;
@@ -66,7 +75,6 @@ int				read_line(int mode)
 		}
 		else 
 			rl_switch(ch);
-		ch = 0;
 	}
 	set_terminal_canon();
 	return (SUCCESS);
