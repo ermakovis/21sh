@@ -13,18 +13,16 @@ static int		bin_fg_failure_message(char *line)
 
 static int		bin_fg_action(int pos)
 {
-	t_list	*list;
 	t_job	*job;
 	int		status;
 
 	status = BIN_SUCCESS;
 	if (ft_lstsize(g_msh->jobs) == 0)
 		return (bin_fg_failure_message("current: no such job"));
-	if (!(list = ft_lst_num(g_msh->jobs, pos)))
+	if (!(job = find_job(pos)))
 		return (bin_fg_failure_message("current: no such job"));
 	else
 	{
-		job = list->content;
 		tcsetpgrp(STDOUT_FILENO, job->pid);
 		if ((kill(job->pid, SIGCONT) < 0))
 			ft_dprintf(2, "fg: Failed to send continue signal\n");
@@ -47,7 +45,12 @@ int		bin_fg(t_list *list)
 	tokens_count = ft_lstsize(list);
 	ex_tokens(&tokens, list);
 	if (tokens_count == 1)
-		ret = bin_fg_action(ft_lstsize(g_msh->jobs) - 1);
+	{
+		list = g_msh->jobs;
+		while (list->next)
+			list = list->next;
+		ret = bin_fg_action(((t_job*)list->content)->num);
+	}
 	else if (tokens_count > 2)
 		ft_dprintf(2, "%s: fg: Too many arguments\n", g_msh->shell_name); 
 	else if (ft_isnumber(tokens[1]))

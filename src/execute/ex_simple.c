@@ -39,13 +39,13 @@ int				ex_simple_exec(t_ast *ast)
 	ex_tokens(&tokens, ast->token);
 	ut_signal_child();
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
-		ret = FAILURE;
-	else if ((ret = execve(cmd, tokens, env) == -1))
-		ft_dprintf(2, "%s: launch failed\n", cmd);
+		return (BIN_FAILURE);
+	execve(cmd, tokens, env);
+	ft_dprintf(2, "%s: launch failed\n", cmd);
 	ft_memdel((void**)&cmd);
 	ft_free_table(&env);
 	ft_free_table(&tokens);
-	return (ret);
+	return (0);
 }
 
 int				ex_simple(t_ast *ast)

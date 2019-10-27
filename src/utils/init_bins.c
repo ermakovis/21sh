@@ -57,13 +57,12 @@ static void		add_builtin(char *name, int (*func)(t_list *list))
 void			init_bins(void)
 {
 	add_builtin("exit", &bin_exit);
+	add_builtin("set", &bin_set);
 	add_builtin("cd", &bin_cd);
 	add_builtin("fg", &bin_fg);
 	add_builtin("bg", &bin_bg);
 	add_builtin("jobs", &bin_jobs);
 	add_builtin("env", &bin_env);
-	add_builtin("setenv", &bin_setenv);
-	add_builtin("unsetenv", &bin_unsetenv);
 	add_builtin("alias", &bin_alias);
 	add_builtin("unalias", &bin_unalias);
 	add_builtin("echo", &bin_echo);

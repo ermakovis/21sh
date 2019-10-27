@@ -4,7 +4,7 @@ void	ex_job_state_check(t_job *job)
 {
 		int ret;
 		int	status;
-
+ 
 		if (!(ret = waitpid(job->pid, &status,\
 			WNOHANG | WCONTINUED | WUNTRACED)))
 			return ;
