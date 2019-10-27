@@ -4,10 +4,12 @@ int		ex_wait(t_job *job)
 {
 	int		status;
 	t_list	*list;
+	int		ret;
 
-	status = 0;
+	status = 1;
 	list = 0;
-	waitpid(job->pid, &status, WUNTRACED);
+	ret = waitpid(job->pid, &status, WUNTRACED);
+	ft_printf("%d %d\n", ret, status);
 	if (WIFSTOPPED(status))
 	{
 		job->state = STOPPED;

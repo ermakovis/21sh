@@ -67,7 +67,7 @@ int				ex_simple(t_ast *ast)
 	if ((pid = fork()) == -1)
 		return (FAILURE);
 	if (pid == 0)
-		exit(ex_simple_exec(ast));
+		exit (ex_simple_exec(ast));
 	status = ex_job(pid, ast);	
 	ret = ex_exit_status(status);
 	return (ex_set_return_var(ret));

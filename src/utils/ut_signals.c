@@ -28,7 +28,7 @@ void		ut_signal_parent(void)
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGINT, ut_signal_sigint);
-	signal(SIGCHLD, SIG_IGN);
+	//signal(SIGCHLD, SIG_IGN);
 }
 
 void		ut_signal_child(void)
