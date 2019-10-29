@@ -57,6 +57,7 @@ int					main(int argc, char **argv, char **env)
 	parse_params(&argc, &argv);
 	display_prompt();
 	ut_signal_parent();
+	rl_start_history();
 	while (true)
 	{
 		if (read_line(RL_MODE) == SUCCESS)

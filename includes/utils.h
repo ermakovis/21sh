@@ -162,4 +162,7 @@ void					ut_signal_child(void);
 */
 void					cleanup(int exit_code, char *message);
 void					cl_rl_struct(void);
+
+char					*get_history_path(void);
+void					rl_store_history_to_file(void);
 #endif

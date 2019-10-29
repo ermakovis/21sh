@@ -52,3 +52,76 @@ void	rl_history(long ch)
 	else if (ch == DOWN && rl->history >= 0)
 		rl_history_change(--(rl->history));
 }
+
+void		rl_store_history_to_g_msh(char *line)
+{
+	char	**arr;
+	int		i;
+
+	i = 0;
+	if (!line)
+		return ;
+	arr = ft_strsplit(line, '\n');
+	while (arr[i])
+	{
+		t_list *new_cur = (t_list *)malloc(sizeof(t_list));
+		new_cur->content = (void *)ft_strdup(arr[i]);
+		new_cur->content_size = ft_strlen(arr[i]);
+		new_cur->next = NULL;
+		ft_lstadd_last(&(g_msh->history), new_cur);
+		++i;
+	}
+	i = 0;
+	while (arr[++i])
+		free(arr[i]);
+	free(arr);
+}
+
+void		rl_store_history_to_file(void)
+{
+	char	*history_path;
+	int		fd;
+	t_list	*it;
+
+	history_path = get_history_path();
+	if (!history_path)
+		dprintf(STDERR_FILENO, "42sh: username get error\n");
+	fd = open(history_path, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IROTH | S_IRGRP);
+	if (fd < 0)
+		dprintf(STDERR_FILENO, "42sh: can't open history's file\n");
+	it = g_msh->history;
+	while (it)
+	{
+		write(fd, it->content, ft_strlen(it->content));
+		write(fd, "\n", 1);
+		it = it->next;
+	}
+	close(fd);
+	free(history_path);
+}
+
+void		rl_start_history(void)
+{
+	int		fd;
+	char	*history_path;
+	char	line[1024 + 1];
+	char	*tmp;
+	int		res;
+
+	tmp = NULL;
+	history_path = get_history_path();
+	if (!history_path)
+		dprintf(STDERR_FILENO, "42sh: username get error\n");
+	fd = open(history_path, O_CREAT | O_RDONLY, S_IRUSR | S_IWUSR | S_IROTH | S_IRGRP);
+	if (fd < 0)
+		dprintf(STDERR_FILENO, "42sh: can't open history's file\n");
+	while ((res = read(fd, &line, 1024)) > 0)
+	{
+		line[res] = 0;
+		free(tmp);
+		tmp = ft_strjoin(tmp, line);
+	}
+	close(fd);
+	rl_store_history_to_g_msh(tmp);
+	free(history_path);
+}

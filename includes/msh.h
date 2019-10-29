@@ -28,6 +28,7 @@
 # include <pwd.h>
 # include <sys/types.h>
 # include <stdio.h>
+# include <uuid/uuid.h>
 
 # define FLAGS "lp"
 # define LEXER_V (1 << 0)
