@@ -56,6 +56,7 @@ static void		add_builtin(char *name, int (*func)(t_list *list))
 
 void			init_bins(void)
 {
+	add_builtin("export", &bin_export);
 	add_builtin("exit", &bin_exit);
 	add_builtin("set", &bin_set);
 	add_builtin("cd", &bin_cd);

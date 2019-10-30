@@ -52,6 +52,7 @@ PR_NAME=parser.c\
 	pr_ast_functions.c\
 	pr_ast_fillcommand.c
 BIN_NAME=bin_exit.c\
+	bin_export.c\
 	bin_set.c\
 	bin_cd.c\
 	bin_fg.c\

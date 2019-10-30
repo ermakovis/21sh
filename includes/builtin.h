@@ -6,6 +6,7 @@
 
 int		bin_print_error(char *message, char *function_name, char ***tokens);
 int		bin_set(t_list *list);
+int		bin_export(t_list *list);
 int		bin_exit(t_list *list);
 int		bin_cd(t_list *list);
 int		bin_env(t_list *list);
