@@ -85,10 +85,10 @@ void		rl_store_history_to_file(void)
 
 	history_path = get_history_path();
 	if (!history_path)
-		dprintf(STDERR_FILENO, "42sh: username get error\n");
+		ft_dprintf(STDERR_FILENO, "42sh: username get error\n");
 	fd = open(history_path, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IROTH | S_IRGRP);
 	if (fd < 0)
-		dprintf(STDERR_FILENO, "42sh: can't open history's file\n");
+		ft_dprintf(STDERR_FILENO, "42sh: can't open history's file\n");
 	it = g_msh->history;
 	while (it)
 	{
@@ -111,7 +111,7 @@ void		rl_start_history(void)
 	tmp = NULL;
 	history_path = get_history_path();
 	if (!history_path)
-		dprintf(STDERR_FILENO, "42sh: username get error\n");
+		ft_dprintf(STDERR_FILENO, "42sh: username get error\n");
 	fd = open(history_path, O_CREAT | O_RDONLY, S_IRUSR | S_IWUSR | S_IROTH | S_IRGRP);
 	if (fd < 0)
 		dprintf(STDERR_FILENO, "42sh: can't open history's file\n");

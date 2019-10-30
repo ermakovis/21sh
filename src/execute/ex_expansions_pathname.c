@@ -7,7 +7,7 @@ static bool	ex_exp_pathname_split(char *line, char **path, char **pat)
 	char	*ret;
 
 	i = -1;
-	len = 0;
+	len = -1;
 	*path = 0;
 	*pat = 0;
 	while (line[++i])
@@ -15,10 +15,10 @@ static bool	ex_exp_pathname_split(char *line, char **path, char **pat)
 			len = i;
 	if (!line[len + 1])
 		return (false);
-	if (len)	
+	if (len != -1)	
 		if (!(*path = ft_strndup(line, len + 1)))
 			cleanup (-1, "Malloc failed at get_path");
-	if (!(*pat = ft_strdup(line + len + (len ? 1 : 0))))
+	if (!(*pat = ft_strdup(line + len + 1)))
 		cleanup (-1, "Malloc failed at get_path");
 	return (true);
 }
@@ -32,6 +32,8 @@ static t_list	*ex_exp_pathname_cycle(DIR *dir, char *path, char *pat)
 	list = 0;
 	while ((entry = readdir(dir)))
 	{
+		if (pat[0] != '.' && entry->d_name[0] == '.')
+			continue ;
 		if (ft_strcmp(entry->d_name, "..") &&\
 				ft_strcmp(entry->d_name, ".") &&\
 				ex_globbing(entry->d_name, pat, 0, 0))

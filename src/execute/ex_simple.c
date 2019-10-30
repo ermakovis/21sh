@@ -32,6 +32,7 @@ int				ex_simple_exec(t_ast *ast)
 	char	*cmd;
 	int		ret;
 
+	ret = BIN_SUCCESS;
 	ex_command_setpgid(ast->bg);
 	if (ex_redirections(ast->token) == BIN_FAILURE)
 		return (BIN_FAILURE);
@@ -39,13 +40,14 @@ int				ex_simple_exec(t_ast *ast)
 	ex_tokens(&tokens, ast->token);
 	ut_signal_child();
 	if (ex_getpath(tokens[0], &cmd) == FAILURE)
-		return (BIN_FAILURE);
-	execve(cmd, tokens, env);
+		ret = BIN_FAILURE;
+	else
+		execve(cmd, tokens, env);
 	ft_dprintf(2, "%s: launch failed\n", cmd);
 	ft_memdel((void**)&cmd);
 	ft_free_table(&env);
 	ft_free_table(&tokens);
-	return (0);
+	return (ret);
 }
 
 int				ex_simple(t_ast *ast)

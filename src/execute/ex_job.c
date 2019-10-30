@@ -9,7 +9,6 @@ int		ex_wait(t_job *job)
 	status = 1;
 	list = 0;
 	ret = waitpid(job->pid, &status, WUNTRACED);
-	ft_printf("%d %d\n", ret, status);
 	if (WIFSTOPPED(status))
 	{
 		job->state = STOPPED;
