@@ -28,4 +28,6 @@ int		bin_exit(t_list *list)
 	ft_free_table(&tokens);
 	set_terminal_canon();
 	cleanup(return_value, 0);
+	ft_printf("?????\n");
+	return (return_value);
 }

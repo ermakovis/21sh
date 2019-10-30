@@ -57,6 +57,5 @@ void		cleanup(int exit_code, char *message)
 	ft_memdel((void**)&g_msh->shell_name);
 	ft_memdel((void**)&g_msh->original_state);
 	ft_memdel((void**)&g_msh);
-	if (exit_code != 1)
-		exit(exit_code);
+	exit(exit_code);
 }

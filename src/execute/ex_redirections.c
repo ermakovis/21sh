@@ -18,16 +18,16 @@ int		ex_redirections_check(char *path)
 
 	if (!ft_test_path(path))
 		return (BIN_SUCCESS);
-	if (!(ft_test_path(path) & 1))
-	{
-		ft_dprintf(2, "%s: %s: permission denied\n", g_msh->shell_name, path);
-		return (BIN_FAILURE);
-	}
-	if (ft_item_type(path) == 2)
-	{
-		ft_dprintf(2, "%s: %s: is a directory\n", g_msh->shell_name, path);
-		return (BIN_FAILURE);
-	}
+//	if (!(ft_test_path(path) & 1))
+//	{
+//		ft_dprintf(2, "%s: %s: permission denied\n", g_msh->shell_name, path);
+//		return (BIN_FAILURE);
+//	}
+//	if (ft_item_type(path) == 2)
+//	{
+//		ft_dprintf(2, "%s: %s: is a directory\n", g_msh->shell_name, path);
+//		return (BIN_FAILURE);
+//	}
 	return (BIN_SUCCESS);
 
 }
@@ -44,12 +44,16 @@ int		ex_redirections(t_list *list)
 		{
 			if (token->operator_type == LESS || token->operator_type == MORE\
 				|| token->operator_type == DMORE)
+			{
 				if (ex_redirections_simple(list) == BIN_FAILURE)
 					return (BIN_FAILURE);
+			}
 			else if (token->operator_type == LESS_AND\
 				|| token->operator_type == MORE_AND)
+			{
 				if (ex_redirections_agreg(list) == BIN_FAILURE)
 					return (BIN_FAILURE);
+			}
 		}
 		list = list->next;
 	}

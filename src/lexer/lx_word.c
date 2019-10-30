@@ -73,8 +73,6 @@ int				lx_word_get(char *line, t_list **tokens)
 	digit_check = 1;
 	while (line[len] && lx_word_check(line[len]))
 	{
-		if (lx_redirect_check(line[len]) && digit_check)
-			return (lx_redirect_get(line, tokens));
 		if (!ft_isdigit(line[len]))
 			digit_check = 0;
 		if (line[len] == '\\' && line[len + 1] == '\n' && line[len + 2])
@@ -88,6 +86,8 @@ int				lx_word_get(char *line, t_list **tokens)
 		else
 			len++;
 	}
+	if (lx_redirect_check(line[len]) && digit_check)
+		return (lx_redirect_get(line, tokens));
 	add_token(tokens, lx_line(line, len), WORD, NONE);
 	return (len);
 }
