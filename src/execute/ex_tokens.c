@@ -28,6 +28,7 @@ void		ex_tokens(char ***tokens, t_list *list)
 	char	**ret;
 	size_t	size;
 	int		i;
+	t_token	*token;
 
 	i = 0;
 	if (!list)
@@ -38,10 +39,13 @@ void		ex_tokens(char ***tokens, t_list *list)
 	ft_bzero(ret, sizeof(char*) * size);
 	while (list)
 	{
-		if (((t_token*)list->content)->token_type == REDIRECT)
+		token = list->content;
+		if (token->token_type == ASSIGNMENT)
+			;
+		else if (token->token_type == REDIRECT)
 			list = list->next;
 		else
-			ret[i++] = ft_strdup(((t_token*)list->content)->line);
+			ret[i++] = ft_strdup(token->line);
 		list = list->next;
 	}
 	*tokens = ret;

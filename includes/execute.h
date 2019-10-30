@@ -75,6 +75,7 @@ void		ex_job_state(void);
 **	ex_assignments.c
 */
 void		ex_assignments(t_list **list);
+void		ex_assignments_fork(void);
 
 /*
 **	ex_redirections.c

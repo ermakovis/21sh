@@ -49,6 +49,25 @@ static void	ex_assign_swap(void)
 	}
 }
 
+void		ex_assignments_fork(void)
+{
+	t_list	*cmd_var;
+	t_list	*env;
+	t_var	*var;
+
+	if (!(cmd_var = g_msh->cmd_var))
+		return ;
+	while (cmd_var)
+	{
+		var = cmd_var->content;
+		if (find_var(g_msh->env, var->name))
+			set_var(g_msh->env, var->name, var->value);
+		else
+			add_var(var->name, var->value, &g_msh->env);
+		cmd_var = cmd_var->next;
+	}
+}
+
 void		ex_assignments(t_list **list)
 {
 	t_token		*token;
@@ -61,6 +80,7 @@ void		ex_assignments(t_list **list)
 	ex_assign_swap();
 	ft_lstdel(&g_msh->cmd_var, &delete_var);
 	var_list = ex_assign_get_varlist(*list);
+	ft_lstiter(g_msh->cmd_var, &print_var);
 	while (*list && ((t_token*)(*list)->content)->token_type == ASSIGNMENT)
 	{
 		token = (*list)->content;
