@@ -54,6 +54,7 @@ PR_NAME=parser.c\
 BIN_NAME=bin_exit.c\
 	bin_export.c\
 	bin_set.c\
+	bin_unset.c\
 	bin_cd.c\
 	bin_fg.c\
 	bin_bg.c\

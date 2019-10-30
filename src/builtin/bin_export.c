@@ -38,7 +38,6 @@ static void	bin_export_assign(char **tokens)
 	char	*value;
 
 	i = -1;
-
 	while (tokens[++i])
 	{
 		if (!ft_strchr(tokens[i], '='))
@@ -57,16 +56,12 @@ int		bin_export(t_list *list)
 {
 	char	**tokens;
 	int		i;
-	int		ret;
 
-	ret = BIN_SUCCESS;
 	ex_tokens(&tokens, list);
 	if (!tokens[1] || !ft_strcmp(tokens[1], "-p"))
 		bin_export_printfull();
 	else
 		bin_export_assign(&tokens[1]);
 	ft_free_table(&tokens);
-	return (ret);
+	return (BIN_SUCCESS);
 }
-
-
