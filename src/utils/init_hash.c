@@ -37,7 +37,7 @@ static void	init_hash_cycle(char *path)
 
 	if (!(dir = opendir(path)))
 		return ;
-	while (entry = readdir(dir))
+	while ((entry = readdir(dir)))
 		if (ft_strcmp(entry->d_name, "..") && ft_strcmp(entry->d_name, "."))
 			init_hash_add(entry, path);
 	closedir(dir);

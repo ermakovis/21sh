@@ -6,12 +6,13 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:24:47 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 11:10:43 by tcase            ###   ########.fr       */
+/*   Updated: 2019/10/31 11:34:14 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
+# define EXP_SUCCESS 0
 # define EXP_FAILURE -1 
 # define EXP_NUM (1 << 1)
 # define EXP_USEDEF (1 << 2)

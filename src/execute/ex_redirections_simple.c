@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:13:53 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:14:40 by tcase            ###   ########.fr       */
+/*   Updated: 2019/10/31 11:23:07 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int		ex_redirections_simple_less(char *redir, char *word)
 		ft_dprintf(2, "%s: failed to open %s");
 	if (fd > 0)
 		dup2(fd, num);
+	return (fd);
 }
 
 int				ex_redirections_simple(t_list *list)

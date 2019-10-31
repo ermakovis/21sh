@@ -15,7 +15,7 @@ static bool ex_glob_liter(char *str, char *pat, char *b_str, char *b_pat)
 			return (true);
 		return (ex_globbing(str + 1, pat + 1, b_str, b_pat));
 	}
-	ex_glob_btrack(str, pat, b_str, b_pat);
+	return (ex_glob_btrack(str, pat, b_str, b_pat));
 }
 
 static bool	ex_glob_quote(char *str, char *pat, char *b_str, char *b_pat)
@@ -30,8 +30,7 @@ static bool	ex_glob_quote(char *str, char *pat, char *b_str, char *b_pat)
 	}
 	if (*pat == cmp)
 		return (ex_globbing(str, pat + 1, b_str, b_pat));
-	if (*str != *pat)
-		return (ex_glob_btrack(str, pat, b_str, b_pat));
+	return (ex_glob_btrack(str, pat, b_str, b_pat));
 }
 
 static bool ex_glob_class(char *str, char *pat, char *b_str, char *b_pat)
