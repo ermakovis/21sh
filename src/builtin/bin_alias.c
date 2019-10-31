@@ -65,7 +65,7 @@ int			bin_alias_action(char *line)
 		if (bin_alias_add(line) == BIN_FAILURE)
 			return (BIN_FAILURE);
 	}
-	else if (bin_alias_print(line) == BIN_FAILURE);
+	else if (bin_alias_print(line) == BIN_FAILURE)
 		return (BIN_FAILURE);
 	return (BIN_SUCCESS);
 }

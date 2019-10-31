@@ -42,8 +42,6 @@ int		ex_expansions(t_list **alist)
 			ex_expansions_tild(&token->line);
 			if (ex_expansions_param(&token->line) == EXP_FAILURE)
 				return (EXP_FAILURE);
-			//ex_expansion_command_sub(list);
-			//ex_expansion_arithmetic(list);
 			ex_expansions_pathname(alist, &list);
 			ex_expansions_remquotes(list->content);
 		}

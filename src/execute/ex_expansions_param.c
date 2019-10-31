@@ -45,13 +45,14 @@ static int	ex_expansions_param_find(char *line, char **new)
 	{
 		if (line[i] == '\"')
 			dquote ^= 1;
-		if (line[i] == '\\')
-			i += ex_expansions_param_skip_bslash(new, &(line[++i]));
-		else if (line[i] == '\'' && !dquote)
-			i += ex_expansions_param_skip_squote(new, &(line[++i]));
-		else if (line[i] == '$')
+		if (line[i] == '\\' && (i++))
+			i += ex_expansions_param_skip_bslash(new, &(line[i]));
+		else if (line[i] == '\'' && !dquote && (i++))
+			i += ex_expansions_param_skip_squote(new, &(line[i]));
+		else if (line[i] == '$' )
 		{
-			if ((ret = ex_expansions_param_replace(new, &(line[++i])))\
+			i++;
+			if ((ret = ex_expansions_param_replace(new, &(line[i])))\
 					== EXP_FAILURE)
 				return (EXP_FAILURE);
 			i += ret;

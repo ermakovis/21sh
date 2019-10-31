@@ -42,6 +42,7 @@ static int	ex_expansions_tild_swap(char **left)
 	ft_memdel((void**)left);
 	if (!(*left = ft_strdup(find)))
 		cleanup(-1, "Malloc failed at ex_expansions_tild_swap");
+	return (SUCCESS);
 }
 
 void		ex_expansions_tild(char **line)

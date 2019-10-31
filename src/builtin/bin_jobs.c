@@ -74,7 +74,7 @@ int		bin_jobs(t_list *list)
 	i += ret;
 	if (!tokens[i])
 		bin_jobs_full(options);
-	else if (bin_jobs_specifics(&tokens[i], options) == BIN_FAILURE);
+	else if (bin_jobs_specifics(&tokens[i], options) == BIN_FAILURE)
 		ret = BIN_FAILURE;
 	ex_job_del_completed();
 	ft_free_table(&tokens);

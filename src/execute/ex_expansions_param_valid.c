@@ -47,4 +47,5 @@ int			ex_expansions_param_valid(char *param, char *word,\
 		return (ex_exp_param_valid_useerr(param, word, line));
 	if (ex_exp_param_valid_param(param) == EXP_FAILURE)
 		return (ex_exp_param_valid_printerror("incorrect var name", line));
+	return (EXP_SUCCESS);
 }
