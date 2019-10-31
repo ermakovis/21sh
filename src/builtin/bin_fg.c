@@ -17,8 +17,6 @@ static int		bin_fg_action(int pos)
 	int		status;
 
 	status = BIN_SUCCESS;
-	if (ft_lstsize(g_msh->jobs) == 0)
-		return (bin_fg_failure_message("current: no such job"));
 	if (!(job = find_job(pos)))
 		return (bin_fg_failure_message("current: no such job"));
 	else
@@ -42,6 +40,8 @@ int		bin_fg(t_list *list)
 	int		ret;
 
 	ret = BIN_FAILURE;
+	if (ft_lstsize(g_msh->jobs) == 0)
+		return (bin_fg_failure_message("current: no such job"));
 	tokens_count = ft_lstsize(list);
 	ex_tokens(&tokens, list);
 	if (tokens_count == 1)

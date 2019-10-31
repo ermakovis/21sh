@@ -63,5 +63,4 @@ void			ex_redirections_heredoc(t_list *list)
 	}
 	if (line)
 		ex_rd_heredoc_pipe(num, line);
-	ft_memdel((void**)&line);
 }
