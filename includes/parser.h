@@ -21,6 +21,7 @@ typedef struct		s_ast
 	int				node_type;
 	int				operator_type;
 	bool			bg;
+	int				*fd;
 	t_list			*token;
 }					t_ast;
 

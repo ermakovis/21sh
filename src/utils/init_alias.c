@@ -13,4 +13,5 @@ void	init_alias(void)
 			bin_alias_action(line + 6);
 		ft_strdel(&line);
 	}
+	close(fd);
 }

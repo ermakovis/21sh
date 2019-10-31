@@ -35,21 +35,21 @@ int		ex_redirections_check(char *path)
 int		ex_redirections(t_list *list)
 {
 	t_token		*token;
+	int			otype;
 
 	ex_redirections_heredoc(list);
 	while (list)
 	{
 		token = list->content;
+		otype = token->operator_type;
 		if (token->token_type == REDIRECT)
 		{
-			if (token->operator_type == LESS || token->operator_type == MORE\
-				|| token->operator_type == DMORE)
+			if (otype == LESS || otype == MORE || otype == DMORE)
 			{
 				if (ex_redirections_simple(list) == BIN_FAILURE)
 					return (BIN_FAILURE);
 			}
-			else if (token->operator_type == LESS_AND\
-				|| token->operator_type == MORE_AND)
+			else if (otype == LESS_AND || otype == MORE_AND)
 			{
 				if (ex_redirections_agreg(list) == BIN_FAILURE)
 					return (BIN_FAILURE);

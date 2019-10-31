@@ -18,6 +18,7 @@ typedef struct			s_token
 	char				*line;
 	int					token_type;
 	int					operator_type;
+	int					fd;
 	char				*heredoc;
 	char				*full_command;
 }						t_token;

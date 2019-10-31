@@ -34,7 +34,7 @@ void		cl_rl_struct(void)
 
 void		cleanup(int exit_code, char *message)
 {
-	rl_store_history_to_file();
+//	rl_store_history_to_file();
 	if (message)
 		ft_dprintf(2, "%s\n", message);
 	if (!g_msh)

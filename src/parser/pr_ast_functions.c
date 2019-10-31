@@ -89,5 +89,6 @@ void		pr_ast_del(t_ast **ast)
 	pr_ast_del(&(*ast)->left);
 	pr_ast_del(&(*ast)->right);
 	ft_lstdel(&(*ast)->token, &del_token);
+	ft_memdel((void**)&(*ast)->fd);
 	ft_memdel((void**)ast);
 }

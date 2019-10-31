@@ -12,7 +12,7 @@
 
 #include "msh.h"
 
-static void		ex_redirections_simple_more(char *redir, char *word)
+static int		ex_redirections_simple_more(char *redir, char *word)
 {
 	int		num;
 	int		fd;
@@ -23,10 +23,12 @@ static void		ex_redirections_simple_more(char *redir, char *word)
 		num = 1;
 	if ((fd = open(word, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
 		ft_dprintf(2, "%s: failed to open %s");
-	dup2(fd, num);
+	if (fd > 0)
+		dup2(fd, num);
+	return (fd);
 }
 
-static void		ex_redirections_simple_dmore(char *redir, char *word)
+static int		ex_redirections_simple_dmore(char *redir, char *word)
 {
 	int		num;
 	int		fd;
@@ -37,10 +39,12 @@ static void		ex_redirections_simple_dmore(char *redir, char *word)
 		num = 1;
 	if ((fd = open(word, O_RDWR | O_CREAT | O_APPEND, 0666)) == - 1)
 		ft_dprintf(2, "%s: failed to open %s");
-	dup2(fd, num);
+	if (fd > 0)
+		dup2(fd, num);
+	return (fd);
 }
 
-static void		ex_redirections_simple_less(char *redir, char *word)
+static int		ex_redirections_simple_less(char *redir, char *word)
 {
 	int		num;
 	int		fd;
@@ -51,7 +55,8 @@ static void		ex_redirections_simple_less(char *redir, char *word)
 		num = 0;
 	if ((fd = open(word, O_RDONLY)) == -1)
 		ft_dprintf(2, "%s: failed to open %s");
-	dup2(fd, num);
+	if (fd > 0)
+		dup2(fd, num);
 }
 
 int				ex_redirections_simple(t_list *list)
@@ -64,10 +69,10 @@ int				ex_redirections_simple(t_list *list)
 	if (ex_redirections_check(word) == BIN_FAILURE)
 		return (BIN_FAILURE);
 	if (token->operator_type == MORE)
-		ex_redirections_simple_more(token->line, word);
+		token->fd =	ex_redirections_simple_more(token->line, word);
 	else if (token->operator_type == DMORE)
-		ex_redirections_simple_dmore(token->line, word);
+		token->fd = ex_redirections_simple_dmore(token->line, word);
 	else if (token->operator_type == LESS)
-		ex_redirections_simple_less(token->line, word);
+		token->fd = ex_redirections_simple_less(token->line, word);
 	return (BIN_SUCCESS);
 }
