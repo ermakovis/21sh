@@ -58,6 +58,8 @@ int			bin_echo(t_list *list)
 	int		i;
 	int		ret;
 
+	if (fcntl(STDOUT_FILENO, F_GETFD) == -1)
+		return (bin_print_error("Write error: Bad file descriptor", "echo", 0));
 	i = 0;
 	nl_flag = 0;
 	ret = BIN_SUCCESS;

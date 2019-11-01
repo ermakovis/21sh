@@ -12,28 +12,6 @@
 
 #include "msh.h"
 
-static int	ex_getpath_check(char *path)
-{
-	int		ret;
-
-	if (!ft_test_path(path))
-	{
-		ft_dprintf(2, "%s: %s: command not found\n", g_msh->shell_name, path);
-		return (FAILURE);
-	}
-	if (!(ft_test_path(path) & 1))
-	{
-		ft_dprintf(2, "%s: %s: permission denied\n", g_msh->shell_name, path);
-		return (FAILURE);
-	}
-	if (ft_item_type(path) == 2)
-	{
-		ft_dprintf(2, "%s: %s: is a directory\n", g_msh->shell_name, path);
-		return (FAILURE);
-	}
-	return (SUCCESS);
-}
-
 int			ex_getpath(char *token, char **cmd)
 {
 	t_list	*list;
@@ -53,7 +31,7 @@ int			ex_getpath(char *token, char **cmd)
 	}
 	else if (!(*cmd = ft_strdup(token)))
 			cleanup(-1, "Malloc failed at ex_getpath");
-	if (ex_getpath_check(*cmd) == FAILURE)
+	if (!ut_check_execute(*cmd))
 		return (FAILURE);
 	return (SUCCESS);
 }

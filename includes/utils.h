@@ -112,6 +112,11 @@ int						get_char(long *ch);
 int						is_special(char ch);
 
 /*
+**	ut_checks.c
+*/
+int 					ut_check_execute(char const *path);
+int 					ut_check_write(char const *path);
+/*
 **	ut_str_functions.c
 */
 void					add_str(t_list **list, char *str);

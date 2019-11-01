@@ -12,7 +12,13 @@
 
 #include "msh.h"
 
-void		ex_redirections_agreg_more(char *redir, char *word)
+static int		ex_redirections_agreg_error(char *line, char *word)
+{
+	ft_dprintf(2, "%s: %s: %s\n", g_msh->shell_name, line, word);
+	return (BIN_FAILURE);
+}
+
+static int		ex_redirections_agreg_more(char *redir, char *word)
 {
 	int		num;
 
@@ -21,12 +27,21 @@ void		ex_redirections_agreg_more(char *redir, char *word)
 	else
 		num = 1;
 	if (ft_isnumber(word))
-		dup2(ft_atoi(word), num);
+	{
+		if (dup2(ft_atoi(word), num) == -1)
+			return (ex_redirections_agreg_error("Bad file descriptor", word));
+	}
 	else if (ft_strequ(word, "-"))
-		close(num);
+	{
+		if (close(num) == -1)
+			return (ex_redirections_agreg_error("Bad file descriptor", word));
+	}
+	else
+		return (ex_redirections_agreg_error("Ambigious redirect", word));
+	return (BIN_SUCCESS);
 }
 
-void		ex_redirections_agreg_less(char *redir, char *word)
+static int		ex_redirections_agreg_less(char *redir, char *word)
 {
 	int		num;
 
@@ -35,9 +50,18 @@ void		ex_redirections_agreg_less(char *redir, char *word)
 	else
 		num = 0;
 	if (ft_isnumber(word))
-		dup2(ft_atoi(word), num);
+	{
+		if (dup2(ft_atoi(word), num) == -1)
+			return (ex_redirections_agreg_error("Bad file descriptor", word));
+	}
 	else if (ft_strequ(word, "-"))
-		close(num);
+	{
+		if (close(num) == -1)
+			return (ex_redirections_agreg_error("Bad file descriptor", word));
+	}
+	else
+		return (ex_redirections_agreg_error("Ambigious redirect", word));
+	return (BIN_SUCCESS);
 }
 
 int		ex_redirections_agreg(t_list *list)
@@ -50,9 +74,11 @@ int		ex_redirections_agreg(t_list *list)
 	if (ex_redirections_check(word) == BIN_FAILURE)
 		return (BIN_FAILURE);
 	if (token->operator_type == MORE_AND)
-		ex_redirections_agreg_more(token->line, word);
+		if (ex_redirections_agreg_more(token->line, word) == BIN_FAILURE)
+			return (BIN_FAILURE);
 	else if (token->operator_type == LESS_AND)
-		ex_redirections_agreg_less(token->line, word);
+		if (ex_redirections_agreg_less(token->line, word) == BIN_FAILURE)
+			return (BIN_FAILURE);
 	return (BIN_SUCCESS);
 }
 

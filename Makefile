@@ -98,6 +98,7 @@ UT_NAME=init.c\
 	init_alias.c\
 	init_hash.c\
 	utils.c\
+	ut_checks.c\
 	ut_str_functions.c\
 	ut_var_functions.c\
 	ut_job_functions.c\
