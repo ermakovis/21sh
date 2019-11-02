@@ -41,6 +41,8 @@ int			parser(void)
 {
 	bool	bg;
 
+	if (!g_msh->tokens)
+		return (SUCCESS);
 	if (pr_syntax_check() != SUCCESS)
 		return (FAILURE);
 	pr_heredoc();

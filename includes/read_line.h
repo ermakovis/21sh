@@ -17,6 +17,7 @@
 # include <curses.h>
 
 # define CTRL_D			4
+# define CTRL_R			18
 # define MSH_BUFF_SIZE	2048
 # define MSH_CMD_BUFF 	262144
 # define LEFT			4479771
@@ -102,6 +103,11 @@ void					rl_add_history(void);
 **  rl_history_replace.c
 */
 void					rl_history_change(int position);
+
+/*
+**	rl_history_search.c
+*/
+int						rl_history_search(long ch);
 
 /*
 **  rl_tab.c

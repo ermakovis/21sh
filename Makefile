@@ -35,6 +35,7 @@ RL_NAME=read_line.c\
 	rl_copy_movement.c\
 	rl_history.c\
 	rl_history_change.c\
+	rl_history_search.c\
 	rl_tab.c\
 	rl_tab_create_list.c\
 	rl_newline_check.c

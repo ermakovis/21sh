@@ -48,6 +48,7 @@ static char	*pr_heredoc_read(t_list *list)
 	line = NULL;
 	ret_list = NULL;
 	cl_rl_struct();
+	ft_printf("> ");
 	while (read_line(HEREDOC_MODE) == SUCCESS)
 	{
 		line = g_msh->rl->line;
@@ -57,6 +58,7 @@ static char	*pr_heredoc_read(t_list *list)
 			break ;
 		line[line_len - 1] = '\n';
 		pr_heredoc_linetolist(&ret_list, line, line_len);
+		ft_printf("> ");
 		cl_rl_struct();
 	}
 	ft_lst_sort(&ret_list, &ft_strcmp);

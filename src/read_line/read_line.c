@@ -27,17 +27,20 @@ void			init_rl(void)
 	g_msh->rl = new_rl;
 }
 
-static void		rl_switch(long ch)
+static int		rl_switch(long ch)
 {
 	rl_copy(ch);
 	rl_tab(ch);
 	rl_history(ch);
+	if (rl_history_search(ch) == EXIT_SUCCESS)
+		return (1);
 	rl_move_cur(ch);
 	rl_vert_move(ch);
 	rl_jump(ch);
 	rl_del_char(ch);
 	if (ft_isprint(ch))
 		rl_print_char(ch);
+	return (0);
 }
 
 static int		rl_endline_check(void)
@@ -73,8 +76,8 @@ int				read_line(int mode)
 			rl_add_history();
 			break ;
 		}
-		else 
-			rl_switch(ch);
+		else if (rl_switch(ch) == 1)
+			break;
 	}
 	set_terminal_canon();
 	return (SUCCESS);
