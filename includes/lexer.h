@@ -88,6 +88,12 @@ int						lx_assignment_get(char *line, t_list **tokens);
 void					lx_alias(t_list **alist);
 
 /*
+**	lx_history.c	
+*/
+void					lx_history(t_list **alist);
+t_list					*lx_history_find(t_list *list, char **line);
+
+/*
 **	lx_struct_functions.c
 */
 int						cmp_token(t_token *token_a, t_token *token_b);

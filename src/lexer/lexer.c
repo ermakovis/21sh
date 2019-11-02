@@ -71,6 +71,7 @@ t_list			*lexer(char *line)
 	t_list	*ret_list;
 	
 	ret_list = lx_tokens(line);
+	lx_history(&ret_list);
 	lx_alias(&ret_list);
 	return(ret_list);
 }

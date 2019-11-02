@@ -46,6 +46,8 @@ LX_NAME=lexer.c\
 	lx_word.c\
 	lx_assignment.c\
 	lx_alias.c\
+	lx_history.c\
+	lx_history_find.c\
 	lx_struct_functions.c
 PR_NAME=parser.c\
 	pr_heredoc.c\
