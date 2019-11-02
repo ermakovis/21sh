@@ -72,4 +72,5 @@ void			init_bins(void)
 	add_builtin("type", &bin_type);
 	add_builtin("true", &bin_true);
 	add_builtin("false", &bin_false);
+	add_builtin("history", &bin_history);
 }

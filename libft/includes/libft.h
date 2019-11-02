@@ -95,6 +95,7 @@ void				ft_lst_remove(t_list **alist, t_list *ref, void (*del)());
 t_list				*ft_lst_find(t_list *alist, void *data_ref, int (*cmp)());
 t_list				*ft_lst_num(t_list *alist, size_t num);
 void				ft_lst_sort(t_list **alist, int (*cmp)());
+void				ft_lstrev(t_list **alist);
 void				ft_lstpop(t_list **alst, void(*del)(void*, size_t));
 void				ft_lstdel(t_list **alst, void(*del)(void*, size_t));
 void				ft_lstdelone(t_list **alst, void (*del)(void*, size_t));

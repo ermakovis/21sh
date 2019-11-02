@@ -22,5 +22,6 @@ int		bin_hash(t_list *list);
 int		bin_type(t_list *list);
 int		bin_true(t_list *list);
 int		bin_false(t_list *list);
+int		bin_history(t_list *list);
 
 #endif
