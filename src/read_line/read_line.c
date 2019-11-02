@@ -29,6 +29,8 @@ void			init_rl(void)
 
 static void		rl_switch(long ch)
 {
+	if (ch == 18)
+		rl_search_history();
 	rl_copy(ch);
 	rl_tab(ch);
 	rl_history(ch);

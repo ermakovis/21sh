@@ -121,4 +121,5 @@ int						rl_tab_create_list(void);
 int						rl_newline_check(int mode);
 
 void					rl_start_history(void);
+void					rl_search_history(void);
 #endif
