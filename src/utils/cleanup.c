@@ -12,6 +12,30 @@
 
 #include "msh.h"
 
+static void		cl_history(void)
+{
+	char	*path;
+	int		fd;
+	t_list	*list;
+
+	path = ft_strdup(HISTORY_PATH);
+	if ((fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
+	{
+		ft_dprintf(STDERR_FILENO, "42sh: can't open history's file\n");
+		ft_memdel((void**)&path);
+		return ;
+	}
+	list = g_msh->history;
+	while (list)
+	{
+		ft_dprintf(fd, "%s\n", list->content);
+		list = list->next;
+	}
+	ft_memdel((void**)&path);
+	ft_lstdel(&g_msh->history, &delete_str);
+	close(fd);
+}
+
 static void	cl_term_cmd_struct(void)
 {
 	t_cmd	*cmd;
@@ -34,7 +58,6 @@ void		cl_rl_struct(void)
 
 void		cleanup(int exit_code, char *message)
 {
-//	rl_store_history_to_file();
 	if (message)
 		ft_dprintf(2, "%s\n", message);
 	if (!g_msh)
@@ -42,9 +65,9 @@ void		cleanup(int exit_code, char *message)
 	if (g_msh->original_state)
 		set_terminal_canon();
 	cl_rl_struct();
+	cl_history();
 	cl_term_cmd_struct();
 	pr_ast_del(&g_msh->ast);
-	ft_lstdel(&g_msh->history, &delete_str);
 	ft_lstdel(&g_msh->env, &delete_var);
 	ft_lstdel(&g_msh->var, &delete_var);
 	ft_lstdel(&g_msh->cmd_var, &delete_var);

@@ -16,6 +16,9 @@
 # include <term.h>
 # include <curses.h>
 
+# define HISTORY_MAX	100
+# define HISTORY_PATH	"./.42sh_history"
+
 # define CTRL_D			4
 # define CTRL_R			18
 # define MSH_BUFF_SIZE	2048
@@ -98,6 +101,7 @@ void					rl_copy_movements(void);
 */
 void					rl_history(long ch);
 void					rl_add_history(void);
+void					rl_history_putnumbers(void);
 
 /*
 **  rl_history_replace.c

@@ -12,9 +12,69 @@
 
 #include "msh.h"
 
-/*
-**	len - 1 to trim <newline> :(
-*/
+static void rl_history_trim(void)
+{
+	t_list	*list;
+	t_list	*rev;
+	int		lst_size;
+
+	list = g_msh->history;
+	if ((lst_size = ft_lstsize(list)) < HISTORY_MAX)
+		return ;
+	ft_lstrev(&list);
+	rev = list;
+	while (lst_size > HISTORY_MAX)
+	{
+		ft_lstpop(&list, &delete_str);
+		lst_size--;
+	}
+	ft_lstrev(&list);
+}
+
+static int rl_history_valid(char *line)
+{
+	int		i;
+	int		only_spaces;
+	int		newline_pos;
+	char	store;
+	int		ret;
+
+	i = -1;
+	only_spaces = 1;
+	ret = SUCCESS;
+	while (line[++i] && line[i] != '\n')
+		if (!ft_isspace(line[i]))
+			only_spaces = 0;
+	if (only_spaces)
+		ret = FAILURE;
+	newline_pos = ft_strlen(line) - 1;
+	store = line[newline_pos];
+	line[newline_pos] = 0;
+	if (!(ft_strcmp(g_msh->history->content, line)))
+		ret = FAILURE;
+	line[newline_pos] = store;
+	return (ret);
+
+}
+
+void		rl_history_putnumbers(void)
+{
+	t_list	*list;
+	t_list	*rev;
+	int		i;
+
+	i = 1;
+	list = g_msh->history;
+	ft_lstrev(&list);
+	rev = list;
+	while (list)
+	{
+		list->content_size = i;
+		i++;
+		list = list->next;
+	}
+	ft_lstrev(&rev);
+}
 
 void	rl_add_history(void)
 {
@@ -25,6 +85,8 @@ void	rl_add_history(void)
 	if (g_msh->rl->mode == HEREDOC_MODE)
 		return ;
 	str = g_msh->rl->line;
+	if (rl_history_valid(str) == FAILURE)
+		return ;
 	if ((len = ft_strlen(str)) == 1)
 		return ;
 	str[len - 1] = 0;
@@ -34,6 +96,8 @@ void	rl_add_history(void)
 		cleanup(-1, "Malloc failed at add_token");
 	str[len - 1] = '\n';
 	ft_lstadd(&(g_msh->history), new);
+	rl_history_trim();
+	rl_history_putnumbers();
 }
 
 void	rl_history(long ch)
@@ -51,77 +115,4 @@ void	rl_history(long ch)
 		rl_history_change(++(rl->history));
 	else if (ch == DOWN && rl->history >= 0)
 		rl_history_change(--(rl->history));
-}
-
-void		rl_store_history_to_g_msh(char *line)
-{
-	char	**arr;
-	int		i;
-
-	i = 0;
-	if (!line)
-		return ;
-	arr = ft_strsplit(line, '\n');
-	while (arr[i])
-	{
-		t_list *new_cur = (t_list *)malloc(sizeof(t_list));
-		new_cur->content = (void *)ft_strdup(arr[i]);
-		new_cur->content_size = ft_strlen(arr[i]);
-		new_cur->next = NULL;
-		ft_lstadd_last(&(g_msh->history), new_cur);
-		++i;
-	}
-	i = 0;
-	while (arr[++i])
-		free(arr[i]);
-	free(arr);
-}
-
-void		rl_store_history_to_file(void)
-{
-	char	*history_path;
-	int		fd;
-	t_list	*it;
-
-	history_path = get_history_path();
-	if (!history_path)
-		ft_dprintf(STDERR_FILENO, "42sh: username get error\n");
-	fd = open(history_path, O_CREAT | O_WRONLY | O_TRUNC, S_IRUSR | S_IWUSR | S_IROTH | S_IRGRP);
-	if (fd < 0)
-		ft_dprintf(STDERR_FILENO, "42sh: can't open history's file\n");
-	it = g_msh->history;
-	while (it)
-	{
-		write(fd, it->content, ft_strlen(it->content));
-		write(fd, "\n", 1);
-		it = it->next;
-	}
-	close(fd);
-	free(history_path);
-}
-
-void		rl_start_history(void)
-{
-	int		fd;
-	char	*history_path;
-	char	line[1024 + 1];
-	char	*tmp;
-	int		res;
-
-	tmp = NULL;
-	history_path = get_history_path();
-	if (!history_path)
-		ft_dprintf(STDERR_FILENO, "42sh: username get error\n");
-	fd = open(history_path, O_CREAT | O_RDONLY, S_IRUSR | S_IWUSR | S_IROTH | S_IRGRP);
-	if (fd < 0)
-		dprintf(STDERR_FILENO, "42sh: can't open history's file\n");
-	while ((res = read(fd, &line, 1024)) > 0)
-	{
-		line[res] = 0;
-		free(tmp);
-		tmp = ft_strjoin(tmp, line);
-	}
-	close(fd);
-	rl_store_history_to_g_msh(tmp);
-	free(history_path);
 }

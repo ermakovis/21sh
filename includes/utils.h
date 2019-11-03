@@ -78,6 +78,11 @@ typedef struct			s_cmd
 void					init(char **env);
 
 /*
+**	init_history.c
+*/
+void					init_history(void);
+
+/*
 **  init_env.c
 */
 void					init_env(char **env);

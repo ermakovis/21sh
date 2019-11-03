@@ -71,6 +71,8 @@ BIN_NAME=bin_exit.c\
 	bin_hash.c\
 	bin_true_false.c\
 	bin_history.c\
+	bin_fc.c\
+	bin_fc_list.c\
 	bin_functions.c
 EXE_NAME=execute.c\
 	ex_simple.c\
@@ -102,6 +104,7 @@ UT_NAME=init.c\
 	init_bins.c\
 	init_alias.c\
 	init_hash.c\
+	init_history.c\
 	utils.c\
 	ut_checks.c\
 	ut_str_functions.c\
