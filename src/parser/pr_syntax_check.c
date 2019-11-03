@@ -102,11 +102,8 @@ static int	pr_syntax_check_operator(t_list *list)
 	return (SUCCESS);
 }
 
-int			pr_syntax_check(void)
+int			pr_syntax_check(t_list *list)
 {
-	t_list	*list;
-
-	list = g_msh->tokens;
 	if (pr_syntax_check_operator(list) == FAILURE)
 		return (FAILURE);
 	while (list)

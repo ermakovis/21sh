@@ -25,5 +25,6 @@ int		bin_false(t_list *list);
 int		bin_history(t_list *list);
 int		bin_fc(t_list *list);
 int		bin_fc_list(char **tokens, t_list **target);
+int		bin_fc_parse(char **tokens, char **editor, int *count);
 
 #endif

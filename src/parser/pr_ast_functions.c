@@ -23,13 +23,13 @@ t_ast		*pr_ast_create_node(t_ast *node, t_ast *left, t_ast *right)
 	return (node);
 }
 
-static void	pr_ast_create_leaf_delim(int delim)
+static void	pr_ast_create_leaf_delim(int delim, t_list **tokens)
 {
 	t_list		*curr;
 	t_list		*prev;
 	t_token		*token;
 
-	prev = g_msh->tokens;
+	prev = *tokens;
 	curr = prev->next;
 	while (curr->next)
 	{
@@ -40,24 +40,28 @@ static void	pr_ast_create_leaf_delim(int delim)
 		curr = curr->next;
 	}
 	prev->next = NULL;
-	g_msh->tokens = curr;
+	*tokens = curr;
 }
 
-t_ast		*pr_ast_create_leaf(int delim)
+t_ast		*pr_ast_create_leaf(int delim, t_list **tokens)
 {
 	t_ast		*new;
+	t_list		*list;
+	t_token		*token;
 	size_t		size;
 
-	if (((t_token*)g_msh->tokens->content)->token_type == NEWLINE)
+	list = *tokens;
+	token = list->content;
+	if (token->token_type == NEWLINE)
 		return (NULL);
 	size = sizeof(t_ast);
 	if (!(new = (t_ast*)malloc(size)))
 		cleanup(-1, "Malloc failed at ast_create_leaf");
 	ft_bzero(new, size);
-	new->token = g_msh->tokens;
-	new->node_type = ((t_token*)g_msh->tokens->content)->token_type;
-	new->operator_type = ((t_token*)g_msh->tokens->content)->operator_type;
-	pr_ast_create_leaf_delim(delim);
+	new->token = list;
+	new->node_type = token->token_type;
+	new->operator_type = token->operator_type;
+	pr_ast_create_leaf_delim(delim, tokens);
 	return (new);
 }
 

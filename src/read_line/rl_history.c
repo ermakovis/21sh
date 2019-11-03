@@ -50,7 +50,8 @@ static int rl_history_valid(char *line)
 	newline_pos = ft_strlen(line) - 1;
 	store = line[newline_pos];
 	line[newline_pos] = 0;
-	if (!(ft_strcmp(g_msh->history->content, line)))
+	if (g_msh->history && \
+		!(ft_strcmp(g_msh->history->content, line)))
 		ret = FAILURE;
 	line[newline_pos] = store;
 	return (ret);

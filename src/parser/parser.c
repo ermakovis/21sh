@@ -12,11 +12,9 @@
 
 #include "msh.h"
 
-static bool	pr_bg_check(void)
+static bool	pr_bg_check(t_list *list)
 {
-	t_list	*list;
-
-	if (!(list = g_msh->tokens))
+	if (!list)
 		return (false);
 	while (list->next && ((t_token*)list->next->content)->token_type != NEWLINE)
 		list = list->next;
@@ -37,21 +35,22 @@ static void pr_bg_mark(t_ast *ast)
 	ast->bg = 1;
 }	
 
-int			parser(void)
+t_ast		*parser(t_list **tokens)
 {
 	bool	bg;
+	t_ast	*ast;
 
-	if (!g_msh->tokens)
-		return (SUCCESS);
-	if (pr_syntax_check() != SUCCESS)
-		return (FAILURE);
-	pr_heredoc();
-	bg = pr_bg_check();
-	g_msh->ast = pr_ast_create();
-	pr_ast_fillcommand(g_msh->ast);
+	if (!tokens && !*tokens)
+		return (0);
+	if (pr_syntax_check(*tokens) != SUCCESS)
+		return (0);
+	pr_heredoc(*tokens);
+	bg = pr_bg_check(*tokens);
+	ast = pr_ast_create(tokens);
+	pr_ast_fillcommand(ast);
 	if (bg)
-		pr_bg_mark(g_msh->ast);
+		pr_bg_mark(ast);
 	if (g_msh->display_flags & PARSER_V)
-		pr_ast_print(g_msh->ast, 0);
-	return (SUCCESS);
+		pr_ast_print(ast, 0);
+	return (ast);
 }

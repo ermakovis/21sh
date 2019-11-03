@@ -69,10 +69,10 @@ t_msh					*g_msh;
 
 /*
 **  main.c
-**	cycle_cleanup(void)
 **	parse_params(int *ac, char **av)
 **	add_flag(char *str)
 **  handle_sigine(int sig)
 */
+void		cycle_cleanup(void);
 
 #endif

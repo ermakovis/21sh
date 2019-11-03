@@ -73,6 +73,7 @@ BIN_NAME=bin_exit.c\
 	bin_history.c\
 	bin_fc.c\
 	bin_fc_list.c\
+	bin_fc_parse.c\
 	bin_functions.c
 EXE_NAME=execute.c\
 	ex_simple.c\

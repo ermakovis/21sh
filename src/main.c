@@ -43,7 +43,7 @@ static void			parse_params(int *ac, char ***av)
 	*ac = *ac - count;
 }
 
-static void			cycle_cleanup(void)
+void			cycle_cleanup(void)
 {
 	ft_lstdel(&g_msh->tokens, &del_token);
 	pr_ast_del(&g_msh->ast);
@@ -55,15 +55,14 @@ int					main(int argc, char **argv, char **env)
 {
 	init(env);
 	parse_params(&argc, &argv);
-	display_prompt();
 	ut_signal_parent();
-	//rl_start_history();
+	display_prompt();
 	while (true)
 	{
 		if (read_line(RL_MODE) == SUCCESS)
 		{
 			g_msh->tokens = lexer(g_msh->rl->line);
-			parser();
+			g_msh->ast = parser(&g_msh->tokens);
 			execute(g_msh->ast);
 		}
 		cycle_cleanup();
