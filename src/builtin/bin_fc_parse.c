@@ -50,7 +50,8 @@ int				bin_fc_parse(char **options, char **editor, int *flags)
 	*flags = 0;
 	if (bin_fc_editor(options, editor, &count) == BIN_FAILURE)
 		return (-1);
-	while (options[count] && options[count][0] == '-' && options[count][1])
+	while (options[count] && options[count][0] == '-' && options[count][1]\
+		&& !ft_isdigit(options[count][1]))
 	{
 		if (!(add_flag(options[count], flags)))
 			return (-1);

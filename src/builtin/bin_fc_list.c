@@ -5,7 +5,7 @@ static size_t		bin_fc_list_find_bynum(char *line)
 	int		ret;
 	int		max;
 
-	max = g_msh->history->content_size - 1;
+	max = g_msh->history->content_size;
 	ret = ft_atoi(line);
 	if (ret <= 0 && max + ret <= 0)
 		ret = 1;
@@ -23,7 +23,7 @@ static size_t	bin_fc_list_find(char *line)
 	int		line_len;
 
 	if (!line)
-		return (g_msh->history->content_size - 1);
+		return (g_msh->history->content_size);
 	if (ft_isnumber(line))
 		return (bin_fc_list_find_bynum(line));
 	if (!(list = g_msh->history->next))
@@ -72,7 +72,6 @@ static int		bin_fc_list_create(size_t first, size_t last, t_list **target)
 	}
 	if (rev)
 		ft_lstrev(target);
-	ft_lstiter(*target, &printl_str);
 }
 
 int		bin_fc_list(char **tokens, t_list **target)
@@ -89,15 +88,17 @@ int		bin_fc_list(char **tokens, t_list **target)
 			i++;
 		else if (tokens[i][0] != '-')
 			break ;
+		else if (tokens[i][0] == '-' && ft_isdigit(tokens[i][1]))
+			break ;
 		i++;
 	}
 	if (!tokens[i])
-		return (bin_fc_list_create(g_msh->history->content_size - 1,\
-			g_msh->history->content_size - 1, target));
+		return (bin_fc_list_create(g_msh->history->content_size,\
+			g_msh->history->content_size, target));
 	if ((first = bin_fc_list_find(tokens[i])) == -1)
 		return (-1);
 	if (!tokens[i + 1])
-		last = g_msh->history->content_size - 1;
+		last = g_msh->history->content_size;
 	else if ((last = bin_fc_list_find(tokens[i + 1])) == -1)
 		return (-1);
 	return (bin_fc_list_create(first, last, target));

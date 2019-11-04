@@ -13,15 +13,16 @@ static void	bin_fc_execute(t_list *list)
 
 	while (list)
 	{
+		ft_printf("> %s\n", list->content);
 		tmp = list->content;
 		list->content = ft_strjoin(list->content, "\n");
 		ft_memdel((void**)&tmp);	
 		tokens = lexer(list->content);
 		ast = parser(&tokens);
 		execute(ast);
-		list = list->next;
 		ft_lstdel(&tokens, &del_token);
 		pr_ast_del(&ast);
+		list = list->next;
 	}
 	return ;
 }
@@ -32,7 +33,10 @@ int		bin_fc(t_list *list)
 	char	**tokens;
 	char	*editor;
 	t_list	*history;
-	
+
+	ft_lstpop(&g_msh->history, &delete_str);
+	if (!g_msh->history)
+		return (bin_print_error("history is empty", "fc", 0));
 	ex_tokens(&tokens, list);
 	if (bin_fc_parse(tokens, &editor, &flags) == -1)
 		return (bin_print_error("usage: fc [-e name] [-lnr] [first] [last]",\
