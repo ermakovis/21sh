@@ -128,7 +128,7 @@ int						rl_tab_create_list(void);
 /*
 **	rl_newline_check.c
 */
-int						rl_newline_check(int mode);
+int						rl_newline_check(char *line, int mode);
 
 void					rl_start_history(void);
 void					rl_search_history(void);

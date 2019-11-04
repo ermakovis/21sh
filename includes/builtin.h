@@ -31,5 +31,6 @@ int		bin_history(t_list *list);
 int		bin_fc(t_list *list);
 int		bin_fc_list(char **tokens, t_list **target, int flag);
 int		bin_fc_parse(char **tokens, char **editor, int *flag);
+int		bin_fc_edit(t_list **list, char *editor);
 
 #endif

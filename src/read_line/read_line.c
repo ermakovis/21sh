@@ -69,7 +69,7 @@ int				read_line(int mode)
 			return (FAILURE);
 		else if (ch == '\n')
 		{	
-			if ((ret = rl_newline_check(mode)) == 2)
+			if ((ret = rl_newline_check(g_msh->rl->line, mode)) == 2)
 				return (FAILURE); 
 			if (ret == 1)
 				continue ;

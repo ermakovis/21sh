@@ -22,11 +22,6 @@ static void	bin_fc_execute(t_list *list)
 	return ;
 }
 
-void	bin_fc_edit(t_list *list)
-{
-	return ;
-}
-
 void	bin_fc_print(t_list *list, int flags)
 {
 	while (list)
@@ -39,12 +34,12 @@ void	bin_fc_print(t_list *list, int flags)
 	}
 }
 
-void	bin_fc_switch(t_list **history, int flags)
+static void	bin_fc_switch(t_list **history, char *editor, int flags)
 {
 	if (flags & BIN_FC_REV)
 		ft_lstrev(history);
 	if (!(flags & BIN_FC_NOEDIT) && (!(flags & BIN_FC_LIST)))
-		bin_fc_edit(*history);
+		bin_fc_edit(history, editor);
 	if (flags & BIN_FC_LIST)
 		bin_fc_print(*history, flags);
 	if (!(flags & BIN_FC_LIST))
@@ -68,7 +63,7 @@ int		bin_fc(t_list *list)
 	if (bin_fc_list(tokens, &history, flags) == -1)
 		return (bin_print_error("history specification out of range",\
 			"fc", &tokens));
-	bin_fc_switch(&history, flags);
+	bin_fc_switch(&history, editor, flags);
 	ft_lstdel(&history, &delete_str);
 	ft_free_table(&tokens);
 	ft_memdel((void**)&editor);
