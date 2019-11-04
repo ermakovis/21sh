@@ -65,16 +65,21 @@ static int		bin_fc_list_create(size_t first, size_t last, t_list **target)
 		list = list->next;
 	while (list)
 	{
-		add_str(target, list->content);
+		if (!(one = ft_lstnew(list->content,\
+			ft_strlen(list->content) + 1)))
+			cleanup(-1, "Malloc failed at bin_fc_list_create");
+		one->content_size = list->content_size;
+		ft_lstadd_last(target, one);
 		if (list->content_size == last)
 			break ;
 		list = list->next;
 	}
 	if (rev)
 		ft_lstrev(target);
+	return (1);
 }
 
-int		bin_fc_list(char **tokens, t_list **target)
+int		bin_fc_list(char **tokens, t_list **target, int flags)
 {
 	int		i;
 	size_t	first;
@@ -92,8 +97,11 @@ int		bin_fc_list(char **tokens, t_list **target)
 			break ;
 		i++;
 	}
-	if (!tokens[i])
+	if (!tokens[i] && !(flags & BIN_FC_LIST))
 		return (bin_fc_list_create(g_msh->history->content_size,\
+			g_msh->history->content_size, target));
+	if (!tokens[i] && (flags & BIN_FC_LIST))
+		return (bin_fc_list_create(bin_fc_list_find_bynum("-10"),\
 			g_msh->history->content_size, target));
 	if ((first = bin_fc_list_find(tokens[i])) == -1)
 		return (-1);
