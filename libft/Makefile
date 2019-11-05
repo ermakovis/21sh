@@ -31,7 +31,7 @@ SRCS_NAME=ft_abs.c ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c \
 		 ft_print_float.c ft_print_cleanup.c ft_print_wchar.c\
 		 ft_test_path.c ft_item_type.c ft_table_size.c ft_print_table.c\
 		 ft_free_table.c\
-		 ft_parse_options.c
+		 ft_parse_options.c ft_powerjoin.c
 
 SRCS_PATH = src/
 OBJ_PATH  = obj/

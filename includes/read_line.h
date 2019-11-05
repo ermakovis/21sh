@@ -129,6 +129,10 @@ int						rl_tab_create_list(void);
 **	rl_newline_check.c
 */
 int						rl_newline_check(char *line, int mode);
+int						rl_braces_check(char *line);
+int						rl_bslash_check(char *line);
+int						rl_quotes_check(char *line);
+	
 
 void					rl_start_history(void);
 void					rl_search_history(void);

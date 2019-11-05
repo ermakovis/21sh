@@ -1,6 +1,6 @@
 #include "msh.h"
 
-static int		rl_quotes_check(char *line)
+int		rl_quotes_check(char *line)
 {
 	int		i;
 	int		dquote;
@@ -18,15 +18,10 @@ static int		rl_quotes_check(char *line)
 		else if (line[i] == '\"' && squote == 0)
 			dquote ^= 1;
 	}
-	if (dquote || squote)
-	{
-		rl_print_char('\n');
-		ft_printf("> ");
-	}
 	return (!(dquote || squote));
 }
 
-static int		rl_bslash_check(char *line)
+int		rl_bslash_check(char *line)
 {
 	int		i;
 	int		is_quoted;
@@ -41,11 +36,7 @@ static int		rl_bslash_check(char *line)
 			i++;
 		}
 		if (!line[i] && is_quoted)
-		{
-			rl_print_char('\n');
-			ft_printf("> ");
 			return (0);
-		}
 	}
 	return (1);
 }
@@ -71,22 +62,37 @@ int		rl_braces_check(char *line)
 				mismatch = true;
 		line++;	
 	}
-	if (mismatch == true && ft_dprintf(2, "\n%s: braces are unbalanced\n",\
-		g_msh->shell_name))
+	if (mismatch == true)
 		return (2);
-	if (pile_size > 0 && ft_printf("\n> "))
+	if (pile_size > 0)
 		return (1);
 	return (0);
 }
 
 int		rl_newline_check(char *line, int mode)
 {
+	int		ret;
+
 	if (mode == HEREDOC_MODE)
 		return (0);	
 	if (rl_quotes_check(line) == 0)
+	{
+		rl_print_char('\n');
+		ft_printf("> ");
 		return (1);
+	}
 	if (rl_bslash_check(line) == 0)
+	{
+		rl_print_char('\n');
+		ft_printf("> ");
 		return (1);
-	return (rl_braces_check(line));
-
+	}
+	if ((ret = rl_braces_check(line)))
+	{
+		if (ret == 2)
+			ft_dprintf(2, "\n%s: braces are unbalanced\n", g_msh->shell_name);
+		if (ret == 1)
+			ft_printf("\n> ");
+	}
+	return (ret);
 }

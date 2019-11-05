@@ -32,18 +32,9 @@ static void	bin_fc_edit_action(char *name, char *editor)
 	t_list	*tokens;
 	t_ast	*ast;
 	char	*line;
-	char 	*tmp;
 
-	if (!(line = ft_strjoin(editor, " ")))
-		cleanup(-1, "Malloc failed at bin_fc_edit_action");
-	tmp = line;
-	if (!(line = ft_strjoin(line, name)))
-		cleanup(-1, "Malloc failed at bin_fc_edit_action");
-	ft_memdel((void**)&tmp);
-	tmp = line;
-	if (!(line = ft_strjoin(line, "\n")))
-		cleanup(-1, "Malloc failed at bin_fc_edit_action");
-	ft_memdel((void**)&tmp);
+	if (!(line = ft_powerjoin("%s %s\n", &editor, &name)))
+		cleanup(-1, "Malloc failed at bin_fc_action");
 	tokens = lexer(line);
 	ft_memdel((void**)&line);
 	ast = parser(&tokens);
@@ -81,26 +72,37 @@ static void	bin_fc_edit_read(char *file_name, char **file_content)
 static void	bin_fc_edit_process(t_list **list, char *file_content)
 {
 	char	**table;
-	char	*curline;
-	char	*tmp;
+	char	*line;
 	int		i;
+	int		ret;
 
 	i = -1;
-	curline = 0;
+	line = 0;
 	ft_lstdel(list, &delete_str);
 	if (!(table = ft_strsplit(file_content, '\n')))
 		cleanup(-1, "Malloc failed at bin_fc_edit_process");
 	while (table[++i])
 	{
-		tmp = curline;
-		if (!(curline = ft_strjoin(curline, table[i])))
+		if (line && !(line = ft_powerjoin("%f\n%s", &line, &table[i])))
 			cleanup(-1, "Malloc failed at bin_fc_edit_process");
-		ft_memdel((void**)&tmp);
-		if (rl_newline_check(curline, RL_MODE) == 0)
+		if (!line && !(line = ft_powerjoin("%f%s", &line, &table[i])))
+			cleanup(-1, "Malloc failed at bin_fc_edit_process");
+		if ((ret = init_history_store_valid(line)) == 0)
 		{
-			add_str(list, curline);
-			ft_memdel((void**)&curline);
+			add_str(list, line);
+			ft_memdel((void**)&line);
 		}
+		else if (ret == 2)
+		{
+			ft_lstdel(list, &delete_str);
+			break ;
+		}
+	}
+	if (line)
+	{
+		ft_dprintf(2, "%s: fc: failed to process input\n", g_msh->shell_name);
+		ft_memdel((void**)&line);
+		ft_lstdel(list, &delete_str);
 	}
 	ft_free_table(&table);	
 }
