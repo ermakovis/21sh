@@ -33,7 +33,7 @@ static void	bin_fc_edit_action(char *name, char *editor)
 	t_ast	*ast;
 	char	*line;
 
-	if (!(line = ft_powerjoin("%s %s\n", &editor, &name)))
+	if (!(line = ft_powerjoin("%s %s\n", editor, name)))
 		cleanup(-1, "Malloc failed at bin_fc_action");
 	tokens = lexer(line);
 	ft_memdel((void**)&line);
@@ -83,9 +83,9 @@ static void	bin_fc_edit_process(t_list **list, char *file_content)
 		cleanup(-1, "Malloc failed at bin_fc_edit_process");
 	while (table[++i])
 	{
-		if (line && !(line = ft_powerjoin("%f\n%s", &line, &table[i])))
+		if (line && !(line = ft_powerjoin("%f\n%s", &line, table[i])))
 			cleanup(-1, "Malloc failed at bin_fc_edit_process");
-		if (!line && !(line = ft_powerjoin("%f%s", &line, &table[i])))
+		if (!line && !(line = ft_powerjoin("%f%s", &line, table[i])))
 			cleanup(-1, "Malloc failed at bin_fc_edit_process");
 		if ((ret = init_history_store_valid(line)) == 0)
 		{

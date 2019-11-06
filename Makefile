@@ -59,7 +59,6 @@ BIN_NAME=bin_exit.c\
 	bin_export.c\
 	bin_set.c\
 	bin_unset.c\
-	bin_cd.c\
 	bin_fg.c\
 	bin_bg.c\
 	bin_jobs.c\
@@ -71,6 +70,8 @@ BIN_NAME=bin_exit.c\
 	bin_hash.c\
 	bin_true_false.c\
 	bin_history.c\
+	bin_cd.c\
+	bin_cd_cdpath.c\
 	bin_fc.c\
 	bin_fc_list.c\
 	bin_fc_parse.c\

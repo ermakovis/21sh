@@ -1,49 +1,68 @@
 #include "msh.h"
 
-static int	bin_cd_change(char *path)
+static int	bin_cd_error(char *message, char ***tokens, char **path)
 {
-	char	cwd[PATH_MAX];
-	int		ret;
+	ft_dprintf(STDERR_FILENO, "%s: cd: %s\n", g_msh->shell_name, message);
+	if (tokens && *tokens)
+		ft_free_table(tokens);
+	ft_memdel((void**)path);
+	return (BIN_FAILURE);
+}
 
-	if (!(ret = ft_test_path(path)))
-	{
-		ft_dprintf(STDERR_FILENO, "cd: %s: No such file or directory\n", path);
-		return (BIN_FAILURE) ;
-	}
-	else if (ft_item_type(path) != 2)
-	{
-		ft_dprintf(STDERR_FILENO, "cd: %s: Not a directory\n", path);
-		return (BIN_FAILURE);
-	}
-	else if (!(ret & 1))
-	{
-		ft_dprintf(STDERR_FILENO, "cd: %s: Permission denied\n", path);
-		return (BIN_FAILURE);
-	}
+static int	bin_cd_action(char *path)
+{
+	char cwd[PATH_MAX + 1];
+
 	if (chdir(path) == -1)
-		ft_dprintf(STDERR_FILENO, "cd: %s: chdir failed\n", path);
+		return (BIN_FAILURE);
 	set_var(g_msh->env, "OLDPWD", find_var(g_msh->env, "PWD"));
 	set_var(g_msh->env, "PWD", getcwd(cwd, PATH_MAX));
 	return (BIN_SUCCESS);
 }
 
+static int	bin_cd_getpath(char *token, char **path)
+{
+	char *ret;
+
+	if (!token || ft_strequ(token, "+"))
+	{
+		if (!(ret = find_var(g_msh->env, "HOME")))
+			return (BIN_FAILURE);
+	}
+	else if (ft_strequ(token, "-"))
+	{
+		if (!(ret = find_var(g_msh->env, "OLDPWD")))
+			return (BIN_FAILURE);
+	}
+	else
+		ret = token;
+	if (ft_strlen(ret) > PATH_MAX)
+		return (BIN_FAILURE);
+	if (!(ret = ft_strdup(ret)))
+		cleanup(-1, "Malloc failed at bin_cd_getpath");
+	*path = ret;
+	return (BIN_SUCCESS);
+}
+
 int			bin_cd(t_list *list)
 {
-	int		ret;
-	int		tokens_count;
+	int		flag_ret;
 	char	**tokens;
+	char	*path;
+	int		flags;
 
-	ret = BIN_FAILURE;
-	tokens_count = ft_lstsize(list);
 	ex_tokens(&tokens, list);
-	if (tokens_count > 2)
-		ft_dprintf(2, "cd: Too many arguments\n");
-	else if (tokens_count == 1)
-		ret = bin_cd_change(find_var(g_msh->env, "HOME"));
-	else if (ft_strequ(tokens[1], "-"))
-		ret = bin_cd_change(find_var(g_msh->env, "OLDPWD"));
-	else
-		ret = bin_cd_change(tokens[1]);
+	if ((flag_ret = ft_parse_options("LP", &tokens[1], &flags)) == -1)
+		return (bin_print_error("Incorrect option", "cd", &tokens));
+	if (ft_table_size(&tokens[flag_ret + 1]) > 1)
+		return (bin_print_error("Too many options", "cd", &tokens));
+	if (bin_cd_getpath(tokens[flag_ret + 1], &path) == BIN_FAILURE)
+		return (bin_print_error("Incorrect path", "cd", &tokens));
+	if (bin_cd_cdpath(&path) == BIN_FAILURE)
+		return (bin_cd_error("Failed to get path", &tokens, &path));
+	if (bin_cd_action(path) == BIN_FAILURE)
+		return (bin_cd_error("Failed to change dir", &tokens, &path));
 	ft_free_table(&tokens);
-	return (ret);
+	ft_memdel((void**)&path);
+	return (BIN_SUCCESS);
 }

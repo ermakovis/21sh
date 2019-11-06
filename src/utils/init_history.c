@@ -19,9 +19,9 @@ static int init_history_store_cycle(char **line, char *table)
 	t_list	*list;
 	int		ret;
 
-	if (*line && !(*line = ft_powerjoin("%f\n%s", line, &table)))
+	if (*line && !(*line = ft_powerjoin("%f\n%s", line, table)))
 		cleanup(-1, "Malloc failed at init_history");
-	if (!*line && !(*line = ft_powerjoin("%f%s", line, &table)))
+	if (!*line && !(*line = ft_powerjoin("%f%s", line, table)))
 		cleanup(-1, "Malloc failed at init_history");
 	if ((ret = init_history_store_valid(*line)) == 0)
 	{

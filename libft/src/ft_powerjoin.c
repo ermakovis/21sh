@@ -23,16 +23,23 @@ static int	ft_pjoin_format(const char *format, char **ret)
 
 static int	ft_pjoin_argument(const char *format, char **ret, va_list valist)
 {
-	char	**argument;
+	char	**arg_free;
+	char	*arg;
 	char	*tmp;
 
 	if (format[0] != '%')
 		return (0);
-	argument = va_arg(valist, char**);
-	tmp = ft_strjoin(*ret, *argument);
+	if (format[1] == 's')
+		arg = va_arg(valist, char*);
+	else if (format[1] == 'f')
+	{
+		arg_free = va_arg(valist, char**);
+		arg = *arg_free;
+	}
+	tmp = ft_strjoin(*ret, arg);
 	ft_memdel((void**)ret);
 	if (format[1] == 'f')
-		ft_memdel((void**)argument);
+		ft_memdel((void**)arg_free);
 	*ret = tmp;
 	return (2);
 }

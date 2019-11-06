@@ -41,3 +41,17 @@ int ut_check_write(char const *path)
 			g_msh->shell_name, path);
     return (ret);
 }
+
+int	ut_check_dir(const char *path)
+{
+	char	cwd[PATH_MAX];
+	int		ret;
+
+	if (!(ret = ft_test_path(path)))
+		return (0) ;
+	else if (ft_item_type(path) != 2)
+		return (0);
+	else if (!(ret & 1))
+		return (0);
+	return (1);
+}
