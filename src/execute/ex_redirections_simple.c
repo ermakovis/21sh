@@ -17,8 +17,6 @@ static int		ex_redirections_simple_more(char *redir, char *word)
 	int		num;
 	int		fd;
 
-	if (!ut_check_write(word))
-		return (-1);
 	if (ft_isdigit(*redir))
 		num = atoi(redir);
 	else
@@ -35,8 +33,6 @@ static int		ex_redirections_simple_dmore(char *redir, char *word)
 	int		num;
 	int		fd;
 
-	if (!ut_check_write(word))
-		return (-1);
 	if (ft_isdigit(*redir))
 		num = atoi(redir);
 	else

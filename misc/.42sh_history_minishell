@@ -1,0 +1,12 @@
+echo ${?}
+/bin/ls -l -a -F
+echo ${?}
+/bin/ls -alF
+echo ${?}
+ls
+echo ${?}
+/bin/ls
+echo ${?}
+misc/msh
+echo ${?}
+doesnotexist

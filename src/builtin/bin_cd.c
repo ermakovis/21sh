@@ -13,6 +13,8 @@ static int	bin_cd_action(char *path)
 {
 	char cwd[PATH_MAX + 1];
 
+	if (!path && !*path)
+		return (BIN_SUCCESS);
 	if (chdir(path) == -1)
 		return (BIN_FAILURE);
 	set_var(g_msh->env, "OLDPWD", find_var(g_msh->env, "PWD"));
@@ -59,6 +61,8 @@ int			bin_cd(t_list *list)
 	if (bin_cd_getpath(tokens[flag_ret + 1], &path) == BIN_FAILURE)
 		return (bin_print_error("Incorrect path", "cd", &tokens));
 	if (bin_cd_cdpath(&path) == BIN_FAILURE)
+		return (bin_cd_error("Failed to get path", &tokens, &path));
+	if (bin_cd_canon(&path, flags) == BIN_FAILURE)
 		return (bin_cd_error("Failed to get path", &tokens, &path));
 	if (bin_cd_action(path) == BIN_FAILURE)
 		return (bin_cd_error("Failed to change dir", &tokens, &path));

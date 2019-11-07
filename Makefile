@@ -72,6 +72,7 @@ BIN_NAME=bin_exit.c\
 	bin_history.c\
 	bin_cd.c\
 	bin_cd_cdpath.c\
+	bin_cd_canon.c\
 	bin_fc.c\
 	bin_fc_list.c\
 	bin_fc_parse.c\

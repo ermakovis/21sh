@@ -29,6 +29,7 @@ int		bin_false(t_list *list);
 int		bin_history(t_list *list);
 int		bin_cd(t_list *list);
 int		bin_cd_cdpath(char **path);
+int		bin_cd_canon(char **path, int flags);
 int		bin_fc(t_list *list);
 int		bin_fc_list(char **tokens, t_list **target, int flag);
 int		bin_fc_parse(char **tokens, char **editor, int *flag);

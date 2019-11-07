@@ -40,8 +40,10 @@ t_ast		*parser(t_list **tokens)
 	bool	bg;
 	t_ast	*ast;
 
+
 	if (!tokens && !*tokens)
 		return (0);
+	ft_lstiter(*tokens, &print_token);
 	if (pr_syntax_check(*tokens) != SUCCESS)
 		return (0);
 	pr_heredoc(*tokens);

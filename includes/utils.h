@@ -122,7 +122,7 @@ int						is_special(char ch);
 */
 int 					ut_check_execute(char const *path);
 int 					ut_check_write(char const *path);
-int 					ut_check_dir(char const *path);
+int 					ut_check_dir(char *path);
 /*
 **	ut_str_functions.c
 */

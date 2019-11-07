@@ -42,7 +42,7 @@ int ut_check_write(char const *path)
     return (ret);
 }
 
-int	ut_check_dir(const char *path)
+int	ut_check_dir(char *path)
 {
 	char	cwd[PATH_MAX];
 	int		ret;

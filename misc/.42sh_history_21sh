@@ -1,0 +1,28 @@
+rm out; rm err
+cat /tmp/heredoc-append
+cat -e >> /tmp/heredoc-append << FIN
+cat > /tmp/heredoc-append << FIN
+cat << EO\
+F
+cat << END
+echo out >&- || echo out2
+echo out >&- && echo out2
+echo out >&- | echo out 2
+echo out >&-; echo out2
+exit 1 | exit 2 | exit 3; echo "stayin' alive"
+ls -1; touch test_file; ls -1; rm test_file
+base64 < /dev/urandom | head -c 1000 | grep 42 | wc -l | sed -e s/1/Yes/g -e s/0/No/g
+ls | sort -n | cat -e
+ls | sort -rn | cat -e
+ls doesnotexit . >/dev/null 2>&1
+ls doesnotexist . 2>&1 >/dev/null
+cat <&-
+cat <&- abc
+cat <&4
+cat out
+cat err
+echo 2 >out 2>err
+echo 1 > out >&2 2>err
+< /tmp/ftsh_ls_out cat -e >> /tmp/ftsh_ls_out
+cat /tmp/ftsh_ls_out
+ls > /tmp/ftsh_ls_out

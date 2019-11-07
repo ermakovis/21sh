@@ -44,6 +44,7 @@ static int		ex_redirections_agreg_more(char *redir, char *word)
 static int		ex_redirections_agreg_less(char *redir, char *word)
 {
 	int		num;
+	int		fd;
 
 	if (ft_isdigit(*redir))
 		num = atoi(redir);
@@ -51,6 +52,7 @@ static int		ex_redirections_agreg_less(char *redir, char *word)
 		num = 0;
 	if (ft_isnumber(word))
 	{
+		fd = ft_atoi(word);
 		if (dup2(ft_atoi(word), num) == -1)
 			return (ex_redirections_agreg_error("Bad file descriptor", word));
 	}
@@ -74,11 +76,15 @@ int		ex_redirections_agreg(t_list *list)
 	if (ex_redirections_check(word) == BIN_FAILURE)
 		return (BIN_FAILURE);
 	if (token->operator_type == MORE_AND)
+	{
 		if (ex_redirections_agreg_more(token->line, word) == BIN_FAILURE)
 			return (BIN_FAILURE);
+	}
 	else if (token->operator_type == LESS_AND)
+	{
 		if (ex_redirections_agreg_less(token->line, word) == BIN_FAILURE)
 			return (BIN_FAILURE);
+	}
 	return (BIN_SUCCESS);
 }
 

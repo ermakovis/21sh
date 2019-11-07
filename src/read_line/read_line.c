@@ -29,8 +29,6 @@ void			init_rl(void)
 
 static int		rl_switch(long ch)
 {
-	if (ch == 18)
-		rl_search_history();
 	rl_copy(ch);
 	rl_tab(ch);
 	rl_history(ch);
@@ -64,7 +62,6 @@ int				read_line(int mode)
 	set_terminal_raw();
 	while (get_char(&ch))
 	{
-		g_msh->rl->mode = mode;
 		if (ch == 4 && !rl_endline_check())
 			return (FAILURE);
 		else if (ch == '\n')

@@ -1,12 +1,19 @@
 #include "msh.h"
 
-int		rl_history_search(long ch)
+int		rl_history_search(long c)
 {
 	char 	*line;
+	long	ch;
 
-	if (ch != CTRL_R)
+	if (c != CTRL_R)
 		return (EXIT_FAILURE);
-	line = g_msh->rl->line;
-	ft_printf("Hello, im search function\n");
+	ft_printf("Inside>\n");
+	while (get_char(&ch))
+	{
+		if (ch == 4 )
+			break ;
+		if (ft_isprint(ch))
+			ft_printf("%c", ch);
+	}
 	return (EXIT_SUCCESS);
 }
