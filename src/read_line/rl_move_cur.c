@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:53:11 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 18:54:29 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 15:27:53 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void		rl_mc_right(void)
 
 void			rl_move_cur(long ch)
 {
-	if (!(ch == LEFT || ch == RIGHT))
+	if (!(ch == LEFT || ch == RIGHT) || g_msh->rl_mode == SEARCH_MODE)
 		return ;
 	if (ch == LEFT)
 		rl_mc_left();

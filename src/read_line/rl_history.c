@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:53:04 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 21:37:07 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 16:09:56 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	rl_add_history(void)
 	char	*str;
 	int		len;
 
-	if (g_msh->rl->mode == HEREDOC_MODE)
+	if (g_msh->rl_mode == HEREDOC_MODE)
 		return ;
 	str = g_msh->rl->line;
 	if (rl_history_valid(str) == FAILURE)
@@ -106,7 +106,7 @@ void	rl_history(long ch)
 	t_rl	*rl;
 	int		size;
 
-	if (!(ch == UP || ch == DOWN))
+	if (!(ch == UP || ch == DOWN) || g_msh->rl_mode == SEARCH_MODE)
 		return ;
 	if (!g_msh->history || !g_msh->history->content)
 		return ;

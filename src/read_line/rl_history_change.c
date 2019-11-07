@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:54:39 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 09:20:16 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 15:40:13 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		rl_history_clean(void)
 		ft_printf("%s", g_msh->cmd->up);
 	ft_printf("%s%s", g_msh->cmd->cur_start, g_msh->cmd->clear_rest);
 	ft_memdel((void**)&(rl->line));
-	if (g_msh->rl->mode == RL_MODE)
+	if (g_msh->rl_mode == RL_MODE)
 		display_prompt();
 }
 

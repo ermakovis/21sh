@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:50:25 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 14:28:50 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 15:26:56 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			rl_copy_paste(void)
 
 void			rl_copy(long ch)
 {
-	if (!(ch == VMODE || ch == PASTE))
+	if (!(ch == VMODE || ch == PASTE || g_msh->rl_mode == SEARCH_MODE))
 		return ;
 	if (ch == VMODE)
 		rl_copy_movements();

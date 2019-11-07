@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:48:44 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 15:30:29 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 16:56:29 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,26 @@ void			init_rl(void)
 	g_msh->rl = new_rl;
 }
 
-static int		rl_switch(long ch)
+static void		rl_switch(long ch)
 {
 	rl_copy(ch);
 	rl_tab(ch);
 	rl_history(ch);
-	if (rl_history_search(ch) == EXIT_SUCCESS)
-		return (1);
+	if (ch == CTRL_R)
+		rl_history_search(ch);
 	rl_move_cur(ch);
 	rl_vert_move(ch);
 	rl_jump(ch);
 	rl_del_char(ch);
 	if (ft_isprint(ch))
 		rl_print_char(ch);
-	return (0);
 }
 
 static int		rl_endline_check(void)
 {
-	if (g_msh->rl->line_len == 0 && g_msh->rl->mode == RL_MODE)
+	if (g_msh->rl->line_len == 0 && g_msh->rl_mode == RL_MODE)
 		cleanup(0, "");
-	if (g_msh->rl->line_len == 0 && g_msh->rl->mode == HEREDOC_MODE)
+	if (g_msh->rl->line_len == 0 && g_msh->rl_mode == HEREDOC_MODE)
 		return (0);
 	return (1);
 }
@@ -75,8 +74,8 @@ int				read_line(int mode)
 			rl_add_history();
 			break ;
 		}
-		else if (rl_switch(ch) == 1)
-			break;
+		else
+			rl_switch(ch);
 	}
 	set_terminal_canon();
 	return (SUCCESS);

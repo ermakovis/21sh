@@ -12,6 +12,7 @@ void				ut_signal_sigint(int sig)
 		display_prompt();
 	}
 	ft_printf("%s", g_msh->cmd->highlight_mode_off);
+	g_msh->rl_mode = RL_MODE;
 	cl_rl_struct();
 	init_rl();
 }

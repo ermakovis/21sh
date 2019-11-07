@@ -82,4 +82,5 @@ t_list			*lx_history_find(t_list *list, char **line)
 		}
 		list = list->next;
 	}
+	return (NULL);
 }

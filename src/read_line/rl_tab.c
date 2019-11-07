@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 20:36:53 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 13:53:46 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 15:26:22 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void			rl_tab(long ch)
 	char	nch;
 
 	nch = 0;
-	if (ch != TAB)
+	if (ch != TAB || g_msh->rl_mode == SEARCH_MODE)
 		return ;
 	if (!g_msh->rl->line)
 		return ;

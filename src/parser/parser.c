@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:58:06 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 11:00:04 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 15:33:04 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,8 @@ t_ast		*parser(t_list **tokens)
 	bool	bg;
 	t_ast	*ast;
 
-
 	if (!tokens && !*tokens)
 		return (0);
-	ft_lstiter(*tokens, &print_token);
 	if (pr_syntax_check(*tokens) != SUCCESS)
 		return (0);
 	pr_heredoc(*tokens);

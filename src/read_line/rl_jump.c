@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/31 13:53:16 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 18:51:45 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 15:28:51 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static void	rl_jump_word_back(long ch)
 void		rl_jump(long ch)
 {
 	if (!(ch == LINE_START || ch == LINE_END ||\
-		ch == WORD_NEXT || ch == WORD_BACK))
+		ch == WORD_NEXT || ch == WORD_BACK) || g_msh->rl_mode == SEARCH_MODE)
 		return ;
 	rl_jump_word_next(ch);
 	rl_jump_word_back(ch);

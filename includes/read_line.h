@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:27:38 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 14:07:25 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 16:57:05 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define LINE_END		72783508888347
 # define RL_MODE		1
 # define HEREDOC_MODE	2
+# define SEARCH_MODE	3
 
 /*
 **	status - to handle signal in the middle of reading process.
@@ -48,7 +49,8 @@
 */
 typedef struct			s_rl
 {
-	int					mode;
+	size_t				search_pos;
+	char				*search_line;
 	char				*line;
 	int					history;
 	char				*history_orig;
@@ -111,7 +113,7 @@ void					rl_history_change(int position);
 /*
 **	rl_history_search.c
 */
-int						rl_history_search(long ch);
+void					rl_history_search(long ch);
 
 /*
 **  rl_tab.c

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:52:52 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 18:53:07 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/07 15:28:29 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			rl_vert_move(long ch)
 	int		term_width;
 	t_wsize	wsize;
 
-	if (!(ch == UPLINE || ch == DOWNLINE))
+	if (!(ch == UPLINE || ch == DOWNLINE) || g_msh->rl_mode == SEARCH_MODE)
 		return ;
 	ioctl(0, TIOCGWINSZ, &wsize);
 	term_width = wsize.ws_col;
