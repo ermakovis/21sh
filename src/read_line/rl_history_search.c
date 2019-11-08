@@ -14,7 +14,7 @@ static int		rl_history_search_calchight(int mode)
 	if (mode == RL_MODE)
 		line_pos = ft_strlen(find_var(g_msh->env, "PWD"));
 	else if (mode == SEARCH_MODE)
-		line_pos = ft_strlen(g_msh->rl->search_line) + 29;
+		line_pos = ft_strlen(g_msh->rl->search_line) + 21;
 	ioctl(0, TIOCGWINSZ, &wsize);
 	while (line[++i])
 	{
@@ -39,7 +39,7 @@ static void		rl_history_search_clear(int mode)
 	ft_printf("%s%s", g_msh->cmd->cur_start, g_msh->cmd->clear_rest);
 }
 
-static int		rl_history_search_action(void)
+static int		rl_history_search_action(long ch)
 {
 	int		i;
 	t_list	*list;
@@ -49,6 +49,8 @@ static int		rl_history_search_action(void)
 		return (0);
 	list = g_msh->history;	
 	while (g_msh->rl->search_pos && i < g_msh->rl->search_pos && ++i)
+		list = list->next;
+	if (ch == CTRL_R && list->next && ++i)
 		list = list->next;
 	while (list)
 	{
@@ -73,10 +75,11 @@ void		rl_history_search(long ch)
 	int		fail;
 	char 	*line;
 
+	if (!g_msh->history)
+		return ;
 	rl_history_search_clear(g_msh->rl_mode);
 	g_msh->rl_mode = SEARCH_MODE;
 	fail = rl_history_search_action(ch);
-	if (fail)
-		ft_printf("(failed)");
-	ft_printf("reverse-i-search `%s': %s", g_msh->rl->search_line, g_msh->rl->line);
+	ft_printf("reverse-i-search `%s': %s",\
+		g_msh->rl->search_line, g_msh->rl->line);
 }

@@ -72,7 +72,7 @@ int		rl_braces_check(char *line)
 int		rl_newline_check(char *line, int mode)
 {
 	int		ret;
-
+	
 	if (mode == HEREDOC_MODE)
 		return (0);	
 	if (rl_quotes_check(line) == 0)

@@ -53,6 +53,7 @@ void		cl_rl_struct(void)
 		return ;
 	ft_memdel((void**)&g_msh->rl->line);
 	ft_memdel((void**)&g_msh->rl->history_orig);
+	ft_memdel((void**)&g_msh->rl->search_line);
 	ft_memdel((void**)&g_msh->rl);
 }
 

@@ -24,6 +24,8 @@ void			init_rl(void)
 	if (!(new_rl->line = ft_strnew(MSH_BUFF_SIZE)))
 		cleanup(-1, "Failed to malloc for rl's new string\n");
 	new_rl->history = -1;
+	if (!(new_rl->search_line = ft_memalloc(PATH_MAX)))
+		cleanup(-1, "Failed to malloc for rl's new string\n");
 	g_msh->rl = new_rl;
 }
 
@@ -65,6 +67,7 @@ int				read_line(int mode)
 			return (FAILURE);
 		else if (ch == '\n')
 		{	
+			g_msh->rl_mode = RL_MODE;
 			if ((ret = rl_newline_check(g_msh->rl->line, mode)) == 2)
 				return (FAILURE); 
 			if (ret == 1)

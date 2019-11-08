@@ -96,6 +96,7 @@ void	rl_add_history(void)
 	if (!(new = ft_lstnew(str, len)))
 		cleanup(-1, "Malloc failed at add_token");
 	str[len - 1] = '\n';
+	str[len] = 0;
 	ft_lstadd(&(g_msh->history), new);
 	rl_history_trim();
 	rl_history_putnumbers();

@@ -14,14 +14,12 @@
 
 void		rl_print_char_search(long ch)
 {
-	if (!g_msh->rl->search_line)
-		if (!(g_msh->rl->search_line = ft_memalloc(PATH_MAX)))
-			cleanup(-1, "Malloc failed at rl_print_char_search");
 	append_char(&g_msh->rl->search_line, (char)ch, PATH_MAX); 
-	rl_history_search();
+	g_msh->rl->search_pos = 0;
+	rl_history_search(ch);
 }
 
-void		rl_del_char_search(void)
+void		rl_del_char_search(long ch)
 {
 	int		len;
 
@@ -29,7 +27,7 @@ void		rl_del_char_search(void)
 		return ;
 	g_msh->rl->search_line[len - 1] = 0;
 	g_msh->rl->search_pos = 0;
-	rl_history_search();
+	rl_history_search(ch);
 }
 
 
@@ -59,7 +57,7 @@ void		rl_del_char(long ch)
 	if (!(ch == DELETE || ch == BSPACE))
 		return ;
 	if (g_msh->rl_mode == SEARCH_MODE)
-		return (rl_del_char_search());
+		return (rl_del_char_search(ch));
 	rl = g_msh->rl;
 	if (ch == DELETE && rl->cur_pos < rl->line_len)
 	{
