@@ -118,7 +118,6 @@ UT_NAME=init.c\
 	ut_terminal_mods.c\
 	ut_signals.c\
 	cleanup.c\
-	get_history_path.c
 
 RL = $(addprefix $(OBJ_DIR)/, $(RL_NAME:.c=.o))
 LX = $(addprefix $(OBJ_DIR)/, $(LX_NAME:.c=.o))

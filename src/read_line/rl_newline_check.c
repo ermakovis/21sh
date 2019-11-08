@@ -11,7 +11,7 @@ int		rl_quotes_check(char *line)
 	squote = 0;
 	while (line[++i])
 	{
-		if (line[i] == '\\' && squote == 0)
+		if (line[i] == '\\' && squote == 0 && line[i + 1])
 			i++;
 		else if (line[i] == '\'' && dquote == 0)
 			squote ^= 1;

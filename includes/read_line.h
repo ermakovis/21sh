@@ -17,7 +17,7 @@
 # include <curses.h>
 
 # define HISTORY_MAX	100
-# define HISTORY_PATH	"./.42sh_history"
+# define HISTORY_PATH	".42sh_history"
 
 # define CTRL_D			4
 # define CTRL_R			18

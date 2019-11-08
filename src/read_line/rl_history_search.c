@@ -14,7 +14,7 @@ static int		rl_history_search_calchight(int mode)
 	if (mode == RL_MODE)
 		line_pos = ft_strlen(find_var(g_msh->env, "PWD"));
 	else if (mode == SEARCH_MODE)
-		line_pos = ft_strlen(g_msh->rl->search_line) + 21;
+		line_pos = ft_strlen(g_msh->rl->search_line) + 29;
 	ioctl(0, TIOCGWINSZ, &wsize);
 	while (line[++i])
 	{
@@ -39,7 +39,22 @@ static void		rl_history_search_clear(int mode)
 	ft_printf("%s%s", g_msh->cmd->cur_start, g_msh->cmd->clear_rest);
 }
 
-static int		rl_history_search_action(long ch)
+static int		rl_history_search_cycle_action(char *new_line, int pos)
+{
+	int		len;
+
+	len = ft_strlen(new_line);
+	ft_memdel((void**)&g_msh->rl->line);
+	if (!(g_msh->rl->line = ft_strnew(MSH_BUFF_SIZE)))
+		cleanup(-1, "Malloc failed at rl_history_search_action");
+	ft_memcpy(g_msh->rl->line, new_line, len);
+	g_msh->rl->line_len = len;
+	g_msh->rl->cur_pos = len;
+	g_msh->rl->search_pos = pos;
+	return (0);
+}
+
+static int		rl_history_search_cycle(long ch)
 {
 	int		i;
 	t_list	*list;
@@ -55,15 +70,7 @@ static int		rl_history_search_action(long ch)
 	while (list)
 	{
 		if (ft_strstr(list->content, g_msh->rl->search_line))
-		{
-			ft_memdel((void**)&g_msh->rl->line);
-			if (!(g_msh->rl->line = ft_strdup(list->content)))
-				cleanup(-1, "Malloc failed at rl_history_search_action");
-			g_msh->rl->line_len = ft_strlen(list->content);
-			g_msh->rl->cur_pos = g_msh->rl->line_len;
-			g_msh->rl->search_pos = i;
-			return (0);
-		}
+			return (rl_history_search_cycle_action(list->content, i));
 		i++;
 		list = list->next;
 	}
@@ -79,7 +86,9 @@ void		rl_history_search(long ch)
 		return ;
 	rl_history_search_clear(g_msh->rl_mode);
 	g_msh->rl_mode = SEARCH_MODE;
-	fail = rl_history_search_action(ch);
+	fail = rl_history_search_cycle(ch);
+	if (fail)
+		ft_printf("(failed)");
 	ft_printf("reverse-i-search `%s': %s",\
 		g_msh->rl->search_line, g_msh->rl->line);
 }

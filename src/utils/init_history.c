@@ -10,7 +10,8 @@ int		init_history_store_valid(char *line)
 		return (1);
 	ret = rl_braces_check(line);
 	if (ret == 2)
-		ft_dprintf(2, "\n%s: braces are unbalanced\n", g_msh->shell_name);
+		ft_dprintf(2, "\n%s: braces are unbalanced at line %s\n",\
+			g_msh->shell_name, line);
 	return (ret);
 }
 
@@ -66,6 +67,23 @@ static void init_history_store(char *line)
 	ft_free_table(&arr);
 }
 
+int			init_history_getpath(char **path)
+{
+	char	*ret;
+
+	if (!(ret = find_var(g_msh->env, "HOME")))
+	{
+		ft_dprintf(2, "%s: failed to get home path\n", g_msh->shell_name);
+		return (0);
+	}
+	if (ret[ft_strlen(ret)] == '/')
+		ret = ft_powerjoin("%s%s", ret, HISTORY_PATH);
+	else
+		ret = ft_powerjoin("%s/%s", ret, HISTORY_PATH);
+	*path = ret;
+	return (1);
+}
+
 void		init_history(void)
 {
 	int		fd;
@@ -75,10 +93,11 @@ void		init_history(void)
 	int		res;
 
 	line = NULL;
-	path = ft_strdup(HISTORY_PATH);
+	if (!init_history_getpath(&path))
+		return ;
 	if ((fd = open(path, O_RDONLY)) == -1)
 	{
-		dprintf(2, "%s: can't open history's file\n", g_msh->shell_name);
+		ft_dprintf(2, "%s: can't open history's file\n", g_msh->shell_name);
 		ft_memdel((void**)&path);
 		return ;
 	}
@@ -86,9 +105,7 @@ void		init_history(void)
 	while ((res = read(fd, &buff, PATH_MAX)) > 0)
 	{
 		buff[res] = 0;
-		path = line;
-		line = ft_strjoin(line, buff);
-		ft_memdel((void**)&path);
+		line = ft_powerjoin("%f%s", &line, buff);
 	}
 	close(fd);
 	init_history_store(line);

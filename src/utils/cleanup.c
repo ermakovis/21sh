@@ -18,7 +18,8 @@ static void		cl_history(void)
 	int		fd;
 	t_list	*list;
 
-	path = ft_strdup(HISTORY_PATH);
+	if (!init_history_getpath(&path))
+		return ;
 	if ((fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
 	{
 		ft_dprintf(STDERR_FILENO, "42sh: can't open history's file\n");

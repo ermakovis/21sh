@@ -81,6 +81,7 @@ void					init(char **env);
 **	init_history.c
 */
 void					init_history(void);
+int						init_history_getpath(char **path);
 int						init_history_store_valid(char *line);
 
 /*
