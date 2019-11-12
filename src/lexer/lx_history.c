@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lx_history.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:33:42 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:33:54 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static void		lx_history_replace(t_list **alist)
@@ -12,7 +24,7 @@ static void		lx_history_replace(t_list **alist)
 	tmp = 0;
 	while (((t_token*)list->content)->token_type != NEWLINE)
 	{
-		token = list->content;	
+		token = list->content;
 		if (line)
 		{
 			tmp = line;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_hash.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 20:33:50 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 20:33:56 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static char	*init_hash_join(char *s1, char *s2)
@@ -18,6 +30,7 @@ static char	*init_hash_join(char *s1, char *s2)
 	ft_memcpy(join + s1len + 1, s2, s2len);
 	return (join);
 }
+
 static void	init_hash_add(t_dir *entry, char *path)
 {
 	char	*short_name;
@@ -43,7 +56,7 @@ static void	init_hash_cycle(char *path)
 	closedir(dir);
 }
 
-void	init_hash(void)
+void		init_hash(void)
 {
 	char	**paths;
 	char	*paths_env;

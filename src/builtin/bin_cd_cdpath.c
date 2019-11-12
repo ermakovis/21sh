@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_cd_cdpath.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 16:08:55 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 16:09:07 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static int	bin_cd_cdpath_check(char **path)
@@ -25,13 +37,13 @@ static int	bin_cd_cdpath_cycle(char *line, char **path)
 	int		len;
 
 	if (!(len = ft_strlen(line)))
-		return (BIN_FAILURE);	
+		return (BIN_FAILURE);
 	if (line[len - 1] == '/')
 		if (!(tmp = ft_powerjoin("%s%s", line, *path)))
-			cleanup (-1, "Malloc failed at bin_cd_cdpath_cycle");
+			cleanup(-1, "Malloc failed at bin_cd_cdpath_cycle");
 	if (line[len - 1] != '/')
 		if (!(tmp = ft_powerjoin("%s/%s", line, *path)))
-			cleanup (-1, "Malloc failed at bin_cd_cdpath_cycle");
+			cleanup(-1, "Malloc failed at bin_cd_cdpath_cycle");
 	if (ut_check_dir(tmp) == 1)
 	{
 		ft_memdel((void**)path);
@@ -60,8 +72,7 @@ int			bin_cd_cdpath(char **path)
 	{
 		ft_free_table(&cd_array);
 		return (BIN_SUCCESS);
-	}	
+	}
 	ft_free_table(&cd_array);
 	return (BIN_SUCCESS);
 }
-

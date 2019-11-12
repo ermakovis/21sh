@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_fc_parse.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:53:50 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 16:32:25 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static int		add_flag(char *str, int *flags)
@@ -33,12 +45,12 @@ static int		bin_fc_editor(char **options, char **editor, int *count)
 	if (!ft_strcmp(options[*count], "-e") && options[*count + 1])
 	{
 		if (ex_getpath(options[*count + 1], editor) == FAILURE)
-			return(BIN_FAILURE);
+			return (BIN_FAILURE);
 		*count += 2;
 		return (BIN_SUCCESS);
 	}
 	if (ex_getpath("vim", editor) == FAILURE)
-			return (BIN_FAILURE);
+		return (BIN_FAILURE);
 	return (BIN_SUCCESS);
 }
 

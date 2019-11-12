@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:58:06 by tcase             #+#    #+#             */
-/*   Updated: 2019/11/07 15:33:04 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 15:37:13 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static bool	pr_bg_check(t_list *list)
 	return (false);
 }
 
-static void pr_bg_mark(t_ast *ast)
+static void	pr_bg_mark(t_ast *ast)
 {
 	if (!ast)
 		return ;
 	pr_bg_mark(ast->left);
 	pr_bg_mark(ast->right);
 	ast->bg = 1;
-}	
+}
 
 t_ast		*parser(t_list **tokens)
 {

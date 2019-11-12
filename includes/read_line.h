@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:27:38 by tcase             #+#    #+#             */
-/*   Updated: 2019/11/07 16:57:05 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:49:26 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,4 @@ int						rl_newline_check(char *line, int mode);
 int						rl_braces_check(char *line);
 int						rl_bslash_check(char *line);
 int						rl_quotes_check(char *line);
-	
-
-void					rl_start_history(void);
-void					rl_search_history(void);
 #endif

@@ -6,13 +6,13 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:55:13 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 15:09:13 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 15:33:11 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-int			lx_assignment_check(char *line, t_list *list)
+int				lx_assignment_check(char *line, t_list *list)
 {
 	t_list	*prev;
 	int		len;
@@ -50,13 +50,13 @@ static int		lx_assignment_dquote_len(char *line)
 	return (len + 1);
 }
 
-int			lx_assignment_get(char *line, t_list **tokens)
+int				lx_assignment_get(char *line, t_list **tokens)
 {
 	int		len;
 	char	*token_line;
 
 	len = 0;
-	while (line[len] && lx_word_check(line[len])) 
+	while (line[len] && lx_word_check(line[len]))
 	{
 		if (line[len] == '\\')
 			len++;

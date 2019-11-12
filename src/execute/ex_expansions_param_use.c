@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_expansions_param_use.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 20:14:50 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 20:14:50 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static void	ex_exp_param_usedef(char *param, char *word, char **new)
@@ -26,7 +38,7 @@ static void	ex_exp_param_useass(char *param, char *word, char **new)
 	}
 }
 
-static void ex_exp_param_usealt(char *param, char *word, char **new)
+static void	ex_exp_param_usealt(char *param, char *word, char **new)
 {
 	char *value;
 

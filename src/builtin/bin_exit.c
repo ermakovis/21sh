@@ -1,15 +1,23 @@
-#include "msh.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_exit.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 16:09:27 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 16:11:31 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-**	TODO: sigkill jobs
-*/
+#include "msh.h"
 
 int		bin_exit(t_list *list)
 {
 	size_t	tokens_count;
 	char	**tokens;
 	int		return_value;
-	
+
 	return_value = 0;
 	tokens_count = ft_lstsize(list);
 	ex_tokens(&tokens, list);
@@ -28,6 +36,5 @@ int		bin_exit(t_list *list)
 	ft_free_table(&tokens);
 	set_terminal_canon();
 	cleanup(return_value, 0);
-	ft_printf("?????\n");
 	return (return_value);
 }

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:28:09 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 14:06:52 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:50:44 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ typedef struct			s_bin
 	char				*name;
 	int					(*func)(t_list *list);
 }						t_bin;
- 
+
 typedef struct			s_job
 {
 	int					num;
 	char				sign;
 	pid_t				pid;
 	char				*cmd_line;
-	int					state;				
+	int					state;
 	int					status;
 }						t_job;
 
@@ -116,14 +116,13 @@ void					display_prompt(void);
 void					append_str(char **str, int *i, char *new);
 char					*var_to_str(char *name, char *value);
 int						get_char(long *ch);
-int						is_special(char ch);
 
 /*
 **	ut_checks.c
 */
-int 					ut_check_execute(char const *path);
-int 					ut_check_write(char const *path);
-int 					ut_check_dir(char *path);
+int						ut_check_execute(char const *path);
+int						ut_check_write(char const *path);
+int						ut_check_dir(char *path);
 /*
 **	ut_str_functions.c
 */

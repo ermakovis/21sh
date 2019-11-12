@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ex_command.c                                       :+:      :+:    :+:   */
+/*   ex_common.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/24 19:10:05 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 15:43:41 by tcase            ###   ########.fr       */
+/*   Created: 2019/11/12 20:19:22 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 20:20:06 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			ex_set_return_var(int ret)
 	return (ret);
 }
 
-int				ex_exit_status(int status)
+int			ex_exit_status(int status)
 {
 	char	*name;
 
@@ -43,13 +43,15 @@ int				ex_exit_status(int status)
 			ft_dprintf(2, "%s: Bus error :(\n", name);
 		else if (WTERMSIG(status) == 11)
 			ft_dprintf(2, "%s: Segmentation Fault :(\n", name);
+		else if (WTERMSIG(status) != 2)
+			ft_dprintf(2, "%s: Kill by signal %d :(\n", name, WTERMSIG(status));
 		return (WTERMSIG(status) * -1);
 	}
 	else
 		return (FAILURE);
 }
 
-int				ex_builtin(t_list *list)
+int			ex_builtin(t_list *list)
 {
 	t_list	*list_find;
 	t_token	*token;
@@ -69,7 +71,7 @@ void		ex_command_setpgid(bool bg)
 	if (bg == 0)
 	{
 		tcsetpgrp(STDOUT_FILENO, getpid());
-		tcsetattr(STDOUT_FILENO, TCSADRAIN, g_msh->original_state); 
+		tcsetattr(STDOUT_FILENO, TCSADRAIN, g_msh->original_state);
 	}
 	else
 		tcsetpgrp(STDOUT_FILENO, g_msh->pid);

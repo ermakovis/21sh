@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 18:58:12 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/25 14:28:05 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:35:17 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void		cl_history(void)
 	close(fd);
 }
 
-static void	cl_term_cmd_struct(void)
+static void		cl_term_cmd_struct(void)
 {
 	t_cmd	*cmd;
 
@@ -48,7 +48,7 @@ static void	cl_term_cmd_struct(void)
 	ft_memdel((void**)&g_msh->cmd);
 }
 
-void		cl_rl_struct(void)
+void			cl_rl_struct(void)
 {
 	if (!g_msh->rl)
 		return ;
@@ -58,7 +58,7 @@ void		cl_rl_struct(void)
 	ft_memdel((void**)&g_msh->rl);
 }
 
-void		cleanup(int exit_code, char *message)
+void			cleanup(int exit_code, char *message)
 {
 	if (message)
 		ft_dprintf(2, "%s\n", message);

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:57:08 by tcase             #+#    #+#             */
-/*   Updated: 2019/11/07 16:09:51 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 15:30:30 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		rl_print_char_search(long ch)
 {
-	append_char(&g_msh->rl->search_line, (char)ch, PATH_MAX); 
+	append_char(&g_msh->rl->search_line, (char)ch, PATH_MAX);
 	g_msh->rl->search_pos = 0;
 	rl_history_search(ch);
 }
@@ -29,7 +29,6 @@ void		rl_del_char_search(long ch)
 	g_msh->rl->search_pos = 0;
 	rl_history_search(ch);
 }
-
 
 void		rl_print_char(long ch)
 {

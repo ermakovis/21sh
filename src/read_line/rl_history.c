@@ -6,13 +6,13 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:53:04 by tcase             #+#    #+#             */
-/*   Updated: 2019/11/07 16:09:56 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 15:29:22 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-static void rl_history_trim(void)
+static void	rl_history_trim(void)
 {
 	t_list	*list;
 	t_list	*rev;
@@ -31,7 +31,7 @@ static void rl_history_trim(void)
 	ft_lstrev(&list);
 }
 
-static int rl_history_valid(char *line)
+static int	rl_history_valid(char *line)
 {
 	int		i;
 	int		only_spaces;
@@ -55,7 +55,6 @@ static int rl_history_valid(char *line)
 		ret = FAILURE;
 	line[newline_pos] = store;
 	return (ret);
-
 }
 
 void		rl_history_putnumbers(void)
@@ -77,7 +76,7 @@ void		rl_history_putnumbers(void)
 	ft_lstrev(&rev);
 }
 
-void	rl_add_history(void)
+void		rl_add_history(void)
 {
 	t_list	*new;
 	char	*str;
@@ -102,7 +101,7 @@ void	rl_add_history(void)
 	rl_history_putnumbers();
 }
 
-void	rl_history(long ch)
+void		rl_history(long ch)
 {
 	t_rl	*rl;
 	int		size;

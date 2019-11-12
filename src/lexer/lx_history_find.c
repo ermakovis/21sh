@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lx_history_find.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:34:36 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:35:01 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static void		lx_history_find_last(char **line)
@@ -7,7 +19,7 @@ static void		lx_history_find_last(char **line)
 
 	prev = 0;
 	list = g_msh->history;
-	if (list && list->next) 
+	if (list && list->next)
 		*line = list->next->content;
 }
 
@@ -61,7 +73,7 @@ static void		lx_history_find_byword(char **line, char *word)
 t_list			*lx_history_find(t_list *list, char **line)
 {
 	t_token	*token;
-		
+
 	while (list)
 	{
 		token = list->content;

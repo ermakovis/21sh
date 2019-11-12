@@ -6,14 +6,14 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:24:47 by tcase             #+#    #+#             */
-/*   Updated: 2019/10/31 11:34:14 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:49:23 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXECUTE_H
 # define EXECUTE_H
 # define EXP_SUCCESS 0
-# define EXP_FAILURE -1 
+# define EXP_FAILURE -1
 # define EXP_NUM (1 << 1)
 # define EXP_USEDEF (1 << 2)
 # define EXP_USEASS (1 << 3)
@@ -24,7 +24,6 @@
 # define EXP_REMSMALL_REV (1 << 8)
 # define EXP_REMLARGE_REV (1 << 9)
 # define EXP_ERROR (1 << 10)
-
 
 # include <sys/wait.h>
 
@@ -54,6 +53,11 @@ void		ex_env(char ***env);
 int			ex_simple(t_ast *ast);
 
 /*
+**	ex_simple_fd.c
+*/
+void		ex_simple_save_std(t_ast *ast);
+void		ex_simple_restore_std(t_ast *ast);
+/*
 **	ex_job.c
 */
 int			ex_wait(t_job *job);
@@ -81,23 +85,23 @@ void		ex_assignments_fork(void);
 /*
 **	ex_redirections.c
 */
-int		ex_redirections(t_list *list);
-int		ex_redirections_check(char *path);
+int			ex_redirections(t_list *list);
+int			ex_redirections_check(char *path);
 
 /*
 **	ex_redirections_simple.c
 */
-int		ex_redirections_simple(t_list *list);
+int			ex_redirections_simple(t_list *list);
 
 /*
 **	ex_redirections_agreg.c
 */
-int		ex_redirections_agreg(t_list *list);
+int			ex_redirections_agreg(t_list *list);
 
 /*
 **	ex_redirections_heredoc.c
 */
-void	ex_redirections_heredoc(t_list *list);
+void		ex_redirections_heredoc(t_list *list);
 
 /*
 **	ex_globbing.c
@@ -118,6 +122,8 @@ void		ex_expansions_tild(char **line);
 int			ex_expansions_param(char **line);
 char		*ex_expansions_param_getline(char *param);
 int			ex_expansions_param_replace(char **new, char *line);
+int			ex_exp_param_split_simple(char **param, char *line);
+int			ex_exp_param_return(char *param, char *word, int ret);
 int			ex_expansions_param_valid(char *param, char *word,\
 				int flags, char *line);
 void		ex_expansions_param_switch(char *param, char *word,\

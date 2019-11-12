@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:48:44 by tcase             #+#    #+#             */
-/*   Updated: 2019/11/07 16:56:29 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 15:27:05 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ static int		rl_endline_check(void)
 	return (1);
 }
 
+static void		rl_end(void)
+{
+	rl_jump(LINE_END);
+	rl_print_char('\n');
+	rl_add_history();
+}
+
 int				read_line(int mode)
 {
 	long	ch;
@@ -66,15 +73,13 @@ int				read_line(int mode)
 		if (ch == 4 && !rl_endline_check())
 			return (FAILURE);
 		else if (ch == '\n')
-		{	
+		{
 			g_msh->rl_mode = RL_MODE;
 			if ((ret = rl_newline_check(g_msh->rl->line, mode)) == 2)
-				return (FAILURE); 
+				return (FAILURE);
 			if (ret == 1)
 				continue ;
-			rl_jump(LINE_END);
-			rl_print_char('\n');
-			rl_add_history();
+			rl_end();
 			break ;
 		}
 		else

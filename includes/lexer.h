@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:27:04 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 13:49:13 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:47:10 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int						lx_assignment_get(char *line, t_list **tokens);
 void					lx_alias(t_list **alist);
 
 /*
-**	lx_history.c	
+**	lx_history.c
 */
 void					lx_history(t_list **alist);
 t_list					*lx_history_find(t_list *list, char **line);

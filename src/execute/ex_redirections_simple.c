@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:13:53 by tcase             #+#    #+#             */
-/*   Updated: 2019/10/31 11:23:07 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 19:29:34 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int		ex_redirections_simple_more(char *redir, char *word)
 		num = atoi(redir);
 	else
 		num = 1;
-	if ((fd = open(word, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
+	if ((fd = open(word, O_WRONLY | O_CREAT | O_TRUNC, 0644)) == -1)
 		ft_dprintf(2, "%s: failed to open %s\n", g_msh->shell_name, word);
 	if (fd > 0)
 		dup2(fd, num);
@@ -37,7 +37,7 @@ static int		ex_redirections_simple_dmore(char *redir, char *word)
 		num = atoi(redir);
 	else
 		num = 1;
-	if ((fd = open(word, O_RDWR | O_CREAT | O_APPEND, 0666)) == - 1)
+	if ((fd = open(word, O_WRONLY | O_CREAT | O_APPEND, 0644)) == -1)
 		ft_dprintf(2, "%s: failed to open %s\n", g_msh->shell_name, word);
 	if (fd > 0)
 		dup2(fd, num);
@@ -67,10 +67,8 @@ int				ex_redirections_simple(t_list *list)
 
 	token = list->content;
 	word = ((t_token*)list->next->content)->line;
-	if (ex_redirections_check(word) == BIN_FAILURE)
-		return (BIN_FAILURE);
 	if (token->operator_type == MORE)
-		token->fd =	ex_redirections_simple_more(token->line, word);
+		token->fd = ex_redirections_simple_more(token->line, word);
 	else if (token->operator_type == DMORE)
 		token->fd = ex_redirections_simple_dmore(token->line, word);
 	else if (token->operator_type == LESS)

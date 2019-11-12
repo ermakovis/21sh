@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ut_job_functions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 20:23:23 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 20:23:24 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 int			cmp_job(t_job *job, t_job *ref)
@@ -10,7 +22,7 @@ t_job		*find_job(int num)
 	t_list	*list;
 	t_job	*job;
 
-	list = g_msh->jobs;	
+	list = g_msh->jobs;
 	while (list)
 	{
 		job = list->content;

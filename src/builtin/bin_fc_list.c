@@ -1,42 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_fc_list.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:55:04 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 16:24:45 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
-
-static size_t		bin_fc_list_find_bynum(char *line)
-{
-	int		ret;
-	int		max;
-
-	max = g_msh->history->content_size;
-	ret = ft_atoi(line);
-	if (ret <= 0 && max + ret <= 0)
-		ret = 1;
-	else if (ret <= 0)
-		ret = max + ret;
-	else if (ret > 0 && ret >= max)
-		ret = max;
-	return ((size_t)ret);
-
-}
-
-static size_t	bin_fc_list_find(char *line)
-{
-	t_list	*list;
-	int		line_len;
-
-	if (!line)
-		return (g_msh->history->content_size);
-	if (ft_isnumber(line))
-		return (bin_fc_list_find_bynum(line));
-	if (!(list = g_msh->history->next))
-		return (-1);
-	line_len = ft_strlen(line);
-	while (list)
-	{
-		if (ft_strnequ(list->content, line, line_len))
-			return (list->content_size);
-		list = list->next;
-	}
-	return (-1);
-}
 
 static void		bin_fc_list_swap_check(size_t *first, size_t *last, int *rev)
 {
@@ -79,7 +53,20 @@ static int		bin_fc_list_create(size_t first, size_t last, t_list **target)
 	return (1);
 }
 
-int		bin_fc_list(char **tokens, t_list **target, int flags)
+static int		bin_fc_list_noarg(t_list **target, int flags)
+{
+	size_t	first;
+	size_t	last;
+
+	if (!(flags & BIN_FC_LIST))
+		first = g_msh->history->content_size;
+	if (flags & BIN_FC_LIST)
+		first = bin_fc_list_find_bynum("-10");
+	last = g_msh->history->content_size;
+	return (bin_fc_list_create(first, last, target));
+}
+
+int				bin_fc_list(char **tokens, t_list **target, int flags)
 {
 	int		i;
 	size_t	first;
@@ -97,12 +84,8 @@ int		bin_fc_list(char **tokens, t_list **target, int flags)
 			break ;
 		i++;
 	}
-	if (!tokens[i] && !(flags & BIN_FC_LIST))
-		return (bin_fc_list_create(g_msh->history->content_size,\
-			g_msh->history->content_size, target));
-	if (!tokens[i] && (flags & BIN_FC_LIST))
-		return (bin_fc_list_create(bin_fc_list_find_bynum("-10"),\
-			g_msh->history->content_size, target));
+	if (!tokens[i])
+		return (bin_fc_list_noarg(target, flags));
 	if ((first = bin_fc_list_find(tokens[i])) == -1)
 		return (-1);
 	if (!tokens[i + 1])

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   lx_alias.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:35:22 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:35:23 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static t_list	*lx_alias_find(t_list **alist, char **line, t_list **used)
@@ -52,7 +64,7 @@ static void		lx_alias_insert(t_list **alist, t_list *list, t_list *tokens)
 	ft_lstdelone(&list, &del_token);
 }
 
-void		lx_alias(t_list **alist)
+void			lx_alias(t_list **alist)
 {
 	t_list	*list;
 	t_list	*tokens;

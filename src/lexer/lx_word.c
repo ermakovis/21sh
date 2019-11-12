@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:57:19 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 15:05:04 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 15:36:28 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,6 @@ int				lx_word_check(char ch)
 	return (0);
 }
 
-/*
-**	braces balance checked at read_line, so i don't care about it here
-*/
 int				lx_word_braces_len(char *line)
 {
 	int		pile_size;
@@ -55,14 +52,10 @@ int				lx_word_braces_len(char *line)
 			pile_size++;
 		else if (line[len] == ')' || line[len] == ']' || line[len] == '}')
 			pile_size--;
-		len++;	
+		len++;
 	}
 	return (len);
 }
-
-/*
-** if starts with digits and starts
-*/
 
 int				lx_word_get(char *line, t_list **tokens)
 {

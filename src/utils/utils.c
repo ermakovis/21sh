@@ -6,18 +6,11 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:59:12 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 15:30:27 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:45:33 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
-
-int				get_char(long *ch)
-{
-	*ch = 0;
-	read(STDIN_FILENO, ch, sizeof(long));
-	return (1);
-}
 
 void		realloc_check(char **old_ptr, size_t old_size)
 {
@@ -74,13 +67,15 @@ void		append_str(char **str, int *i, char *new)
 
 void		display_prompt(void)
 {
-	char	*home;
-	char	*pwd;
-	int		home_len;
+	char			*home;
+	char			*pwd;
+	int				home_len;
+	struct passwd	*pw;
 
 	if (!isatty(0))
 		return ;
-	home = find_var(g_msh->env, "HOME");
+	pw = getpwuid(getuid());
+	home = pw->pw_dir;
 	pwd = find_var(g_msh->env, "PWD");
 	home_len = ft_strlen(home);
 	if (ft_strnequ(pwd, home, home_len))

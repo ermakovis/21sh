@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:01:48 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:01:48 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:21:22 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static t_list	**ex_assign_get_varlist(t_list *list)
 	return (&g_msh->var);
 }
 
-static void	ex_assign_swap(void)
+static void		ex_assign_swap(void)
 {
 	t_list	*list_src;
 	t_list	*list_dst;
@@ -49,7 +49,7 @@ static void	ex_assign_swap(void)
 	}
 }
 
-void		ex_assignments_fork(void)
+void			ex_assignments_fork(void)
 {
 	t_list	*cmd_var;
 	t_list	*env;
@@ -68,7 +68,7 @@ void		ex_assignments_fork(void)
 	}
 }
 
-void		ex_assignments(t_list **list)
+void			ex_assignments(t_list **list)
 {
 	t_token		*token;
 	char		*line;

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:12:38 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:13:26 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:06:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			ex_getpath(char *token, char **cmd)
 			cleanup(-1, "Malloc failed at ex_getpath");
 	}
 	else if (!(*cmd = ft_strdup(token)))
-			cleanup(-1, "Malloc failed at ex_getpath");
+		cleanup(-1, "Malloc failed at ex_getpath");
 	if (!ut_check_execute(*cmd))
 		return (FAILURE);
 	return (SUCCESS);

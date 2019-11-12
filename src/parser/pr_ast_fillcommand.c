@@ -1,9 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pr_ast_fillcommand.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:38:41 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:38:42 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-/*
-**	TODO make manual join without " "
-*/
-static void pr_ast_fill_join(char **line, char *join)
+static void	pr_ast_fill_join(char **line, char *join)
 {
 	char *tmp;
 
@@ -25,7 +34,7 @@ static void pr_ast_fill_join(char **line, char *join)
 
 static void	pr_ast_fill_getcmd(t_list *list)
 {
-	char 	*full_command;
+	char	*full_command;
 	t_list	*ilist;
 	t_token	*token;
 
@@ -53,6 +62,4 @@ void		pr_ast_fillcommand(t_ast *ast)
 	if (((t_token*)ast->token->content)->token_type == OPERATOR)
 		return ;
 	pr_ast_fill_getcmd(ast->token);
-
-	
-};
+}

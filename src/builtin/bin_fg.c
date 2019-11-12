@@ -1,9 +1,16 @@
-#include "msh.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_fg.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:52:49 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:56:01 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-**	TODO: job recognition by cmd_line
-**	NOTE: mb a little overreaction on SIGCONT fail
-*/
+#include "msh.h"
 
 static int		bin_fg_failure_message(char *line)
 {
@@ -33,7 +40,7 @@ static int		bin_fg_action(int pos)
 	return (status);
 }
 
-int		bin_fg(t_list *list)
+int				bin_fg(t_list *list)
 {
 	int		tokens_count;
 	char	**tokens;
@@ -52,7 +59,7 @@ int		bin_fg(t_list *list)
 		ret = bin_fg_action(((t_job*)list->content)->num);
 	}
 	else if (tokens_count > 2)
-		ft_dprintf(2, "%s: fg: Too many arguments\n", g_msh->shell_name); 
+		ft_dprintf(2, "%s: fg: Too many arguments\n", g_msh->shell_name);
 	else if (ft_isnumber(tokens[1]))
 		ret = bin_fg_action(ft_atoi(tokens[1]));
 	ft_free_table(&tokens);

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_job.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 19:32:22 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 19:33:10 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-int		ex_wait(t_job *job)
+int			ex_wait(t_job *job)
 {
 	int		status;
 	t_list	*list;
@@ -35,7 +47,7 @@ int			ex_job(pid_t pid, t_ast *ast)
 
 	cmd_line = ft_strdup(((t_token*)ast->token->content)->full_command);
 	job = get_job(pid, cmd_line);
-	setpgid(0,0);
+	setpgid(0, 0);
 	status = SUCCESS;
 	if (ast->bg == 0)
 	{

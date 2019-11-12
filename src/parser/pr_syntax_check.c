@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:59:21 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 13:57:05 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 15:40:00 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,6 @@ static int		pr_syntax_check_redirect(t_list *list)
 			g_msh->shell_name, token->line);
 		return (FAILURE);
 	}
-//	if (ft_isnumber(token->line) && (num = ft_atoi(token->line)) > 2)
-//	{
-//		ft_printf("%s: %d: bad file descriptor\n", g_msh->shell_name, num);
-//		return (FAILURE);
-//	}
 	return (SUCCESS);
 }
 
@@ -57,7 +52,7 @@ static int		pr_syntax_check_agreg(t_list *list)
 	return (SUCCESS);
 }
 
-static int	pr_syntax_check_background(t_list *list)
+static int		pr_syntax_check_background(t_list *list)
 {
 	t_token	*token;
 
@@ -73,14 +68,14 @@ static int	pr_syntax_check_background(t_list *list)
 	return (SUCCESS);
 }
 
-static int	pr_syntax_check_operator(t_list *list)
+static int		pr_syntax_check_operator(t_list *list)
 {
 	t_list	*prev;
 	t_token	*curr;
 	t_token	*next;
 
 	prev = 0;
-	while(list)
+	while (list)
 	{
 		curr = list->content;
 		if (curr->token_type == OPERATOR && curr->operator_type != AND)
@@ -102,7 +97,7 @@ static int	pr_syntax_check_operator(t_list *list)
 	return (SUCCESS);
 }
 
-int			pr_syntax_check(t_list *list)
+int				pr_syntax_check(t_list *list)
 {
 	if (pr_syntax_check_operator(list) == FAILURE)
 		return (FAILURE);

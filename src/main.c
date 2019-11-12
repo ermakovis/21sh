@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/26 19:21:25 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 15:46:38 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:44:34 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void			parse_params(int *ac, char ***av)
 	*ac = *ac - count;
 }
 
-void			cycle_cleanup(void)
+void				cycle_cleanup(void)
 {
 	ft_lstdel(&g_msh->tokens, &del_token);
 	pr_ast_del(&g_msh->ast);

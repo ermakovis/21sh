@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_unset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:41:37 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:42:22 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static int	bin_unset_action(char *name)
@@ -9,12 +21,12 @@ static int	bin_unset_action(char *name)
 	if ((list = ft_lst_find(g_msh->var, name, &cmp_var)))
 	{
 		ft_lst_remove(&g_msh->var, list, &delete_var);
-		found = 1;		 
+		found = 1;
 	}
 	if ((list = ft_lst_find(g_msh->env, name, &cmp_var)))
 	{
 		ft_lst_remove(&g_msh->env, list, &delete_var);
-		found = 1;		 
+		found = 1;
 	}
 	if (found)
 		return (BIN_SUCCESS);
@@ -32,7 +44,7 @@ int			bin_unset(t_list *list)
 	i = -1;
 	ret = BIN_SUCCESS;
 	ex_tokens(&tokens, list);
-	while(tokens[++i])
+	while (tokens[++i])
 		if (bin_unset_action(tokens[i]) == BIN_FAILURE)
 			ret = BIN_FAILURE;
 	return (ret);

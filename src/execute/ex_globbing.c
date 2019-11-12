@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_globbing.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 19:23:36 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 19:23:57 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-static bool ex_glob_btrack(char *str, char *pat, char *b_str, char *b_pat)
+static bool	ex_glob_btrack(char *str, char *pat, char *b_str, char *b_pat)
 {
 	if (*str == 0 || !b_pat)
 		return (false);
 	return (ex_globbing(b_str + 1, b_pat, b_str + 1, b_pat));
 }
 
-static bool ex_glob_liter(char *str, char *pat, char *b_str, char *b_pat)
+static bool	ex_glob_liter(char *str, char *pat, char *b_str, char *b_pat)
 {
 	if (*str == *pat)
 	{
@@ -33,7 +45,7 @@ static bool	ex_glob_quote(char *str, char *pat, char *b_str, char *b_pat)
 	return (ex_glob_btrack(str, pat, b_str, b_pat));
 }
 
-static bool ex_glob_class(char *str, char *pat, char *b_str, char *b_pat)
+static bool	ex_glob_class(char *str, char *pat, char *b_str, char *b_pat)
 {
 	bool	match;
 	bool	exclam;
@@ -67,7 +79,7 @@ bool		ex_globbing(char *str, char *pat, char *b_str, char *b_pat)
 	if (*pat == '?')
 		return (ex_globbing(str + 1, pat + 1, b_str, b_pat));
 	if (*pat == '*')
-		return (ex_globbing(str, pat + 1, str, pat + 1)); 
+		return (ex_globbing(str, pat + 3, str, pat + 1));
 	if (*pat == '[')
 		return (ex_glob_class(str, pat + 1, b_str, b_pat));
 	if (*pat == '\"' || *pat == '\'')

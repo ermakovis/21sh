@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_env.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 16:12:44 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 16:13:16 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-static void bin_env_hashcheck(char *line)
+static void	bin_env_hashcheck(char *line)
 {
 	if (!ft_strcmp(line, "PATH"))
 	{
@@ -9,7 +21,7 @@ static void bin_env_hashcheck(char *line)
 	}
 }
 
-int		bin_setenv(t_list *list)
+int			bin_setenv(t_list *list)
 {
 	size_t	tokens_count;
 	char	**tokens;
@@ -33,7 +45,8 @@ int		bin_setenv(t_list *list)
 	ft_free_table(&tokens);
 	return (ret);
 }
-int		bin_unsetenv(t_list *list)
+
+int			bin_unsetenv(t_list *list)
 {
 	size_t	tokens_count;
 	char	**tokens;
@@ -59,7 +72,7 @@ int		bin_unsetenv(t_list *list)
 	return (ret);
 }
 
-int		bin_env(t_list *list)
+int			bin_env(t_list *list)
 {
 	size_t	tokens_count;
 

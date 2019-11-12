@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 18:54:51 by tcase             #+#    #+#             */
-/*   Updated: 2019/11/07 15:32:48 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 15:32:27 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ t_list			*lx_tokens(char *line)
 t_list			*lexer(char *line)
 {
 	t_list	*ret_list;
-	
+
 	ret_list = lx_tokens(line);
 	lx_history(&ret_list);
 	lx_alias(&ret_list);
-	return(ret_list);
+	return (ret_list);
 }

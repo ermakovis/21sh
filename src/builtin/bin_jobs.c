@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_jobs.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:42:28 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 17:17:54 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 #define JOBS_SHORT (1 << 1)
-#define JOBS_FULL 1 
+#define JOBS_FULL 1
 
-static void bin_jobs_line(t_job *job, int options)
+static void	bin_jobs_line(t_job *job, int options)
 {
-	char	*status[] = {"Running", "Stopped", "Signaled", "Error", "Done"}; 
-	
+	char	*status[] = {"Running", "Stopped", "Signaled", "Error", "Done"};
+
 	if (options & JOBS_SHORT)
 		ft_printf("%d\n", job->pid);
 	else if (options & JOBS_FULL)
@@ -17,7 +29,7 @@ static void bin_jobs_line(t_job *job, int options)
 			status[job->state], job->cmd_line);
 }
 
-static void bin_jobs_full(int options)
+static void	bin_jobs_full(int options)
 {
 	t_list *list;
 
@@ -29,7 +41,7 @@ static void bin_jobs_full(int options)
 	}
 }
 
-static int bin_jobs_specifics(char **table, int options)
+static int	bin_jobs_specifics(char **table, int options)
 {
 	int		i;
 	t_job	*job;
@@ -57,7 +69,7 @@ static int bin_jobs_specifics(char **table, int options)
 	return (ret);
 }
 
-int		bin_jobs(t_list *list)
+int			bin_jobs(t_list *list)
 {
 	char	**tokens;
 	int		options;

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_expansions_param_rem.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 20:07:17 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 20:08:05 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-static void ex_exp_param_remlarge_rev(char *param, char *word, char **new)
+static void	ex_exp_param_remlarge_rev(char *param, char *word, char **new)
 {
 	char	*line;
 	int		i;
@@ -24,7 +36,7 @@ static void ex_exp_param_remlarge_rev(char *param, char *word, char **new)
 	ft_memdel((void**)&line);
 }
 
-static void ex_exp_param_remsmall_rev(char *param, char *word, char **new)
+static void	ex_exp_param_remsmall_rev(char *param, char *word, char **new)
 {
 	char	*line;
 	int		i;
@@ -47,7 +59,7 @@ static void ex_exp_param_remsmall_rev(char *param, char *word, char **new)
 	ft_memdel((void**)&line);
 }
 
-static void ex_exp_param_remlarge(char *param, char *word, char **new)
+static void	ex_exp_param_remlarge(char *param, char *word, char **new)
 {
 	char	*line;
 	char	save;
@@ -75,7 +87,7 @@ static void ex_exp_param_remlarge(char *param, char *word, char **new)
 	ft_memdel((void**)&line);
 }
 
-static void ex_exp_param_remsmall(char *param, char *word, char **new)
+static void	ex_exp_param_remsmall(char *param, char *word, char **new)
 {
 	char	*line;
 	char	save;
@@ -103,7 +115,8 @@ static void ex_exp_param_remsmall(char *param, char *word, char **new)
 	ft_memdel((void**)&line);
 }
 
-void	ex_expansions_param_rem(char *param, char *word, int flags, char **new)
+void		ex_expansions_param_rem(char *param, char *word,\
+				int flags, char **new)
 {
 	if (!param || !*param)
 		return ;
@@ -118,5 +131,3 @@ void	ex_expansions_param_rem(char *param, char *word, int flags, char **new)
 	if (flags & EXP_REMLARGE_REV)
 		return (ex_exp_param_remlarge_rev(param, word, new));
 }
-
-

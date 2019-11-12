@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_bg.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 16:08:14 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 16:08:15 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static int		bin_bg_failure_message(char *line)
@@ -20,7 +32,7 @@ static int		bin_bg_action(int pos)
 	return (BIN_SUCCESS);
 }
 
-int		bin_bg(t_list *list)
+int				bin_bg(t_list *list)
 {
 	int		tokens_count;
 	char	**tokens;
@@ -39,7 +51,7 @@ int		bin_bg(t_list *list)
 		ret = bin_bg_action(((t_job*)list->content)->num);
 	}
 	else if (tokens_count > 2)
-		ft_dprintf(2, "%s: fg: Too many arguments\n", g_msh->shell_name); 
+		ft_dprintf(2, "%s: fg: Too many arguments\n", g_msh->shell_name);
 	else if (ft_isnumber(tokens[1]))
 		ret = bin_bg_action(ft_atoi(tokens[1]));
 	ft_free_table(&tokens);

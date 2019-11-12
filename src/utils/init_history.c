@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_history.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 20:22:40 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 20:23:00 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-int		init_history_store_valid(char *line)
+int			init_history_store_valid(char *line)
 {
-	int		ret; 
+	int		ret;
 
 	if (rl_quotes_check(line) == 0)
 		return (1);
@@ -15,7 +27,7 @@ int		init_history_store_valid(char *line)
 	return (ret);
 }
 
-static int init_history_store_cycle(char **line, char *table)
+static int	init_history_store_cycle(char **line, char *table)
 {
 	t_list	*list;
 	int		ret;
@@ -42,7 +54,7 @@ static int init_history_store_cycle(char **line, char *table)
 	return (0);
 }
 
-static void init_history_store(char *line)
+static void	init_history_store(char *line)
 {
 	t_list	*list;
 	char	**arr;

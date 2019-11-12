@@ -6,7 +6,7 @@
 #    By: tcase <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/06 11:31:10 by tcase             #+#    #+#              #
-#    Updated: 2019/09/28 21:42:49 by tcase            ###   ########.fr        #
+#    Updated: 2019/11/12 20:41:21 by tcase            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -76,9 +76,11 @@ BIN_NAME=bin_exit.c\
 	bin_fc_list.c\
 	bin_fc_parse.c\
 	bin_fc_edit.c\
+	bin_fc_misc.c\
 	bin_functions.c
 EXE_NAME=execute.c\
 	ex_simple.c\
+	ex_simple_fd.c\
 	ex_job.c\
 	ex_job_state.c\
 	ex_job_functions.c\
@@ -97,6 +99,7 @@ EXE_NAME=execute.c\
 	ex_expansions_param.c\
 	ex_expansions_param_valid.c\
 	ex_expansions_param_replace.c\
+	ex_expansions_param_replace_extra.c\
 	ex_expansions_param_switch.c\
 	ex_expansions_param_rem.c\
 	ex_expansions_param_use.c\
@@ -116,6 +119,7 @@ UT_NAME=init.c\
 	ut_hash_functions.c\
 	ut_terminal_mods.c\
 	ut_signals.c\
+	ut_get_char.c\
 	cleanup.c\
 
 RL = $(addprefix $(OBJ_DIR)/, $(RL_NAME:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:18:19 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/29 15:51:57 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 19:28:16 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ int				ex_pipe_exec(t_ast *ast)
 		ret = FAILURE;
 	else if ((ret = execve(cmd, tokens, env) == -1))
 		ft_dprintf(2, "%s: launch failed\n", cmd);
-	ft_memdel((void**)&cmd);
-	ft_free_table(&env);
-	ft_free_table(&tokens);
 	return (ret);
 }
 
@@ -61,7 +58,7 @@ static int		ex_pipe_right(t_ast *ast, int fd[2])
 			exit(ex_pipe_exec(ast));
 	}
 	close(fd[1]);
-	status = ex_job(pid, ast);	
+	status = ex_job(pid, ast);
 	ret = ex_exit_status(status);
 	ex_set_return_var(ret);
 	return (ex_exit_status(status));

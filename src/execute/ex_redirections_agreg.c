@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/24 19:09:45 by tcase             #+#    #+#             */
-/*   Updated: 2019/08/24 19:09:55 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 19:26:21 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,13 @@ static int		ex_redirections_agreg_less(char *redir, char *word)
 	return (BIN_SUCCESS);
 }
 
-int		ex_redirections_agreg(t_list *list)
+int				ex_redirections_agreg(t_list *list)
 {
 	t_token		*token;
 	char		*word;
 
 	token = list->content;
 	word = ((t_token*)list->next->content)->line;
-	if (ex_redirections_check(word) == BIN_FAILURE)
-		return (BIN_FAILURE);
 	if (token->operator_type == MORE_AND)
 	{
 		if (ex_redirections_agreg_more(token->line, word) == BIN_FAILURE)
@@ -87,4 +85,3 @@ int		ex_redirections_agreg(t_list *list)
 	}
 	return (BIN_SUCCESS);
 }
-

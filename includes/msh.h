@@ -6,7 +6,7 @@
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/28 14:10:41 by tcase             #+#    #+#             */
-/*   Updated: 2019/09/28 17:30:29 by tcase            ###   ########.fr       */
+/*   Updated: 2019/11/12 20:46:57 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ t_msh					*g_msh;
 **	add_flag(char *str)
 **  handle_sigine(int sig)
 */
-void		cycle_cleanup(void);
+void					cycle_cleanup(void);
 
 #endif

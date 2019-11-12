@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rl_history_search.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:27:38 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:27:56 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static int		rl_history_search_calchight(int mode)
@@ -32,7 +44,7 @@ static int		rl_history_search_calchight(int mode)
 static void		rl_history_search_clear(int mode)
 {
 	int		hight;
-	
+
 	hight = rl_history_search_calchight(mode);
 	while (hight--)
 		ft_printf("%s", g_msh->cmd->up);
@@ -62,7 +74,7 @@ static int		rl_history_search_cycle(long ch)
 	i = 0;
 	if (!g_msh->rl->search_line)
 		return (0);
-	list = g_msh->history;	
+	list = g_msh->history;
 	while (g_msh->rl->search_pos && i < g_msh->rl->search_pos && ++i)
 		list = list->next;
 	if (ch == CTRL_R && list->next && ++i)
@@ -77,10 +89,10 @@ static int		rl_history_search_cycle(long ch)
 	return (1);
 }
 
-void		rl_history_search(long ch)
+void			rl_history_search(long ch)
 {
 	int		fail;
-	char 	*line;
+	char	*line;
 
 	if (!g_msh->history)
 		return ;

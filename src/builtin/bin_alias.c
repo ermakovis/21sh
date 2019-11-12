@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_alias.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 16:07:43 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 16:07:53 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static int	bin_alias_checkname(char *line)
@@ -55,7 +67,7 @@ static int	bin_alias_print(char *line)
 		return (BIN_FAILURE);
 	}
 	ft_printf("%s=`%s'\n", line, value);
-	return(BIN_SUCCESS);
+	return (BIN_SUCCESS);
 }
 
 int			bin_alias_action(char *line)
@@ -86,7 +98,7 @@ int			bin_alias(t_list *list)
 	}
 	i = 0;
 	ex_tokens(&tokens, list);
-	while(tokens[++i])
+	while (tokens[++i])
 	{
 		if (bin_alias_action(tokens[i]) == BIN_FAILURE)
 			ret = BIN_FAILURE;

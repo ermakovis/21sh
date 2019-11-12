@@ -1,17 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_hash.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:47:56 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:49:31 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-static bool bin_hash_gethits(void)
+static bool	bin_hash_gethits(void)
 {
 	t_list	*list;
 	t_hash	*hash;
-	
+
 	list = g_msh->hash;
 	while (list)
 	{
 		hash = list->content;
 		if (hash->hits > 0 || hash->searched == 1)
 			return (true);
-		list = list->next; 
+		list = list->next;
 	}
 	return (false);
 }
@@ -31,7 +43,7 @@ static void	bin_hash_clean(void)
 	}
 }
 
-void	bin_hash_print(void)
+void		bin_hash_print(void)
 {
 	t_list *list;
 	t_hash *hash;
@@ -100,4 +112,3 @@ int			bin_hash(t_list *list)
 	ft_free_table(&tokens);
 	return (ret);
 }
-

@@ -1,31 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_fc_edit.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:46:55 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 17:19:40 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
-
-static void	bin_fc_edit_create(t_list *list, char **name)
-{
-	int		name_num;
-	int		fd;
-	t_stat	stat;
-
-	*name = 0;
-	name_num = rand();
-	if (!(*name = ft_itoa(name_num)))
-		cleanup(-1, "Malloc failed at bin_fc_editor_craete");
-	if (lstat(*name, &stat) != -1)
-	{
-		ft_memdel((void**)name);	
-		return (bin_fc_edit_create(list, name));
-	}
-	if ((fd = open(*name, O_RDWR | O_CREAT | O_TRUNC, 0666)) == -1)
-	{
-		ft_dprintf(2, "%s: failed to open %s\n", g_msh->shell_name, *name);
-		return ;
-	}
-	while(list)
-	{
-		ft_dprintf(fd, "%s\n", list->content);
-		list = list->next;
-	}
-}
 
 static void	bin_fc_edit_action(char *name, char *editor)
 {
@@ -44,29 +29,25 @@ static void	bin_fc_edit_action(char *name, char *editor)
 	return ;
 }
 
-static void	bin_fc_edit_read(char *file_name, char **file_content)
+static int	bin_fc_edit_process_cycle(t_list **list, char **line, char *table)
 {
-	int		fd;
-	char	buff[PATH_MAX + 1];
-	char	*line;
-	char	*tmp;
-	int		res;
+	int		ret;
 
-	if ((fd = open(file_name, O_RDONLY)) == -1)
+	if (*line && !(*line = ft_powerjoin("%f\n%s", line, table)))
+		cleanup(-1, "Malloc failed at bin_fc_edit_process");
+	if (!*line && !(*line = ft_powerjoin("%f%s", line, table)))
+		cleanup(-1, "Malloc failed at bin_fc_edit_process");
+	if ((ret = init_history_store_valid(*line)) == 0)
 	{
-		dprintf(2, "%s: %s: can't open file\n", file_name, g_msh->shell_name);
-		return ;
+		add_str(list, *line);
+		ft_memdel((void**)line);
 	}
-	line = 0;
-	while ((res = read(fd, &buff, PATH_MAX)) > 0)
+	else if (ret == 2)
 	{
-		buff[res] = 0;
-		tmp = line;
-		line = ft_strjoin(line, buff);
-		ft_memdel((void**)&tmp);
+		ft_lstdel(list, &delete_str);
+		return (BIN_FAILURE);
 	}
-	*file_content = line;
-	close(fd);
+	return (BIN_SUCCESS);
 }
 
 static void	bin_fc_edit_process(t_list **list, char *file_content)
@@ -74,8 +55,9 @@ static void	bin_fc_edit_process(t_list **list, char *file_content)
 	char	**table;
 	char	*line;
 	int		i;
-	int		ret;
 
+	if (!file_content || !*file_content)
+		return ;
 	i = -1;
 	line = 0;
 	ft_lstdel(list, &delete_str);
@@ -83,20 +65,8 @@ static void	bin_fc_edit_process(t_list **list, char *file_content)
 		cleanup(-1, "Malloc failed at bin_fc_edit_process");
 	while (table[++i])
 	{
-		if (line && !(line = ft_powerjoin("%f\n%s", &line, table[i])))
-			cleanup(-1, "Malloc failed at bin_fc_edit_process");
-		if (!line && !(line = ft_powerjoin("%f%s", &line, table[i])))
-			cleanup(-1, "Malloc failed at bin_fc_edit_process");
-		if ((ret = init_history_store_valid(line)) == 0)
-		{
-			add_str(list, line);
-			ft_memdel((void**)&line);
-		}
-		else if (ret == 2)
-		{
-			ft_lstdel(list, &delete_str);
+		if (bin_fc_edit_process_cycle(list, &line, table[i]) == BIN_FAILURE)
 			break ;
-		}
 	}
 	if (line)
 	{
@@ -104,7 +74,7 @@ static void	bin_fc_edit_process(t_list **list, char *file_content)
 		ft_memdel((void**)&line);
 		ft_lstdel(list, &delete_str);
 	}
-	ft_free_table(&table);	
+	ft_free_table(&table);
 }
 
 int			bin_fc_edit(t_list **list, char *editor)

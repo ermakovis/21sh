@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rl_newline_check.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:31:24 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:31:25 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 int		rl_quotes_check(char *line)
@@ -60,7 +72,7 @@ int		rl_braces_check(char *line)
 		else if (*line == ')' || *line == ']' || *line == '}')
 			if (pile_size == 0 || pile[--pile_size] != *line)
 				mismatch = true;
-		line++;	
+		line++;
 	}
 	if (mismatch == true)
 		return (2);
@@ -72,9 +84,9 @@ int		rl_braces_check(char *line)
 int		rl_newline_check(char *line, int mode)
 {
 	int		ret;
-	
+
 	if (mode == HEREDOC_MODE)
-		return (0);	
+		return (0);
 	if (rl_quotes_check(line) == 0)
 	{
 		rl_print_char('\n');

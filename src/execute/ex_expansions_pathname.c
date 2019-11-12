@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ex_expansions_pathname.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 19:32:01 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 19:33:53 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-static bool	ex_exp_pathname_split(char *line, char **path, char **pat)
+static bool		ex_exp_pathname_split(char *line, char **path, char **pat)
 {
 	size_t	i;
 	size_t	len;
@@ -15,11 +27,11 @@ static bool	ex_exp_pathname_split(char *line, char **path, char **pat)
 			len = i;
 	if (!line[len + 1])
 		return (false);
-	if (len != -1)	
+	if (len != -1)
 		if (!(*path = ft_strndup(line, len + 1)))
-			cleanup (-1, "Malloc failed at get_path");
+			cleanup(-1, "Malloc failed at get_path");
 	if (!(*pat = ft_strdup(line + len + 1)))
-		cleanup (-1, "Malloc failed at get_path");
+		cleanup(-1, "Malloc failed at get_path");
 	return (true);
 }
 
@@ -48,11 +60,12 @@ static t_list	*ex_exp_pathname_cycle(DIR *dir, char *path, char *pat)
 	return (list);
 }
 
-static void	ex_exp_pathname_insert(t_list **alist, t_list **list, t_list *new)
+static void		ex_exp_pathname_insert(t_list **alist,\
+					t_list **list, t_list *new)
 {
 	t_list	*new_last;
 	t_list	*tmp_alist;
-	
+
 	new_last = new;
 	while (new_last->next)
 		new_last = new_last->next;
@@ -62,7 +75,7 @@ static void	ex_exp_pathname_insert(t_list **alist, t_list **list, t_list *new)
 		new_last->next = tmp_alist->next;
 		*alist = new;
 	}
-	else	
+	else
 	{
 		while (tmp_alist->next != *list)
 			tmp_alist = tmp_alist->next;
@@ -73,7 +86,7 @@ static void	ex_exp_pathname_insert(t_list **alist, t_list **list, t_list *new)
 	*list = new_last;
 }
 
-static int	ex_exp_pathname_getdir(char *path, DIR **dir)
+static int		ex_exp_pathname_getdir(char *path, DIR **dir)
 {
 	if (!path)
 		if (!(*dir = opendir(".")))
@@ -81,10 +94,10 @@ static int	ex_exp_pathname_getdir(char *path, DIR **dir)
 	if (path && *path)
 		if (!(*dir = opendir(path)))
 			return (FAILURE);
-	return (SUCCESS);	
+	return (SUCCESS);
 }
 
-void		ex_expansions_pathname(t_list **alist, t_list **list)
+void			ex_expansions_pathname(t_list **alist, t_list **list)
 {
 	char	*path;
 	char	*pat;
@@ -96,7 +109,7 @@ void		ex_expansions_pathname(t_list **alist, t_list **list)
 	if (!token->line)
 		return ;
 	if (!(ex_exp_pathname_split(token->line, &path, &pat)))
-		return ;	
+		return ;
 	if (ex_exp_pathname_getdir(path, &dir) == SUCCESS)
 		if ((new_list = ex_exp_pathname_cycle(dir, path, pat)))
 			ex_exp_pathname_insert(alist, list, new_list);

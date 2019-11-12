@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_unalias.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 15:40:42 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 15:40:49 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
 static int	bin_unalias_usage(void)
@@ -28,11 +40,11 @@ int			bin_unalias(t_list *list)
 		return (bin_unalias_fullclean());
 	i = 0;
 	ex_tokens(&tokens, list);
-	while(tokens[++i])
+	while (tokens[++i])
 	{
 		if (find_var(g_msh->alias, tokens[i]))
 			ft_lst_remove_if(&g_msh->alias, tokens[i],\
-					&cmp_var, &delete_var);		
+					&cmp_var, &delete_var);
 		else
 			ft_dprintf(2, "%s: unalias: %s\n", g_msh->shell_name, tokens[i]);
 	}

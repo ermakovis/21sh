@@ -1,6 +1,18 @@
-#include "msh.h" 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   bin_export.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 16:13:24 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 16:13:25 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-static int bin_export_varcmp(t_var *var1, t_var *var2)
+#include "msh.h"
+
+static int	bin_export_varcmp(t_var *var1, t_var *var2)
 {
 	return (ft_strcmp(var1->name, var2->name));
 }
@@ -52,7 +64,7 @@ static void	bin_export_assign(char **tokens)
 	}
 }
 
-int		bin_export(t_list *list)
+int			bin_export(t_list *list)
 {
 	char	**tokens;
 	int		i;

@@ -1,18 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bin_cd_canon.c                                     :+:      :+:    :+:   */
+/*   ut_get_char.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/12 16:07:23 by tcase             #+#    #+#             */
-/*   Updated: 2019/11/12 16:07:23 by tcase            ###   ########.fr       */
+/*   Created: 2019/11/12 20:40:38 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 20:44:55 by tcase            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "msh.h"
 
-int		bin_cd_canon(char **path, int flag)
+int				get_char(long *ch)
 {
-	return (BIN_SUCCESS);
+	*ch = 0;
+	read(STDIN_FILENO, ch, sizeof(long));
+	return (1);
 }

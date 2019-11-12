@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ut_signals.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tcase <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/11/12 20:24:29 by tcase             #+#    #+#             */
+/*   Updated: 2019/11/12 20:24:29 by tcase            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "msh.h"
 
-void				ut_signal_sigint(int sig)
+void		ut_signal_sigint(int sig)
 {
 	(void)sig;
 	if (g_msh->rl_mode == HEREDOC_MODE)
@@ -29,7 +41,6 @@ void		ut_signal_parent(void)
 	signal(SIGTTIN, SIG_IGN);
 	signal(SIGTTOU, SIG_IGN);
 	signal(SIGINT, ut_signal_sigint);
-	//signal(SIGCHLD, SIG_IGN);
 }
 
 void		ut_signal_child(void)
@@ -39,5 +50,4 @@ void		ut_signal_child(void)
 	signal(SIGTTIN, SIG_DFL);
 	signal(SIGTTOU, SIG_DFL);
 	signal(SIGINT, SIG_DFL);
-	signal(SIGCHLD, SIG_DFL);
 }
