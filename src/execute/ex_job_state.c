@@ -8,6 +8,8 @@ void	ex_job_state_check(t_job *job)
 		if (!(ret = waitpid(job->pid, &status,\
 			WNOHANG | WCONTINUED | WUNTRACED)))
 			return ;
+		if (ret == 0)
+			return ;
 		if (WIFSTOPPED(status))
 		{
 			job->state = STOPPED;

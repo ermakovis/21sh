@@ -48,7 +48,7 @@ void	ex_job_print_completed(void)
 	{
 		job = list->content;
 		if (job->state == DONE)
-			ft_printf("[%d] Done%20s\n", job->num, job->cmd_line);
+			ft_printf("[%d] Done %20s\n", job->num, job->cmd_line);
 		list = list->next;
 	}
 
