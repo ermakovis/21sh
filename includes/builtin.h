@@ -19,6 +19,8 @@
 # define BIN_FC_LIST_NONUM (1 << 1)
 # define BIN_FC_REV (1 << 2)
 # define BIN_FC_NOEDIT (1 << 3)
+# define BIN_CD_L (1)
+# define BIN_CD_P (1 << 1)
 # define FC_EMPTY "history is empty"
 # define FC_USAGE "usage: fc [-e name] [-lnr] [first] [last]"
 # define FC_SPEC "history specification out of range"

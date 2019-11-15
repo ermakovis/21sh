@@ -16,11 +16,11 @@ static int	bin_cd_cdpath_check(char **path)
 {
 	char	*tmp;
 
-	if (*path[0] == '/' || ft_strnequ(*path, "./", 2) ||\
-		ft_strnequ(*path, "../", 3))
+	if (*path[0] == '/' || *path[0] == '.' || ft_strnequ(*path, "..", 2))
 		return (BIN_SUCCESS);
 	if (!(tmp = ft_powerjoin("./%s", *path)))
 		cleanup(-1, "Malloc failed at bin_cd_path");
+	ft_printf("--%s--%d--\n", tmp, ft_strnequ(*path, "./", 2));
 	if (ut_check_dir(tmp) == 1)
 	{
 		ft_memdel((void**)path);
@@ -61,6 +61,8 @@ int			bin_cd_cdpath(char **path)
 	int		i;
 
 	i = -1;
+	if (*path[0] == '/')
+		return (BIN_SUCCESS);
 	if (bin_cd_cdpath_check(path) == BIN_SUCCESS)
 		return (BIN_SUCCESS);
 	if (!(cd_path = find_var(g_msh->env, "CDPATH")))

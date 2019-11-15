@@ -41,17 +41,15 @@ static int	bin_cd_getpath(char *token, char **path)
 	if (!token || ft_strequ(token, "+"))
 	{
 		if (!(ret = find_var(g_msh->env, "HOME")))
-			return (BIN_FAILURE);
+			return (bin_print_error("HOME not set", "cd", 0));
 	}
 	else if (ft_strequ(token, "-"))
 	{
 		if (!(ret = find_var(g_msh->env, "OLDPWD")))
-			return (BIN_FAILURE);
+			return (bin_print_error("OLDPWD not set", "cd", 0));
 	}
 	else
 		ret = token;
-	if (ft_strlen(ret) > PATH_MAX)
-		return (BIN_FAILURE);
 	if (!(ret = ft_strdup(ret)))
 		cleanup(-1, "Malloc failed at bin_cd_getpath");
 	*path = ret;
@@ -71,11 +69,13 @@ int			bin_cd(t_list *list)
 	if (ft_table_size(&tokens[flag_ret + 1]) > 1)
 		return (bin_print_error("Too many options", "cd", &tokens));
 	if (bin_cd_getpath(tokens[flag_ret + 1], &path) == BIN_FAILURE)
-		return (bin_print_error("Incorrect path", "cd", &tokens));
+		return (bin_print_error(0, "Errors inside functions", &tokens));
 	if (bin_cd_cdpath(&path) == BIN_FAILURE)
 		return (bin_cd_error("Failed to get path", &tokens, &path));
+	ft_printf("%s\n", path);
 	if (bin_cd_canon(&path, flags) == BIN_FAILURE)
 		return (bin_cd_error("Failed to get path", &tokens, &path));
+	ft_printf("%s\n", path);
 	if (bin_cd_action(path) == BIN_FAILURE)
 		return (bin_cd_error("Failed to change dir", &tokens, &path));
 	ft_free_table(&tokens);
