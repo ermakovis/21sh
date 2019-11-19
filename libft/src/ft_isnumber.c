@@ -16,7 +16,7 @@ int		ft_isnumber(char *str)
 {
 	int		i;
 
-	if (!str)
+	if (!str || !*str)
 		return (0);
 	i = 0;
 	if (str[i] == '-' && !str[i + 1])

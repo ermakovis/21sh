@@ -74,4 +74,5 @@ void			init_bins(void)
 	add_builtin("false", &bin_false);
 	add_builtin("history", &bin_history);
 	add_builtin("fc", &bin_fc);
+	add_builtin("test", &bin_test);
 }

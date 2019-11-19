@@ -77,6 +77,10 @@ BIN_NAME=bin_exit.c\
 	bin_fc_parse.c\
 	bin_fc_edit.c\
 	bin_fc_misc.c\
+	bin_test.c\
+	bin_test_unary.c\
+	bin_test_binary.c\
+	bin_test_misc.c\
 	bin_functions.c
 EXE_NAME=execute.c\
 	ex_simple.c\

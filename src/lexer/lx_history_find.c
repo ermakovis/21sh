@@ -87,7 +87,7 @@ t_list			*lx_history_find(t_list *list, char **line)
 			lx_history_find_bynumber(line, ft_atoi(&token->line[1]));
 			return (list);
 		}
-		if (token->line[0] == '!')
+		if (token->line[0] == '!' && token->line[1] && token->line[1] != '=')
 		{
 			lx_history_find_byword(line, &token->line[1]);
 			return (list);
